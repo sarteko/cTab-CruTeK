@@ -1,5 +1,7 @@
 # cTab CruTeK
 
+![cTab CruTeK](img/cover.jpeg)
+
 A modified build of **cTab** for ARMA 3. It adds *Cam on Galaxy*: live video from helmet cams, turrets, vehicles and drones rendered **inside the Samsung Galaxy screen**, in render-to-texture, both on the open phone and on the small always-on-screen one.
 
 This is not a separate mod: it **replaces cTab**. Do not load both.
@@ -37,6 +39,10 @@ On top of stock cTab:
 - The stock cTab picture windows (UAV and helmet cam) go from a 512 render target to **1024**
 
 Everything else in cTab — tablet, map, markers, MicroDAGR — works as you know it.
+
+![Drone feed on the Galaxy](img/sc1.jpeg)
+
+*A drone feed inside the phone screen, with source, altitude, zoom and mode overlaid.*
 
 ---
 
@@ -76,6 +82,10 @@ The items are unchanged — `ItemcTab`, `ItemAndroid`, `ItemMicroDAGR`, `ItemcTa
 
 The helmet cam item class is configurable in the settings if you use a different one.
 
+![Helmet cam at night](img/sc3.jpeg)
+
+*OpCam on an operator using night vision: the carrier's name, the mode and the distance are shown at the top.*
+
 ### The menu
 
 **ACE self-interaction** menu, entry **Cam on Galaxy**. It only shows up if you are carrying the Galaxy.
@@ -102,6 +112,10 @@ Cam on Galaxy
 Empty branches and categories are not drawn: if there are no helicopters around, the Heli branch does not appear. Only vehicles allowed by the settings make the list.
 
 Drones get their own entry inside every environment, and that is not cosmetic: they are the only ones whose turret you can slew.
+
+![ACE self-interaction menu](img/sc2.jpeg)
+
+*Each branch carries the number of sources currently available, so you know whether it is worth opening before you open it.*
 
 ### Controls
 
