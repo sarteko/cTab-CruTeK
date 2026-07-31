@@ -16,7 +16,7 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-07-29-r16";
+crutek_dcam_version = "2026-07-29-r17";
 diag_log format ["[crutek_dcam] versione %1", crutek_dcam_version];
 
 if (!isNil "crutek_dcam_ready") exitWith {};
@@ -67,7 +67,8 @@ crutek_dcam_iconSub   = "\cTab\img\camongalaxy.paa";   // rami, mezzi e voci di 
 crutek_dcam_iconHcam  = "\cTab\img\ctab_helmetcam_ico.paa";  // OpCam
 crutek_dcam_iconAir   = "\cTab\img\iconair.paa";        // AirCam e aerei
 crutek_dcam_iconHeli  = "\cTab\img\iconheli.paa";       // elicotteri
-crutek_dcam_iconLand  = "\cTab\img\iconland.paa";       // LandCam e mezzi terrestri
+crutek_dcam_iconLand  = "\cTab\img\iconland.paa";       // LandCam e ruotati
+crutek_dcam_iconTank  = "\cTab\img\icontank.paa";       // cingolati
 crutek_dcam_iconSea   = "\cTab\img\iconsea.paa";        // SeaCam e barche
 
 /*
@@ -642,7 +643,7 @@ crutek_dcam_nameColor = "#a6ff00";
             [
                 (["crutek_land_tank", crutek_dcam_labelTank,
                     _terra select { !(_x call _fnc_drone) && {_x isKindOf "Tank"} },
-                    crutek_dcam_iconLand] call _fnc_ramo),
+                    crutek_dcam_iconTank] call _fnc_ramo),
                 (["crutek_land_car", crutek_dcam_labelCar,
                     _terra select { !(_x call _fnc_drone) && {!(_x isKindOf "Tank")} },
                     crutek_dcam_iconLand] call _fnc_ramo),

@@ -16,6 +16,70 @@ if (isNull _top || {isNull _bot}) exitWith {};
 private _uav = crutek_dcam_uav;
 if (isNull _uav) exitWith {};
 
+/*
+    Bussola del telefono: il rilevamento di dove guarda CHI TIENE IN MANO il
+    dispositivo, non di dove punta la sorgente.
+
+    E la stessa cosa che leggi sulla barra della mappa di cTab, ed e il
+    comportamento giusto per un oggetto che hai in mano: la bussola segue
+    te, non il drone dall'altra parte della valle.
+
+    Sta prima del ramo delle helmet cam apposta: quel ramo esce con exitWith
+    e senza questo blocco qui sopra il rilevamento sparirebbe su OpCam.
+
+    Tre cifre come su qualunque strumento vero: 007, 090, 315.
+*/
+private _brg = _d displayCtrl crutek_dcam_idcBrg;
+if (!isNull _brg) then {
+    private _v = getCameraViewDirection player;
+    if (_v isEqualTo [0,0,0]) then { _v = vectorDir player };
+    private _az = (_v select 0) atan2 (_v select 1);
+    if (_az < 0) then { _az = _az + 360 };
+    private _n = round _az;
+    if (_n >= 360) then { _n = 0 };
+    private _s = switch (true) do {
+        case (_n < 10):  { format ["00%1", _n] };
+        case (_n < 100): { format ["0%1", _n] };
+        default { str _n };
+    };
+
+    /*
+        Targhetta cucita sul numero, come quella del nome: la larghezza si
+        misura davvero con getTextWidth passandogli lo stesso font e la
+        stessa altezza con cui il testo viene disegnato. Il testo e centrato
+        nel suo controllo, quindi la targhetta va centrata sullo stesso
+        intervallo, non allineata a sinistra.
+
+        Posizione riscritta a ogni giro e non solo al cambio del numero:
+        passando dal telefonino al telefono aperto i controlli vengono
+        ricreati da zero, e una posizione messa una volta sola resterebbe
+        dov'era nata.
+    */
+    private _bg = _d displayCtrl crutek_dcam_idcBrgBg;
+    if (!isNull _bg) then {
+        private _alt = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.75;
+        private _mrg = _alt * crutek_dcam_namePad;
+        private _lar = ((_s + toString [176]) getTextWidth ["PuristaBold", _alt]) max (_alt * 2);
+
+        (ctrlPosition _brg) params ["_bx", "_by", "_bw", ""];
+        _bg ctrlSetPosition [_bx + ((_bw - _lar - (_mrg * 2)) / 2), _by, _lar + (_mrg * 2), _alt * 1.35];
+        _bg ctrlCommit 0;
+        _bg ctrlShow true;
+    };
+
+    /*
+        Il simbolo dei gradi si costruisce con toString invece di scriverlo
+        nel sorgente: i file del mod sono ASCII puro, e infilare qui il primo
+        byte fuori tabella significa dipendere da come l'editor salva il file
+        e da come il gioco lo rilegge. 176 e il punto di codice del grado.
+    */
+    _brg ctrlSetStructuredText parseText format [
+        "<t align='center' size='0.75' font='PuristaBold' color='#ffffff'>%1%2</t>",
+        _s,
+        toString [176]
+    ];
+};
+
 if (crutek_dcam_kind isEqualTo "HCAM") exitWith {
     private _last = (count crutek_dcam_modesHcam) - 1;
     private _hm   = crutek_dcam_modesHcam select ((crutek_dcam_mode max 0) min _last);
@@ -47,14 +111,22 @@ if (crutek_dcam_kind isEqualTo "HCAM") exitWith {
         vengono ricreati da zero, e con la posizione messa una volta sola la
         targhetta restava dov'era nata, cioe in un angolo dello schermo.
     */
+    private _modo = ["D-TV", "NV"] select (_hm isEqualTo "NVG");
+    private _nam  = _d displayCtrl crutek_dcam_idcNam;
+
+    /*
+        Targhetta cucita sul nome e spinta a destra come lui: si parte dal
+        bordo destro del controllo e si torna indietro della larghezza
+        misurata, invece di partire da sinistra.
+    */
     private _targa = _d displayCtrl crutek_dcam_idcName;
     if (!isNull _targa) then {
-        private _alt = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7;
+        private _alt = ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.65;
         private _mrg = _alt * crutek_dcam_namePad;
         private _lar = (_nome getTextWidth ["PuristaMedium", _alt]) max (_alt * 2);
 
-        (ctrlPosition _top) params ["_tx", "_ty", "", ""];
-        _targa ctrlSetPosition [_tx, _ty, _lar + (_mrg * 2), _alt * 1.35];
+        (ctrlPosition _nam) params ["_tx", "_ty", "_tw", ""];
+        _targa ctrlSetPosition [_tx + _tw - _lar - (_mrg * 2), _ty, _lar + (_mrg * 2), _alt * 1.35];
         _targa ctrlCommit 0;
         _targa ctrlShow true;
     };
@@ -64,15 +136,20 @@ if (crutek_dcam_kind isEqualTo "HCAM") exitWith {
         finito in basso accanto alla distanza, dove non ruba spazio.
     */
     _top ctrlSetStructuredText parseText format [
-        "<t size='0.7' color='%2'>%1</t>",
-        _nome,
-        crutek_dcam_nameColor
+        "<t size='0.7' color='#b6d3ad'>%1</t>",
+        _modo
     ];
     _bot ctrlSetStructuredText parseText format [
-        "<t size='0.65' color='#8fa389'>%1 m  -  %2</t>",
-        round (player distance _uav),
-        ["D-TV", "NV"] select (_hm isEqualTo "NVG")
+        "<t size='0.65' color='#8fa389'>%1 m</t>",
+        round (player distance _uav)
     ];
+    if (!isNull _nam) then {
+        _nam ctrlSetStructuredText parseText format [
+            "<t align='right' size='0.65' color='%2'>%1</t>",
+            _nome,
+            crutek_dcam_nameColor
+        ];
+    };
 };
 
 // sui mezzi la targhetta non si usa: il nome sta sopra il video del drone,
@@ -96,9 +173,14 @@ private _lbl = if (_sel isEqualTo "AUTO") then {
     _sel call _fnc_short
 };
 
-private _src = if (crutek_dcam_hasOp) then { localize "STR_crutek_dcam_hud_opZoom" } else { localize "STR_crutek_dcam_hud_freeZoom" };
+/*
+    L'etichetta "zoom libero / zoom operatore" era sempre a schermo e non
+    diceva niente di utile: e sparita. Il ritaglio invece resta, ma solo
+    quando c'e davvero, perche quello cambia l'inquadratura.
+*/
+private _src = "";
 if (crutek_dcam_cropZoom > 1.01) then {
-    _src = format ["%1 - ritaglio %2x", _src, (round (crutek_dcam_cropZoom * 10)) / 10];
+    _src = format ["  -  ritaglio %1x", (round (crutek_dcam_cropZoom * 10)) / 10];
 };
 
 /*
@@ -118,15 +200,28 @@ private _wide = if (crutek_dcam_ladder isEqualTo []) then { 0.37 } else { crutek
 private _eff  = crutek_dcam_fovApplied / (crutek_dcam_fovAuto max 0.001);
 private _mag  = (_wide / (_eff max 0.001)) * crutek_dcam_cropZoom;
 
+/*
+    In alto resta solo il filtro: il nome e sceso in basso perche in centro
+    c'e il rilevamento, e con una sorgente dal nome lungo le due scritte si
+    toccavano.
+*/
 _top ctrlSetStructuredText parseText format [
-    "<t size='0.7' color='#b6d3ad'>%1  -  %2</t>",
-    [_uav] call crutek_fnc_dcamName,
+    "<t size='0.7' color='#b6d3ad'>%1</t>",
     _lbl
 ];
 
 _bot ctrlSetStructuredText parseText format [
-    "<t size='0.65' color='#8fa389'>alt %1 m  -  x%2  -  %3</t>",
+    "<t size='0.65' color='#8fa389'>alt %1 m  -  x%2%3</t>",
     round ((getPosATL _uav) select 2),
     (round (_mag * 10)) / 10,
     _src
 ];
+
+private _namV = _d displayCtrl crutek_dcam_idcNam;
+if (!isNull _namV) then {
+    _namV ctrlSetStructuredText parseText format [
+        "<t align='right' size='0.65' color='%2'>%1</t>",
+        [_uav] call crutek_fnc_dcamName,
+        crutek_dcam_nameColor
+    ];
+};
