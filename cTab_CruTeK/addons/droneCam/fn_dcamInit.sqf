@@ -16,7 +16,7 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-07-29-r17";
+crutek_dcam_version = "2026-07-30-h2";
 diag_log format ["[crutek_dcam] versione %1", crutek_dcam_version];
 
 if (!isNil "crutek_dcam_ready") exitWith {};
@@ -67,8 +67,7 @@ crutek_dcam_iconSub   = "\cTab\img\camongalaxy.paa";   // rami, mezzi e voci di 
 crutek_dcam_iconHcam  = "\cTab\img\ctab_helmetcam_ico.paa";  // OpCam
 crutek_dcam_iconAir   = "\cTab\img\iconair.paa";        // AirCam e aerei
 crutek_dcam_iconHeli  = "\cTab\img\iconheli.paa";       // elicotteri
-crutek_dcam_iconLand  = "\cTab\img\iconland.paa";       // LandCam e ruotati
-crutek_dcam_iconTank  = "\cTab\img\icontank.paa";       // cingolati
+crutek_dcam_iconLand  = "\cTab\img\iconland.paa";       // LandCam e mezzi terrestri
 crutek_dcam_iconSea   = "\cTab\img\iconsea.paa";        // SeaCam e barche
 
 /*
@@ -302,17 +301,83 @@ crutek_dcam_dlgKeys = [
 ];
 
 
-// modo base del render target per ogni voce: 0 normale, 1 notturno,
-// 2 termico, 7 termico invertito
 /*
-    Modo base del render target: 0 normale, 1 notturno, 2 termico.
+    Modo base del render target, uno per voce del selettore.
 
-    Il modo 7 ("termico invertito") NON esiste in Arma 3: passandolo il motore
-    lo ignora e restituisce la stessa immagine del 2, ed e per questo che le
-    due termiche uscivano identiche. Quindi entrambe usano il 2, e a
-    distinguerle ci pensa la gradazione.
+    0 normale, 1 notturno, 2 termico: fin qui e quello che documenta il gioco,
+    ed e il motivo per cui le due termiche uscivano identiche - passavo 2 a
+    tutte e due, dopo aver verificato che il 7 non dava nessuna differenza.
+
+    Sbagliavo, e la prova sta nel mod delle ottiche ReapIR, che gira sopra
+    A3TI. La sua voce "polarity" cicla setPiPEffect su questi valori:
+
+        [14, 14, 14, 7, 7, 7, 12]
+
+    Quindi di indici ne esistono ben oltre il 2, e sono quelli che danno le
+    polarita diverse. Se il mio vecchio controllo sul 7 non mostrava niente, o
+    era fatto male o mancava qualcosa a monte.
+
+    Qui THERM1 e THERM2 partono su 14 e 7. Quale dei due sia bianco caldo e
+    quale nero caldo si vede in dieci secondi passando da una voce all'altra:
+    se sono invertite basta scambiare i due numeri, e se una delle due non ti
+    piace c'e anche il 12 da provare.
+
+    Nota: la resa vera e propria - contrasto e luminosita del termico - la
+    decide A3TI, che imposta i parametri globali del motore. Il render target
+    li eredita da solo, senza che noi si debba fare niente.
 */
-crutek_dcam_baseFx = ["DTV", 0, "NVG", 1, "THERM1", 2, "THERM2", 2];
+/*
+    Indici di resa delle due termiche, FISSI nel codice.
+
+    Erano due voci delle opzioni degli addon per poterli provare in partita.
+    E stato un errore: i valori salvati in uno scenario vincono su quelli del
+    codice, e un 20 rimasto li dentro faceva passare al motore un indice che
+    non esiste - immagine diurna anche col selettore su TH1, senza nessun
+    errore da nessuna parte.
+
+    2 e 7 sono i valori documentati: termico e termico invertito, cioe bianco
+    caldo e nero caldo. Non c'e motivo di renderli configurabili.
+*/
+crutek_dcam_thermA = 2;    // THERM1: bianco caldo
+crutek_dcam_thermB = 7;    // THERM2: nero caldo
+
+/*
+    Luminosita e contrasto di riserva per la ricetta A3TI, usati solo se la
+    sua funzione pubblica non risponde. Normalmente i valori arrivano da lui,
+    cosi il feed segue le regolazioni del giocatore.
+*/
+// vero mentre A3TI tiene il mondo ridipinto: vedi dcamRefresh
+crutek_dcam_paintNow = false;
+
+/*
+    Pesi con cui la correzione colore trasforma l'immagine in scala di grigi:
+    [rosso, verde, blu, alfa].
+
+    Contano perche adesso sappiamo con che colori A3TI dipinge gli oggetti
+    caldi, e li ha dichiarati nei suoi materiali:
+
+        TIRed.rvmat   (mezzi)   diffuse = 1.5, 0, 0     rosso puro, sovraesposto
+        TIPink.rvmat  (teste)   ambient = 5, 0.56, 5    magenta, molto sovraesposto
+
+    In tutti e due il VERDE e praticamente assente, mentre il terreno e la
+    vegetazione ce l'hanno eccome. Da qui l'alternativa che vale la pena
+    provare:
+
+        [1, -1, 1, 0]
+
+    somma rosso e blu e SOTTRAE il verde: i mezzi dipinti restano bianchi, le
+    teste ancora di piu, il terreno scende a meta e la vegetazione va a nero.
+    Separazione molto piu netta di una scala di grigi neutra.
+
+    Di serie restano i pesi di A3TI, che sono quelli che usa lui a schermo:
+    se il risultato ti convince gia cosi, non c'e motivo di toccarli.
+*/
+crutek_dcam_a3tiWeights = [0.33, 0.33, 0.33, 0];
+
+crutek_dcam_a3tiBrt = 1;
+crutek_dcam_a3tiCnt = 1;
+
+crutek_dcam_baseFx = ["DTV", 0, "NVG", 1];
 
 /*
     GRADAZIONI NON UTILIZZABILI, lasciate vuote di proposito.
@@ -475,20 +540,40 @@ crutek_dcam_idcGrp = 91000;
 crutek_dcam_idcPic = 91001;
 crutek_dcam_idcTop = 91002;
 crutek_dcam_idcBot = 91003;
-// targhetta scura dietro al nome, solo sulle telecamere da casco
-crutek_dcam_idcName = 91004;
-/*
-    Spazio che la targhetta si prende a destra del nome, in altezze di
-    carattere. A sinistra non sborda mai: parte dove parte il testo.
-    La larghezza vera la misura dcamHud sul nome.
-*/
-crutek_dcam_namePad = 0.35;
 
 /*
-    Colore del nome dell'operatore. Formato #RRGGBB come nel testo
-    strutturato, quindi si cambia qui senza toccare il codice.
+    Le due bande sono a tre scomparti: fondo piu tre testi allineati a
+    sinistra, al centro e a destra. Un testo strutturato ha un allineamento
+    solo, quindi servono tre controlli per riga.
 */
-crutek_dcam_nameColor = "#a6ff00";
+crutek_dcam_idcTopL = 91005;
+crutek_dcam_idcTopC = 91006;
+crutek_dcam_idcTopR = 91007;
+crutek_dcam_idcBotL = 91008;
+crutek_dcam_idcBotC = 91009;
+crutek_dcam_idcBotR = 91010;
+
+/*
+    Fondo delle bande: nero al 45 per cento, lo stesso della vecchia
+    targhetta del nome.
+*/
+crutek_dcam_bandColor = [0, 0, 0, 0.45];
+
+/*
+    Colore delle scritte. Bianche col contorno nero su tutte le viste - il
+    contorno e cio che le tiene leggibili sul cielo chiaro senza dover
+    scurire la banda - e verdi solo in notturno, dove il bianco spara e il
+    verde e la convenzione.
+*/
+crutek_dcam_hudColor = "#ffffff";
+crutek_dcam_hudColorNV = "#a6ff00";
+/*
+    Lettere della rosa dei venti, otto settori da 45 gradi. Uguali nelle due
+    lingue - N, NE, E, SE, S, SW, W, NW - perche sulla strumentazione la
+    dicitura inglese e quella che si legge ovunque. Restano nello stringtable
+    per poterle cambiare senza toccare il codice.
+*/
+crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
 
 // ------------------------------------------------------------------
 // VOCE MENU ACE
@@ -643,7 +728,7 @@ crutek_dcam_nameColor = "#a6ff00";
             [
                 (["crutek_land_tank", crutek_dcam_labelTank,
                     _terra select { !(_x call _fnc_drone) && {_x isKindOf "Tank"} },
-                    crutek_dcam_iconTank] call _fnc_ramo),
+                    crutek_dcam_iconLand] call _fnc_ramo),
                 (["crutek_land_car", crutek_dcam_labelCar,
                     _terra select { !(_x call _fnc_drone) && {!(_x isKindOf "Tank")} },
                     crutek_dcam_iconLand] call _fnc_ramo),

@@ -266,6 +266,10 @@
 				<English>operator zoom</English>
 				<Italian>zoom operatore</Italian>
 			</Key>
+			<Key ID="STR_crutek_dcam_hud_compass">
+				<English>N,NE,E,SE,S,SW,W,NW</English>
+				<Italian>N,NE,E,SE,S,SW,W,NW</Italian>
+			</Key>
 			<Key ID="STR_crutek_dcam_hud_freeZoom">
 				<English>free zoom</English>
 				<Italian>zoom libero</Italian>

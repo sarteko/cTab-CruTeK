@@ -13,15 +13,6 @@
 disableSerialization;
 params [["_mode", "ON"]];
 
-/*
-    IDC del rilevamento. Sta qui e non in dcamInit perche lo usano soltanto
-    questo file e dcamHud: cosi la riga del rilevamento e tutta contenuta e
-    non serve toccare altro per averla.
-*/
-if (isNil "crutek_dcam_idcBrg")   then { crutek_dcam_idcBrg   = 91005; };
-if (isNil "crutek_dcam_idcBrgBg") then { crutek_dcam_idcBrgBg = 91006; };
-if (isNil "crutek_dcam_idcNam")   then { crutek_dcam_idcNam   = 91007; };
-
 private _fnc_target = {
     if (isNil "cTabIfOpen") exitWith { ["", displayNull] };
     private _n = cTabIfOpen select 1;
@@ -39,7 +30,12 @@ private _fnc_strip = {
         {
             private _c = _pd displayCtrl _x;
             if !(isNull _c) then { ctrlDelete _c };
-        } forEach [crutek_dcam_idcPic, crutek_dcam_idcName, crutek_dcam_idcBrgBg, crutek_dcam_idcTop, crutek_dcam_idcBrg, crutek_dcam_idcBot, crutek_dcam_idcNam, crutek_dcam_idcGrp];
+        } forEach [
+        crutek_dcam_idcPic,
+        crutek_dcam_idcTop, crutek_dcam_idcTopL, crutek_dcam_idcTopC, crutek_dcam_idcTopR,
+        crutek_dcam_idcBot, crutek_dcam_idcBotL, crutek_dcam_idcBotC, crutek_dcam_idcBotR,
+        crutek_dcam_idcGrp
+    ];
 
         /*
             Gli indici seguono l'ordine di registrazione qui sotto:
@@ -141,69 +137,44 @@ crutek_dcam_picBox  = [_pw, _ph];
 crutek_dcam_picRect = [_px, _py, _pw, _ph];
 
 /*
-    Targhetta scura dietro al nome, per le sole telecamere da casco.
+    ---- le due bande -------------------------------------------------
 
-    Va creata PRIMA della riga di testo: i controlli si disegnano nell'ordine
-    in cui nascono, quindi questo finisce sotto e il nome ci resta sopra.
-    Nasce nascosta e la misura gliela da dcamHud, che e l'unico posto che sa
-    quanto e lungo il nome.
+    Ogni banda e fatta di quattro controlli: il fondo scuro, che va da bordo
+    a bordo, e tre testi sopra - sinistra, centro, destra.
+
+    Serve cosi perche un testo strutturato ha un allineamento solo: per avere
+    tre colonne allineate in modo diverso servono tre controlli. Il fondo e
+    separato perche deve coprire tutta la larghezza anche quando le tre
+    scritte sono corte.
+
+    Nascono in quest'ordine: prima il fondo, poi i testi, che finiscono
+    sopra. I controlli si disegnano nell'ordine in cui li crei.
 */
-private _targa = _d ctrlCreate ["cTab_RscText", crutek_dcam_idcName];
-_targa ctrlSetBackgroundColor [0, 0, 0, 0.45];
-_targa ctrlShow false;
-_targa ctrlCommit 0;
+private _bandaH = _ph * 0.115;
+private _mrgX   = _pw * 0.025;
+private _txtW   = (_pw - (_mrgX * 2)) / 3;
 
-/*
-    Targhetta scura dietro al rilevamento, stessa idea di quella del nome.
-    Nasce qui, insieme all'altra e prima dei due testi: cosi entrambe le
-    targhette restano sotto e nessuna finisce sopra a una scritta. La misura
-    e la posizione gliele da dcamHud, che e l'unico posto che sa quanto e
-    largo il numero.
-*/
-private _brgBg = _d ctrlCreate ["cTab_RscText", crutek_dcam_idcBrgBg];
-_brgBg ctrlSetBackgroundColor [0, 0, 0, 0.45];
-_brgBg ctrlShow false;
-_brgBg ctrlCommit 0;
+private _fnc_banda = {
+    params ["_idcFondo", "_idcL", "_idcC", "_idcR", "_y"];
 
-/*
-    Le righe di servizio stanno appiccicate ai bordi del video: margine
-    dell'1 per cento invece del 3, e altezza del controllo ridotta da 0.16 a
-    0.12. L'altezza conta: un controllo alto lascia il testo a mezz'aria
-    dentro il riquadro, e con un controllo basso il testo finisce dove lo
-    metti a prescindere da come il motore lo allinea in verticale.
+    private _f = _d ctrlCreate ["cTab_RscText", _idcFondo];
+    _f ctrlSetPosition [_px, _y, _pw, _bandaH];
+    _f ctrlSetBackgroundColor crutek_dcam_bandColor;
+    _f ctrlCommit 0;
 
-    Il rilevamento al centro segue la riga alta, ed e l'unico che resta
-    dov'era: li si legge bene.
-*/
-private _top = _d ctrlCreate ["cTab_RscStructuredText", crutek_dcam_idcTop];
-_top ctrlSetPosition [_px + (_pw * 0.01), _py + (_ph * 0.01), _pw * 0.98, _ph * 0.12];
-_top ctrlCommit 0;
+    {
+        _x params ["_idc", "_n"];
+        private _c = _d ctrlCreate ["cTab_RscStructuredText", _idc];
+        _c ctrlSetPosition [_px + _mrgX + (_txtW * _n), _y + (_bandaH * 0.14), _txtW, _bandaH];
+        _c ctrlCommit 0;
+    } forEach [[_idcL, 0], [_idcC, 1], [_idcR, 2]];
+};
 
-/*
-    Rilevamento, in alto al centro.
+[crutek_dcam_idcTop, crutek_dcam_idcTopL, crutek_dcam_idcTopC, crutek_dcam_idcTopR,
+    _py] call _fnc_banda;
 
-    Occupa la stessa riga del nome ma con il testo centrato, quindi il nome
-    resta a sinistra e il numero finisce in mezzo. Nasce DOPO la riga del
-    nome perche i controlli si disegnano nell'ordine in cui nascono: cosi
-    con un nome lungo il rilevamento resta leggibile sopra.
-*/
-private _brg = _d ctrlCreate ["cTab_RscStructuredText", crutek_dcam_idcBrg];
-_brg ctrlSetPosition [_px + (_pw * 0.01), _py + (_ph * 0.01), _pw * 0.98, _ph * 0.12];
-_brg ctrlCommit 0;
-
-private _bot = _d ctrlCreate ["cTab_RscStructuredText", crutek_dcam_idcBot];
-_bot ctrlSetPosition [_px + (_pw * 0.01), _py + (_ph * 0.87), _pw * 0.98, _ph * 0.12];
-_bot ctrlCommit 0;
-
-/*
-    Il nome della sorgente sta sulla stessa riga bassa ma allineato a destra.
-    Serve un controllo suo: dentro un testo strutturato l'allineamento vale
-    per tutto il paragrafo, quindi sinistra e destra sulla stessa riga non si
-    ottengono con un controllo solo.
-*/
-private _nam = _d ctrlCreate ["cTab_RscStructuredText", crutek_dcam_idcNam];
-_nam ctrlSetPosition [_px + (_pw * 0.01), _py + (_ph * 0.87), _pw * 0.98, _ph * 0.12];
-_nam ctrlCommit 0;
+[crutek_dcam_idcBot, crutek_dcam_idcBotL, crutek_dcam_idcBotC, crutek_dcam_idcBotR,
+    _py + _ph - _bandaH] call _fnc_banda;
 
 crutek_dcam_overlayOn = _name;
 call crutek_fnc_dcamCrop;
