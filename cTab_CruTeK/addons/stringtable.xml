@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="cTab">
+	<Package name="crutek_droneCam">
+		<Container name="DroneCam">
+			<Key ID="STR_crutek_dcam_menu_root">
+				<English>Cam on Galaxy</English>
+				<Italian>Cam on Galaxy</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_opcam">
+				<English>OpCam</English>
+				<Italian>OpCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_air">
+				<English>AircraftCam</English>
+				<Italian>AircraftCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_land">
+				<English>VehiclesCam</English>
+				<Italian>VehiclesCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_sea">
+				<English>BoatsCam</English>
+				<Italian>BoatsCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_plane">
+				<English>Plane</English>
+				<Italian>Plane</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_heli">
+				<English>Heli</English>
+				<Italian>Heli</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_drone">
+				<English>Drone</English>
+				<Italian>Drone</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_tank">
+				<English>Tank</English>
+				<Italian>Tank</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_car">
+				<English>Car</English>
+				<Italian>Car</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_boat">
+				<English>Boat</English>
+				<Italian>Boat</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_hide">
+				<English>Hide feed, back to map</English>
+				<Italian>Nascondi feed, torna alla mappa</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_show">
+				<English>Show feed again</English>
+				<Italian>Rimostra feed sul telefono</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_off">
+				<English>Disconnect</English>
+				<Italian>Scollega</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_diag">
+				<English>Diagnostics and version</English>
+				<Italian>Diagnostica e versione</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_cat_main">
+				<English>cTab-Cam on Galaxy</English>
+				<Italian>cTab-Cam on Galaxy</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_cat_hc">
+				<English>cTab-HelmetCam</English>
+				<Italian>cTab-HelmetCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_sec_fazioni">
+				<English>Observable sides</English>
+				<Italian>Fazioni osservabili</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_sec_mezzi">
+				<English>Vehicle categories</English>
+				<Italian>Categorie di mezzi</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_sec_bordo">
+				<English>Who must be aboard</English>
+				<Italian>Chi deve essere a bordo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_sec_limiti">
+				<English>Gameplay limits</English>
+				<Italian>Limiti di gioco</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_sec_hc_lim">
+				<English>Requirements and limits</English>
+				<Italian>Requisiti e limiti</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_sideOwn">
+				<English>Always your own side</English>
+				<Italian>Sempre la propria fazione</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_sideOwn_t">
+				<English>Without this, a mission played from the other side would leave the observer blind to their own vehicles</English>
+				<Italian>Senza questa, una missione giocata dalla parte sbagliata lascerebbe l&#x27;osservatore cieco sui propri stessi mezzi</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_sideWest">
+				<English>Observe BLUFOR</English>
+				<Italian>Osserva BLUFOR</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_sideEast">
+				<English>Observe OPFOR</English>
+				<Italian>Osserva OPFOR</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_sideGuer">
+				<English>Observe Independent</English>
+				<Italian>Osserva Indipendente</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_sideCiv">
+				<English>Observe Civilians</English>
+				<Italian>Osserva Civili</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_catAir">
+				<English>AircraftCam</English>
+				<Italian>AircraftCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_catAir_t">
+				<English>Planes, helicopters and flying drones</English>
+				<Italian>Aerei, elicotteri e droni volanti</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_catLand">
+				<English>VehiclesCam</English>
+				<Italian>VehiclesCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_catLand_t">
+				<English>Tanks, wheeled vehicles and ground drones</English>
+				<Italian>Carri, ruotati e droni terrestri</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_catSea">
+				<English>BoatsCam</English>
+				<Italian>BoatsCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_catSea_t">
+				<English>Boats and naval drones</English>
+				<Italian>Imbarcazioni e droni navali</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_crew">
+				<English>Who must be aboard</English>
+				<Italian>Chi deve essere a bordo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_crew_t">
+				<English>An empty vehicle has nobody aiming the turret</English>
+				<Italian>Un mezzo vuoto non ha nessuno che punti la torretta</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_crew_0">
+				<English>Player or AI</English>
+				<Italian>Player o IA</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_crew_1">
+				<English>Players only</English>
+				<Italian>Solo player</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_crew_2">
+				<English>AI only</English>
+				<Italian>Solo IA</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_crew_3">
+				<English>Empty vehicles too</English>
+				<Italian>Anche mezzi vuoti</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_maxDist">
+				<English>Maximum observation range</English>
+				<Italian>Distanza massima di osservazione</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_maxDist_t">
+				<English>Beyond this range the vehicle is not listed. 0 means no limit: anyone can watch any vehicle on the map</English>
+				<Italian>Oltre questa distanza il mezzo non compare in lista. A 0 nessun limite: chiunque vede qualsiasi mezzo della mappa</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_viewDist">
+				<English>Minimum view distance while a feed is on</English>
+				<Italian>Distanza visiva minima col feed acceso</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_viewDist_t">
+				<English>0 = leave it alone. With a value, the view distance is raised to at least that while a feed is open and restored when it closes. It never lowers it. Careful: the view distance is one single value for the whole render, so your own view is raised too, and the ACE view distance limiter reapplies its own on state changes</English>
+				<Italian>0 = non tocca niente. Con un valore la distanza visiva viene portata almeno a quel numero mentre un feed e aperto e rimessa com'era alla chiusura. Non la abbassa mai. Attenzione: la distanza visiva e una sola per tutto il rendering, quindi si alza anche la tua vista reale, e il limitatore ACE rimette il suo valore a ogni cambio di stato</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_drag">
+				<English>Drone turret slew</English>
+				<Italian>Brandeggio torretta dei droni</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_drag_t">
+				<English>Lets the phone viewer slew the turret of an unmanned drone. It is the only thing that acts rather than watches</English>
+				<Italian>Permette a chi guarda dal telefono di muovere la torretta di un drone senza operatore. E&#x27; l&#x27;unica cosa che fa agire invece che guardare</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_minAlt">
+				<English>Minimum altitude for air vehicles</English>
+				<Italian>Quota minima dei mezzi in volo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_minAlt_t">
+				<English>Below this altitude an air vehicle is not listed. Negative values include those parked on the ground</English>
+				<Italian>Sotto questa quota un mezzo aereo non compare. Negativa include quelli fermi in pista</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcOn">
+				<English>Enable OpCam</English>
+				<Italian>Abilita OpCam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcOn_t">
+				<English>See through your teammates&#x27; eyes. Turning it off removes the entry from the menu</English>
+				<Italian>Vedere dagli occhi dei compagni. Spegnendola la voce sparisce dal menu</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcItem">
+				<English>Required inventory item</English>
+				<Italian>Oggetto richiesto in inventario</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcItem_t">
+				<English>Whoever carries it can be observed. Leave empty to rely on cTab&#x27;s cam-equipped helmet list instead</English>
+				<Italian>Chi lo porta puo essere osservato. Vuoto: basta un elmetto fra quelli che cTab considera dotati di cam</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcDist">
+				<English>Maximum observation range</English>
+				<Italian>Distanza massima di osservazione</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcDist_t">
+				<English>Beyond this range the person is not listed. 0 means no limit</English>
+				<Italian>Oltre questa distanza la persona non compare in lista. A 0 nessun limite</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcWho">
+				<English>Who can be observed</English>
+				<Italian>Chi si puo osservare</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcWho_t">
+				<English>Useful to exclude AI, who look wherever the engine decides</English>
+				<Italian>Utile per escludere le IA, che guardano dove decide il motore</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcWho_0">
+				<English>Players or AI</English>
+				<Italian>Player o IA</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcWho_1">
+				<English>Players only</English>
+				<Italian>Solo player</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcWho_2">
+				<English>AI only</English>
+				<Italian>Solo IA</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_noTurret">
+				<English>This vehicle has no usable turret</English>
+				<Italian>Questo mezzo non ha una torretta collegabile</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_noItem">
+				<English>You need the Galaxy in your inventory</English>
+				<Italian>Ti serve il Galaxy in inventario</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_noPhone">
+				<English>Open the phone to see the feed</English>
+				<Italian>Apri il telefono per vedere il feed</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_zoomFloor">
+				<English>You are at the operator&#x27;s framing, it does not widen further</English>
+				<Italian>Sei all&#x27;inquadratura dell&#x27;operatore, non si allarga oltre</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_noVeh">
+				<English>You are not aboard any vehicle</English>
+				<Italian>Non sei a bordo di nessun mezzo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_a3ti">
+				<English>A3TI recipe not applicable: mod functions not found</English>
+				<Italian>Ricetta A3TI non applicabile: funzioni della mod non trovate</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_hud_opZoom">
+				<English>operator zoom</English>
+				<Italian>zoom operatore</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_hud_freeZoom">
+				<English>free zoom</English>
+				<Italian>zoom libero</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_hud_crop">
+				<English>crop</English>
+				<Italian>ritaglio</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_hud_alt">
+				<English>alt</English>
+				<Italian>alt</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_modeNext">
+				<English>next filter</English>
+				<Italian>filtro successivo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_modeNext_t">
+				<English>Cycles AUTO, NV, TH1, TH2 forward</English>
+				<Italian>Cicla AUTO, NV, TH1, TH2 in avanti</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_modePrev">
+				<English>previous filter</English>
+				<Italian>filtro precedente</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_modePrev_t">
+				<English>Cycles AUTO, NV, TH1, TH2 backward</English>
+				<Italian>Cicla AUTO, NV, TH1, TH2 all&#x27;indietro</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_hide">
+				<English>hide or show</English>
+				<Italian>nascondi o rimostra</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_hide_t">
+				<English>Hides the video, leaving the map visible</English>
+				<Italian>Nasconde il video lasciando la mappa visibile</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_off">
+				<English>disconnect</English>
+				<Italian>scollega</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_off_t">
+				<English>Turns the feed off</English>
+				<Italian>Spegne il feed</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_opNext">
+				<English>OpCam - next operator</English>
+				<Italian>OpCam - operatore successivo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_opNext_t">
+				<English>Helmet cams only, and only with the phone open fullscreen. The usual command is Shift + mouse wheel; bind a key here if you prefer</English>
+				<Italian>Solo telecamere da casco, e solo col telefono aperto a tutto schermo. Il comando normale e Maiusc + rotella, qui puoi metterlo su un tasto se preferisci</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_opPrev">
+				<English>OpCam - previous operator</English>
+				<Italian>OpCam - operatore precedente</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_opPrev_t">
+				<English>Helmet cams only, and only with the phone open fullscreen. The usual command is Shift + mouse wheel; bind a key here if you prefer</English>
+				<Italian>Solo telecamere da casco, e solo col telefono aperto a tutto schermo. Il comando normale e Maiusc + rotella, qui puoi metterlo su un tasto se preferisci</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_drag">
+				<English>DroneCam - turret slew</English>
+				<Italian>DroneCam - brandeggio torretta</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_key_drag_t">
+				<English>Hold and move the mouse to slew the turret of an unmanned drone</English>
+				<Italian>Tieni premuto e muovi il mouse per brandeggiare la torretta di un drone senza operatore</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_pipOff">
+				<English>Enable PiP in the video settings</English>
+				<Italian>Attiva la PiP nelle impostazioni video</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_gone">
+				<English>Source no longer available</English>
+				<Italian>Sorgente non piu disponibile</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_needItem">
+				<English>You need the Galaxy in your inventory</English>
+				<Italian>Serve il Galaxy in inventario</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_hidden">
+				<English>Feed hidden, map visible again</English>
+				<Italian>Feed nascosto, mappa di nuovo visibile</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_not_shown">
+				<English>Feed back on screen</English>
+				<Italian>Feed di nuovo a schermo</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_cat_dr">
+				<English>cTab-Drones</English>
+				<Italian>cTab-Droni</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_drOn">
+				<English>Enable drones</English>
+				<Italian>Abilita i droni</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_drOn_t">
+				<English>Turning this off removes drones from every category</English>
+				<Italian>Spegnendola i droni spariscono da tutte le categorie</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_drWho">
+				<English>Who controls the drone</English>
+				<Italian>Chi comanda il drone</Italian>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_drWho_t">
+				<English>This looks at who is connected via the terminal, not the crew: a drone&#x27;s crew is always AI even while you are flying it</English>
+				<Italian>Si guarda chi e collegato col terminale, non l&#x27;equipaggio: quello di un drone e sempre IA anche mentre lo piloti tu</Italian>
+			</Key>
+		</Container>
+	</Package>
+</Project>
