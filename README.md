@@ -2,9 +2,9 @@
 
 ![cTab CruTeK](img/cover.jpeg)
 
-A modified build of **cTab** for ARMA 3. It adds *Cam on Galaxy*: live video from helmet cams, turrets, vehicles and drones rendered **inside the Samsung Galaxy screen**, in render-to-texture, both on the open phone and on the small always-on-screen one.
+An **extension for [cTAB Advanced [BETA]](https://steamcommunity.com/sharedfiles/filedetails/?id=3438246217)** by GrueArbre. It adds *Cam on Galaxy*: live video from helmet cams, turrets, vehicles and drones rendered **inside the Samsung Galaxy screen**, in render-to-texture, both on the open phone and on the small always-on-screen one.
 
-This is not a separate mod: it **replaces cTab**. Do not load both.
+It started as a standalone fork of the original cTab and grew, along the way, into an eighth component that plugs into cTAB Advanced. It **adds** to that mod, it does not replace it: their tablet, messaging and compass stay theirs.
 
 ---
 
@@ -23,26 +23,26 @@ This is not a separate mod: it **replaces cTab**. Do not load both.
   - [cTab-HelmetCam](#ctab-helmetcam)
 - [Diagnostics](#diagnostics)
 - [Technical notes](#technical-notes)
+- [Building the PBO](#building-the-pbo)
 - [Credits](#credits)
 
 ---
 
 ## What it adds
 
-On top of stock cTab:
+On top of cTAB Advanced:
 
 - **Cam on Galaxy** — an ACE menu tree to connect the Galaxy to a video source and watch it on the phone screen
 - **Sources**: operator helmet cams, and turrets on planes, helicopters, drones, tanks, cars and boats
 - **Turret slewing** on unmanned drones, straight from the video
-- **Stepped zoom** taken from real targeting pods
+- **Stepped zoom** read from the vehicle's own optics
 - **Permissions by side, vehicle category and occupant type**, all in the addon options, so they are set per mission
-- The stock cTab picture windows (UAV and helmet cam) go from a 512 render target to **1024**
 
-Everything else in cTab — tablet, map, markers, MicroDAGR — works as you know it.
+Nothing of cTAB Advanced is touched or overwritten.
 
 ![Drone feed on the Galaxy](img/sc1.jpeg)
 
-*A drone feed inside the phone screen, with source, altitude, zoom and mode overlaid.*
+*A drone feed inside the phone screen, with your telemetry along the top and the source along the bottom.*
 
 ---
 
@@ -50,18 +50,19 @@ Everything else in cTab — tablet, map, markers, MicroDAGR — works as you kno
 
 | Mod | Required |
 |---|---|
+| **[cTAB Advanced [BETA]](https://steamcommunity.com/sharedfiles/filedetails/?id=3438246217)** | yes, this is an extension of it |
 | **CBA_A3** | yes |
 | **ACE3** | yes, the menu is an ACE self-interaction menu |
 
 **PiP** must be enabled in every player's video options: that is what draws the feed inside the phone screen. With PiP off the screen stays black.
 
-> Do not load stock cTab alongside this one. The internal prefix is still `cTab` and the classes share the same names: they do not coexist well.
+> Do not load the original cTab by Gundy. cTAB Advanced already replaces that one, and this extension is built for cTAB Advanced.
 
 ---
 
 ## Installation
 
-Like any mod: a `@cTab_CruTeK` folder containing `addons\cTab_CruTeK.pbo`, ticked in the launcher instead of cTab.
+Like any mod: a `@cTab_CruTeK` folder containing `addons\ctab_camera.pbo`, ticked in the launcher **alongside** cTAB Advanced, not instead of it.
 
 The items are unchanged — `ItemcTab`, `ItemAndroid`, `ItemMicroDAGR`, `ItemcTabHCam` — so missions written for cTab keep working untouched.
 
@@ -84,7 +85,7 @@ The helmet cam item class is configurable in the settings if you use a different
 
 ![Helmet cam at night](img/sc3.jpeg)
 
-*OpCam on an operator using night vision: the carrier's name, the mode and the distance are shown at the top.*
+*OpCam on an operator using night vision: your own telemetry along the top, the carrier's name along the bottom.*
 
 ### The menu
 
@@ -104,9 +105,7 @@ Cam on Galaxy
 ├── BoatsCam
 │   ├── Drone
 │   └── Boat
-├── Hide feed / Show feed again
-├── Disconnect
-└── Diagnostics and version
+└── Hide feed / Show feed again
 ```
 
 Empty branches and categories are not drawn: if there are no helicopters around, the Heli branch does not appear. Only vehicles allowed by the settings make the list.
@@ -125,9 +124,8 @@ Always active, nothing to bind:
 |---|---|
 | Right mouse held on the video | slews the turret — unmanned drones only, open phone only |
 | `Shift` + wheel | next / previous operator — OpCam only |
-| `Shift` + middle click | hides the video and returns to the map |
 
-Bound by default, rebindable from the **cTab CruTeK** section of the CBA keybinds:
+Bound by default, rebindable from the **cTab Camera** section of the CBA keybinds:
 
 | Key | Effect |
 |---|---|
@@ -166,7 +164,7 @@ Applies to crewed vehicles.
 
 **Gameplay limits** — maximum distance from the source (4000 m), minimum altitude, and a minimum view distance while a feed is running.
 
-> View distance is a **single global value** for all rendering: raising it for the feed also raises your own real view while the feed is open. It defaults to `0`, meaning the mod does not touch it. If you need it, the clean way is to raise the ACE value for whoever acts as drone operator.
+> View distance is a **single global value** for all rendering: raising it for the feed also raises your own real view while the feed is open. It defaults to `0`, meaning the mod does not touch it. It never lowers it, it stays under the ACE view distance limiter's own maximum, and it raises the object view distance in the same proportion you already had.
 
 ### cTab-Drones
 
@@ -193,17 +191,16 @@ A category of its own, because on a drone the crew question is meaningless: **wh
 On startup, in the `.rpt`:
 
 ```
-[crutek_dcam] versione 2026-07-29-r16
-[crutek_dcam] impostazioni registrate: cTab-Cam on Galaxy e cTab-HelmetCam
+[crutek_dcam] versione 2026-08-01-c2
 ```
 
-If the first line is missing, the module did not start. In game, the **Diagnostics and version** entry at the bottom of the menu prints version and current state on screen.
+If that line is missing, the module did not start.
 
 ### Troubleshooting
 
 | Symptom | What to check |
 |---|---|
-| the Cam on Galaxy menu never appears | are you carrying the Galaxy (`ItemAndroid`)? is ACE loaded? |
+| the Cam on Galaxy menu never appears | are you carrying the Galaxy (`ItemAndroid`)? are cTAB Advanced and ACE loaded? |
 | black phone screen | is PiP enabled in the video options? |
 | a vehicle is missing from the list | is its side enabled? is the category on? is it within maximum distance? does it satisfy the who-must-be-aboard rule? |
 | an operator is missing | does he carry `ItemcTabHCam`? is his side among the observable ones in cTab-HelmetCam? |
@@ -216,9 +213,11 @@ If the first line is missing, the module did not start. In game, the **Diagnosti
 
 **The feed fills the whole phone screen.** No side bars, even at the cost of framing wider than the real optic would.
 
-**The operator's zoom is the limit.** When you connect you start where he is looking, and from there you can only zoom in — you cannot pull back past his field of view. The steps come from real targeting pods.
+**The HUD is two bands.** The top one is your own telemetry — your altitude, your heading, your grid. The bottom one is the feed — vision filter, magnification, source name. White text with a black outline, green only in night vision.
 
-**Vanilla thermals.** The mod does not depend on A3TI and does not reproduce its look: A3TI works with effects drawn on the player's screen, and a screen cannot enter a render target.
+**The operator's zoom is the limit.** When you connect you start where he is looking, and from there you can only zoom in. The steps are the discrete optics the vehicle declares in its config, so the feed sits where the operator's optic would sit.
+
+**Thermals are the engine's own.** TH1 is white hot, TH2 is black hot. A3TI is not required and its look is not reproduced: A3TI works with effects drawn on the player's screen, and those never reach a render target.
 
 **Opening the arsenal disconnects the feed.** Both the ACE one and the vanilla one: opening the arsenal with a feed running drops it instead of leaving it hanging.
 
@@ -226,8 +225,20 @@ If the first line is missing, the module did not start. In game, the **Diagnosti
 
 ---
 
+## Building the PBO
+
+`mkpbo.py` in this repository packs the source folder and, unlike some GUI packers, **writes the prefix into the PBO header**. Without that header every path fails at startup with `Script ... not found`.
+
+```
+python mkpbo.py ctab_camera ctab_camera.pbo ctab_camera
+```
+
+Then drop the `.pbo` into `@cTab_CruTeK\addons\`.
+
+---
+
 ## Credits
 
-Based on **cTab** by Gundy and contributors. The changes in this build are by **CruTeK / ArTeK**.
+Built on top of **cTAB Advanced** by GrueArbre, which in turn descends from **cTab** by Gundy and contributors. The camera extension is by **ArTeK** and **Cruiser**.
 
 Bug reports and ideas are welcome: [github.com/sarteko](https://github.com/sarteko)

@@ -5,7 +5,9 @@
     Tasto destro tenuto premuto      -> brandeggia la torretta, ma solo sui
                                         droni senza operatore e solo col
                                         telefono aperto (serve il cursore)
-    Maiusc + rotella premuta         -> nasconde il video, mostra la mappa
+
+    La rotella PREMUTA non fa piu niente: nascondere il video era un doppione
+    di Maiusc + Fine, e su un pulsante che il gioco usa gia per altro.
 
     0: ARRAY  - parametri dell'evento [display, pulsante, x, y, maiusc, ctrl, alt]
     1: STRING - "down" oppure "up"
@@ -26,16 +28,6 @@ if (!crutek_dcam_active) exitWith { false };
 if (_kind isEqualTo "up") exitWith {
     if (_btn isEqualTo 1 && {crutek_dcam_dragging}) then {
         ["STOP"] call crutek_fnc_dcamDrag;
-        true
-    } else {
-        false
-    };
-};
-
-// ---- rotella premuta: nascondi o rimostra ------------------------
-if (_btn isEqualTo 2) exitWith {
-    if (_shift && {!_ctrl} && {!_alt}) then {
-        call crutek_fnc_dcamToggle;
         true
     } else {
         false

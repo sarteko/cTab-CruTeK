@@ -5,378 +5,754 @@
 			<Key ID="STR_crutek_dcam_menu_root">
 				<English>Cam on Galaxy</English>
 				<Italian>Cam on Galaxy</Italian>
+				<French>Cam on Galaxy</French>
+				<Spanish>Cam on Galaxy</Spanish>
+				<Portuguese>Cam on Galaxy</Portuguese>
+				<German>Cam on Galaxy</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_opcam">
 				<English>OpCam</English>
 				<Italian>OpCam</Italian>
+				<French>OpCam</French>
+				<Spanish>OpCam</Spanish>
+				<Portuguese>OpCam</Portuguese>
+				<German>OpCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_air">
 				<English>AircraftCam</English>
 				<Italian>AircraftCam</Italian>
+				<French>AircraftCam</French>
+				<Spanish>AircraftCam</Spanish>
+				<Portuguese>AircraftCam</Portuguese>
+				<German>AircraftCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_land">
 				<English>VehiclesCam</English>
 				<Italian>VehiclesCam</Italian>
+				<French>VehiclesCam</French>
+				<Spanish>VehiclesCam</Spanish>
+				<Portuguese>VehiclesCam</Portuguese>
+				<German>VehiclesCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_sea">
 				<English>BoatsCam</English>
 				<Italian>BoatsCam</Italian>
+				<French>BoatsCam</French>
+				<Spanish>BoatsCam</Spanish>
+				<Portuguese>BoatsCam</Portuguese>
+				<German>BoatsCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_plane">
 				<English>Plane</English>
 				<Italian>Plane</Italian>
+				<French>Avion</French>
+				<Spanish>Avión</Spanish>
+				<Portuguese>Avião</Portuguese>
+				<German>Flugzeug</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_heli">
 				<English>Heli</English>
 				<Italian>Heli</Italian>
+				<French>Hélico</French>
+				<Spanish>Helicóptero</Spanish>
+				<Portuguese>Helicóptero</Portuguese>
+				<German>Helikopter</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_drone">
 				<English>Drone</English>
 				<Italian>Drone</Italian>
+				<French>Drone</French>
+				<Spanish>Dron</Spanish>
+				<Portuguese>Drone</Portuguese>
+				<German>Drohne</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_tank">
 				<English>Tank</English>
 				<Italian>Tank</Italian>
+				<French>Blindé</French>
+				<Spanish>Tanque</Spanish>
+				<Portuguese>Tanque</Portuguese>
+				<German>Panzer</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_car">
 				<English>Car</English>
 				<Italian>Car</Italian>
+				<French>Véhicule</French>
+				<Spanish>Vehículo</Spanish>
+				<Portuguese>Viatura</Portuguese>
+				<German>Fahrzeug</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_boat">
 				<English>Boat</English>
 				<Italian>Boat</Italian>
+				<French>Bateau</French>
+				<Spanish>Barco</Spanish>
+				<Portuguese>Barco</Portuguese>
+				<German>Boot</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_hide">
 				<English>Hide feed, back to map</English>
 				<Italian>Nascondi feed, torna alla mappa</Italian>
+				<French>Masquer le flux, retour à la carte</French>
+				<Spanish>Ocultar la señal, volver al mapa</Spanish>
+				<Portuguese>Ocultar o sinal, voltar ao mapa</Portuguese>
+				<German>Feed ausblenden, zurück zur Karte</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_show">
 				<English>Show feed again</English>
 				<Italian>Rimostra feed sul telefono</Italian>
+				<French>Réafficher le flux</French>
+				<Spanish>Mostrar la señal de nuevo</Spanish>
+				<Portuguese>Mostrar o sinal de novo</Portuguese>
+				<German>Feed wieder anzeigen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_off">
 				<English>Disconnect</English>
 				<Italian>Scollega</Italian>
+				<French>Déconnecter</French>
+				<Spanish>Desconectar</Spanish>
+				<Portuguese>Desligar</Portuguese>
+				<German>Trennen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_menu_diag">
 				<English>Diagnostics and version</English>
 				<Italian>Diagnostica e versione</Italian>
+				<French>Diagnostic et version</French>
+				<Spanish>Diagnóstico y versión</Spanish>
+				<Portuguese>Diagnóstico e versão</Portuguese>
+				<German>Diagnose und Version</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_cat_main">
 				<English>cTab-Cam on Galaxy</English>
 				<Italian>cTab-Cam on Galaxy</Italian>
+				<French>cTab-Cam on Galaxy</French>
+				<Spanish>cTab-Cam on Galaxy</Spanish>
+				<Portuguese>cTab-Cam on Galaxy</Portuguese>
+				<German>cTab-Cam on Galaxy</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_cat_hc">
 				<English>cTab-HelmetCam</English>
 				<Italian>cTab-HelmetCam</Italian>
+				<French>cTab-HelmetCam</French>
+				<Spanish>cTab-HelmetCam</Spanish>
+				<Portuguese>cTab-HelmetCam</Portuguese>
+				<German>cTab-HelmetCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_sec_fazioni">
 				<English>Observable sides</English>
 				<Italian>Fazioni osservabili</Italian>
+				<French>Camps observables</French>
+				<Spanish>Bandos observables</Spanish>
+				<Portuguese>Facções observáveis</Portuguese>
+				<German>Beobachtbare Seiten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_sec_mezzi">
 				<English>Vehicle categories</English>
 				<Italian>Categorie di mezzi</Italian>
+				<French>Catégories de véhicules</French>
+				<Spanish>Categorías de vehículos</Spanish>
+				<Portuguese>Categorias de veículos</Portuguese>
+				<German>Fahrzeugkategorien</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_sec_bordo">
 				<English>Who must be aboard</English>
 				<Italian>Chi deve essere a bordo</Italian>
+				<French>Qui doit être à bord</French>
+				<Spanish>Quién debe ir a bordo</Spanish>
+				<Portuguese>Quem deve estar a bordo</Portuguese>
+				<German>Wer an Bord sein muss</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_sec_limiti">
 				<English>Gameplay limits</English>
 				<Italian>Limiti di gioco</Italian>
+				<French>Limites de jeu</French>
+				<Spanish>Límites de juego</Spanish>
+				<Portuguese>Limites de jogo</Portuguese>
+				<German>Spielgrenzen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_sec_hc_lim">
 				<English>Requirements and limits</English>
 				<Italian>Requisiti e limiti</Italian>
+				<French>Conditions et limites</French>
+				<Spanish>Requisitos y límites</Spanish>
+				<Portuguese>Requisitos e limites</Portuguese>
+				<German>Voraussetzungen und Grenzen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideOwn">
 				<English>Always your own side</English>
 				<Italian>Sempre la propria fazione</Italian>
+				<French>Toujours son propre camp</French>
+				<Spanish>Siempre tu propio bando</Spanish>
+				<Portuguese>Sempre a própria facção</Portuguese>
+				<German>Immer die eigene Seite</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideOwn_t">
 				<English>Without this, a mission played from the other side would leave the observer blind to their own vehicles</English>
 				<Italian>Senza questa, una missione giocata dalla parte sbagliata lascerebbe l&#x27;osservatore cieco sui propri stessi mezzi</Italian>
+				<French>Sans cette option, une mission jouée depuis l'autre camp laisserait l'observateur aveugle sur ses propres véhicules</French>
+				<Spanish>Sin esta opción, una misión jugada desde el otro bando dejaría al observador ciego ante sus propios vehículos</Spanish>
+				<Portuguese>Sem esta opção, uma missão jogada pela outra facção deixaria o observador cego aos próprios veículos</Portuguese>
+				<German>Ohne diese Option wäre der Beobachter in einer Mission auf der anderen Seite blind für die eigenen Fahrzeuge</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideWest">
 				<English>Observe BLUFOR</English>
 				<Italian>Osserva BLUFOR</Italian>
+				<French>Observer BLUFOR</French>
+				<Spanish>Observar BLUFOR</Spanish>
+				<Portuguese>Observar BLUFOR</Portuguese>
+				<German>BLUFOR beobachten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideEast">
 				<English>Observe OPFOR</English>
 				<Italian>Osserva OPFOR</Italian>
+				<French>Observer OPFOR</French>
+				<Spanish>Observar OPFOR</Spanish>
+				<Portuguese>Observar OPFOR</Portuguese>
+				<German>OPFOR beobachten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideGuer">
 				<English>Observe Independent</English>
 				<Italian>Osserva Indipendente</Italian>
+				<French>Observer Indépendants</French>
+				<Spanish>Observar Independientes</Spanish>
+				<Portuguese>Observar Independentes</Portuguese>
+				<German>Unabhängige beobachten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideCiv">
 				<English>Observe Civilians</English>
 				<Italian>Osserva Civili</Italian>
+				<French>Observer Civils</French>
+				<Spanish>Observar Civiles</Spanish>
+				<Portuguese>Observar Civis</Portuguese>
+				<German>Zivilisten beobachten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_catAir">
 				<English>AircraftCam</English>
 				<Italian>AircraftCam</Italian>
+				<French>AircraftCam</French>
+				<Spanish>AircraftCam</Spanish>
+				<Portuguese>AircraftCam</Portuguese>
+				<German>AircraftCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_catAir_t">
 				<English>Planes, helicopters and flying drones</English>
 				<Italian>Aerei, elicotteri e droni volanti</Italian>
+				<French>Avions, hélicoptères et drones volants</French>
+				<Spanish>Aviones, helicópteros y drones voladores</Spanish>
+				<Portuguese>Aviões, helicópteros e drones voadores</Portuguese>
+				<German>Flugzeuge, Hubschrauber und fliegende Drohnen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_catLand">
 				<English>VehiclesCam</English>
 				<Italian>VehiclesCam</Italian>
+				<French>VehiclesCam</French>
+				<Spanish>VehiclesCam</Spanish>
+				<Portuguese>VehiclesCam</Portuguese>
+				<German>VehiclesCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_catLand_t">
 				<English>Tanks, wheeled vehicles and ground drones</English>
 				<Italian>Carri, ruotati e droni terrestri</Italian>
+				<French>Blindés, véhicules à roues et drones terrestres</French>
+				<Spanish>Tanques, vehículos con ruedas y drones terrestres</Spanish>
+				<Portuguese>Tanques, viaturas de rodas e drones terrestres</Portuguese>
+				<German>Panzer, Radfahrzeuge und Bodendrohnen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_catSea">
 				<English>BoatsCam</English>
 				<Italian>BoatsCam</Italian>
+				<French>BoatsCam</French>
+				<Spanish>BoatsCam</Spanish>
+				<Portuguese>BoatsCam</Portuguese>
+				<German>BoatsCam</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_catSea_t">
 				<English>Boats and naval drones</English>
 				<Italian>Imbarcazioni e droni navali</Italian>
+				<French>Bateaux et drones navals</French>
+				<Spanish>Barcos y drones navales</Spanish>
+				<Portuguese>Barcos e drones navais</Portuguese>
+				<German>Boote und Marinedrohnen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_crew">
 				<English>Who must be aboard</English>
 				<Italian>Chi deve essere a bordo</Italian>
+				<French>Qui doit être à bord</French>
+				<Spanish>Quién debe ir a bordo</Spanish>
+				<Portuguese>Quem deve estar a bordo</Portuguese>
+				<German>Wer an Bord sein muss</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_crew_t">
 				<English>An empty vehicle has nobody aiming the turret</English>
 				<Italian>Un mezzo vuoto non ha nessuno che punti la torretta</Italian>
+				<French>Dans un véhicule vide, personne ne dirige la tourelle</French>
+				<Spanish>En un vehículo vacío nadie apunta la torreta</Spanish>
+				<Portuguese>Num veículo vazio ninguém aponta a torre</Portuguese>
+				<German>In einem leeren Fahrzeug richtet niemand den Turm aus</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_crew_0">
 				<English>Player or AI</English>
 				<Italian>Player o IA</Italian>
+				<French>Joueur ou IA</French>
+				<Spanish>Jugador o IA</Spanish>
+				<Portuguese>Jogador ou IA</Portuguese>
+				<German>Spieler oder KI</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_crew_1">
 				<English>Players only</English>
 				<Italian>Solo player</Italian>
+				<French>Joueurs uniquement</French>
+				<Spanish>Solo jugadores</Spanish>
+				<Portuguese>Apenas jogadores</Portuguese>
+				<German>Nur Spieler</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_crew_2">
 				<English>AI only</English>
 				<Italian>Solo IA</Italian>
+				<French>IA uniquement</French>
+				<Spanish>Solo IA</Spanish>
+				<Portuguese>Apenas IA</Portuguese>
+				<German>Nur KI</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_crew_3">
 				<English>Empty vehicles too</English>
 				<Italian>Anche mezzi vuoti</Italian>
+				<French>Véhicules vides aussi</French>
+				<Spanish>También vehículos vacíos</Spanish>
+				<Portuguese>Também veículos vazios</Portuguese>
+				<German>Auch leere Fahrzeuge</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_maxDist">
 				<English>Maximum observation range</English>
 				<Italian>Distanza massima di osservazione</Italian>
+				<French>Portée d'observation maximale</French>
+				<Spanish>Alcance máximo de observación</Spanish>
+				<Portuguese>Alcance máximo de observação</Portuguese>
+				<German>Maximale Beobachtungsreichweite</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_maxDist_t">
 				<English>Beyond this range the vehicle is not listed. 0 means no limit: anyone can watch any vehicle on the map</English>
 				<Italian>Oltre questa distanza il mezzo non compare in lista. A 0 nessun limite: chiunque vede qualsiasi mezzo della mappa</Italian>
+				<French>Au-delà de cette portée le véhicule n'apparaît pas dans la liste. 0 signifie sans limite : n'importe qui peut observer n'importe quel véhicule de la carte</French>
+				<Spanish>Más allá de este alcance el vehículo no aparece en la lista. 0 significa sin límite: cualquiera puede observar cualquier vehículo del mapa</Spanish>
+				<Portuguese>Além deste alcance o veículo não aparece na lista. 0 significa sem limite: qualquer um pode observar qualquer veículo do mapa</Portuguese>
+				<German>Jenseits dieser Reichweite erscheint das Fahrzeug nicht in der Liste. 0 bedeutet ohne Grenze: jeder kann jedes Fahrzeug auf der Karte beobachten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_viewDist">
 				<English>Minimum view distance while a feed is on</English>
 				<Italian>Distanza visiva minima col feed acceso</Italian>
+				<French>Distance de vue minimale pendant un flux</French>
+				<Spanish>Distancia de visión mínima con la señal activa</Spanish>
+				<Portuguese>Distância de visão mínima com o sinal ligado</Portuguese>
+				<German>Mindestsichtweite bei aktivem Feed</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_viewDist_t">
 				<English>0 = leave it alone. With a value, the view distance is raised to at least that while a feed is open and restored when it closes. It never lowers it. Careful: the view distance is one single value for the whole render, so your own view is raised too, and the ACE view distance limiter reapplies its own on state changes</English>
 				<Italian>0 = non tocca niente. Con un valore la distanza visiva viene portata almeno a quel numero mentre un feed e aperto e rimessa com'era alla chiusura. Non la abbassa mai. Attenzione: la distanza visiva e una sola per tutto il rendering, quindi si alza anche la tua vista reale, e il limitatore ACE rimette il suo valore a ogni cambio di stato</Italian>
+				<French>0 = ne touche à rien. Avec une valeur, la distance de vue est portée au moins à ce niveau pendant qu'un flux est ouvert, puis remise comme avant à la fermeture. Elle ne la baisse jamais. Attention : la distance de vue est une seule valeur pour tout le rendu, donc la vôtre monte aussi, et le limiteur de distance de vue d'ACE réapplique la sienne à chaque changement d'état</French>
+				<Spanish>0 = no toca nada. Con un valor, la distancia de visión sube al menos hasta ese número mientras la señal está abierta y se restaura al cerrarla. Nunca la baja. Atención: la distancia de visión es un único valor para todo el render, así que también sube la tuya, y el limitador de distancia de visión de ACE vuelve a aplicar la suya en cada cambio de estado</Spanish>
+				<Portuguese>0 = não toca em nada. Com um valor, a distância de visão sobe pelo menos até esse número enquanto o sinal está aberto e volta ao que era ao fechar. Nunca a baixa. Atenção: a distância de visão é um único valor para todo o render, portanto a tua também sobe, e o limitador de distância de visão do ACE reaplica o dele a cada mudança de estado</Portuguese>
+				<German>0 = ändert nichts. Mit einem Wert wird die Sichtweite bei offenem Feed mindestens auf diesen Wert angehoben und beim Schließen wiederhergestellt. Sie wird nie gesenkt. Achtung: die Sichtweite ist ein einziger Wert für das gesamte Rendering, also steigt auch die eigene, und der ACE-Sichtweitenbegrenzer setzt bei jedem Zustandswechsel seinen eigenen Wert erneut</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drag">
 				<English>Drone turret slew</English>
 				<Italian>Brandeggio torretta dei droni</Italian>
+				<French>Pointage de la tourelle du drone</French>
+				<Spanish>Rotación de la torreta del dron</Spanish>
+				<Portuguese>Rotação da torre do drone</Portuguese>
+				<German>Turmschwenk der Drohne</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drag_t">
 				<English>Lets the phone viewer slew the turret of an unmanned drone. It is the only thing that acts rather than watches</English>
 				<Italian>Permette a chi guarda dal telefono di muovere la torretta di un drone senza operatore. E&#x27; l&#x27;unica cosa che fa agire invece che guardare</Italian>
+				<French>Permet à celui qui regarde le téléphone de diriger la tourelle d'un drone sans opérateur. C'est la seule fonction qui agit au lieu de regarder</French>
+				<Spanish>Permite a quien mira el teléfono girar la torreta de un dron sin operador. Es lo único que actúa en lugar de observar</Spanish>
+				<Portuguese>Permite a quem olha o telemóvel girar a torre de um drone sem operador. É a única função que age em vez de observar</Portuguese>
+				<German>Erlaubt dem Betrachter am Telefon, den Turm einer unbemannten Drohne zu schwenken. Es ist die einzige Funktion, die handelt statt nur zu beobachten</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_minAlt">
 				<English>Minimum altitude for air vehicles</English>
 				<Italian>Quota minima dei mezzi in volo</Italian>
+				<French>Altitude minimale des aéronefs</French>
+				<Spanish>Altitud mínima de las aeronaves</Spanish>
+				<Portuguese>Altitude mínima das aeronaves</Portuguese>
+				<German>Mindesthöhe für Luftfahrzeuge</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_minAlt_t">
 				<English>Below this altitude an air vehicle is not listed. Negative values include those parked on the ground</English>
 				<Italian>Sotto questa quota un mezzo aereo non compare. Negativa include quelli fermi in pista</Italian>
+				<French>En dessous de cette altitude un aéronef n'apparaît pas dans la liste. Une valeur négative inclut aussi ceux posés au sol</French>
+				<Spanish>Por debajo de esta altitud una aeronave no aparece en la lista. Un valor negativo incluye también las que están en tierra</Spanish>
+				<Portuguese>Abaixo desta altitude uma aeronave não aparece na lista. Um valor negativo inclui também as que estão no solo</Portuguese>
+				<German>Unterhalb dieser Höhe erscheint ein Luftfahrzeug nicht in der Liste. Ein negativer Wert schließt auch die am Boden stehenden ein</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcOn">
 				<English>Enable OpCam</English>
 				<Italian>Abilita OpCam</Italian>
+				<French>Activer OpCam</French>
+				<Spanish>Activar OpCam</Spanish>
+				<Portuguese>Ativar OpCam</Portuguese>
+				<German>OpCam aktivieren</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcOn_t">
 				<English>See through your teammates&#x27; eyes. Turning it off removes the entry from the menu</English>
 				<Italian>Vedere dagli occhi dei compagni. Spegnendola la voce sparisce dal menu</Italian>
+				<French>Voir par les yeux de ses coéquipiers. En la désactivant, l'entrée disparaît du menu</French>
+				<Spanish>Ver a través de los ojos de tus compañeros. Al desactivarlo, la entrada desaparece del menú</Spanish>
+				<Portuguese>Ver pelos olhos dos teus companheiros. Ao desativar, a entrada desaparece do menu</Portuguese>
+				<German>Durch die Augen der Kameraden sehen. Beim Ausschalten verschwindet der Eintrag aus dem Menü</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcItem">
 				<English>Required inventory item</English>
 				<Italian>Oggetto richiesto in inventario</Italian>
+				<French>Objet requis dans l'inventaire</French>
+				<Spanish>Objeto necesario en el inventario</Spanish>
+				<Portuguese>Item necessário no inventário</Portuguese>
+				<German>Benötigter Gegenstand im Inventar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcItem_t">
 				<English>Whoever carries it can be observed. Leave empty to rely on cTab&#x27;s cam-equipped helmet list instead</English>
 				<Italian>Chi lo porta puo essere osservato. Vuoto: basta un elmetto fra quelli che cTab considera dotati di cam</Italian>
+				<French>Celui qui le porte peut être observé. Laisser vide pour s'appuyer sur la liste des casques équipés de cTab</French>
+				<Spanish>Quien lo lleve puede ser observado. Déjalo vacío para usar la lista de cascos con cámara de cTab</Spanish>
+				<Portuguese>Quem o transporta pode ser observado. Deixa vazio para usar a lista de capacetes com câmara do cTab</Portuguese>
+				<German>Wer ihn trägt, kann beobachtet werden. Leer lassen, um stattdessen die Helmliste von cTab zu verwenden</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcDist">
 				<English>Maximum observation range</English>
 				<Italian>Distanza massima di osservazione</Italian>
+				<French>Portée d'observation maximale</French>
+				<Spanish>Alcance máximo de observación</Spanish>
+				<Portuguese>Alcance máximo de observação</Portuguese>
+				<German>Maximale Beobachtungsreichweite</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcDist_t">
 				<English>Beyond this range the person is not listed. 0 means no limit</English>
 				<Italian>Oltre questa distanza la persona non compare in lista. A 0 nessun limite</Italian>
+				<French>Au-delà de cette portée la personne n'apparaît pas dans la liste. 0 signifie sans limite</French>
+				<Spanish>Más allá de este alcance la persona no aparece en la lista. 0 significa sin límite</Spanish>
+				<Portuguese>Além deste alcance a pessoa não aparece na lista. 0 significa sem limite</Portuguese>
+				<German>Jenseits dieser Reichweite erscheint die Person nicht in der Liste. 0 bedeutet ohne Grenze</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcWho">
 				<English>Who can be observed</English>
 				<Italian>Chi si puo osservare</Italian>
+				<French>Qui peut être observé</French>
+				<Spanish>Quién puede ser observado</Spanish>
+				<Portuguese>Quem pode ser observado</Portuguese>
+				<German>Wer beobachtet werden kann</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcWho_t">
 				<English>Useful to exclude AI, who look wherever the engine decides</English>
 				<Italian>Utile per escludere le IA, che guardano dove decide il motore</Italian>
+				<French>Utile pour exclure les IA, qui regardent où le moteur décide</French>
+				<Spanish>Útil para excluir a la IA, que mira donde decide el motor</Spanish>
+				<Portuguese>Útil para excluir a IA, que olha para onde o motor decide</Portuguese>
+				<German>Nützlich, um KI auszuschließen, die dorthin schaut, wo die Engine es entscheidet</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcWho_0">
 				<English>Players or AI</English>
 				<Italian>Player o IA</Italian>
+				<French>Joueurs ou IA</French>
+				<Spanish>Jugadores o IA</Spanish>
+				<Portuguese>Jogadores ou IA</Portuguese>
+				<German>Spieler oder KI</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcWho_1">
 				<English>Players only</English>
 				<Italian>Solo player</Italian>
+				<French>Joueurs uniquement</French>
+				<Spanish>Solo jugadores</Spanish>
+				<Portuguese>Apenas jogadores</Portuguese>
+				<German>Nur Spieler</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcWho_2">
 				<English>AI only</English>
 				<Italian>Solo IA</Italian>
+				<French>IA uniquement</French>
+				<Spanish>Solo IA</Spanish>
+				<Portuguese>Apenas IA</Portuguese>
+				<German>Nur KI</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_noTurret">
 				<English>This vehicle has no usable turret</English>
 				<Italian>Questo mezzo non ha una torretta collegabile</Italian>
+				<French>Ce véhicule n'a pas de tourelle utilisable</French>
+				<Spanish>Este vehículo no tiene una torreta utilizable</Spanish>
+				<Portuguese>Este veículo não tem uma torre utilizável</Portuguese>
+				<German>Dieses Fahrzeug hat keinen nutzbaren Turm</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_noItem">
 				<English>You need the Galaxy in your inventory</English>
 				<Italian>Ti serve il Galaxy in inventario</Italian>
+				<French>Il vous faut le Galaxy dans l'inventaire</French>
+				<Spanish>Necesitas el Galaxy en el inventario</Spanish>
+				<Portuguese>Precisas do Galaxy no inventário</Portuguese>
+				<German>Du brauchst das Galaxy im Inventar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_noPhone">
 				<English>Open the phone to see the feed</English>
 				<Italian>Apri il telefono per vedere il feed</Italian>
+				<French>Ouvrez le téléphone pour voir le flux</French>
+				<Spanish>Abre el teléfono para ver la señal</Spanish>
+				<Portuguese>Abre o telemóvel para ver o sinal</Portuguese>
+				<German>Öffne das Telefon, um den Feed zu sehen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_zoomFloor">
 				<English>You are at the operator&#x27;s framing, it does not widen further</English>
 				<Italian>Sei all&#x27;inquadratura dell&#x27;operatore, non si allarga oltre</Italian>
+				<French>Vous êtes au cadrage de l'opérateur, cela ne s'élargit pas davantage</French>
+				<Spanish>Estás en el encuadre del operador, no se abre más</Spanish>
+				<Portuguese>Estás no enquadramento do operador, não abre mais</Portuguese>
+				<German>Du bist auf dem Bildausschnitt des Bedieners, weiter öffnet es nicht</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_noVeh">
 				<English>You are not aboard any vehicle</English>
 				<Italian>Non sei a bordo di nessun mezzo</Italian>
+				<French>Vous n'êtes à bord d'aucun véhicule</French>
+				<Spanish>No estás a bordo de ningún vehículo</Spanish>
+				<Portuguese>Não estás a bordo de nenhum veículo</Portuguese>
+				<German>Du bist in keinem Fahrzeug</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_a3ti">
 				<English>A3TI recipe not applicable: mod functions not found</English>
 				<Italian>Ricetta A3TI non applicabile: funzioni della mod non trovate</Italian>
+				<French>Recette A3TI non applicable : fonctions du mod introuvables</French>
+				<Spanish>Receta A3TI no aplicable: funciones del mod no encontradas</Spanish>
+				<Portuguese>Receita A3TI não aplicável: funções do mod não encontradas</Portuguese>
+				<German>A3TI-Rezept nicht anwendbar: Mod-Funktionen nicht gefunden</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_hud_opZoom">
 				<English>operator zoom</English>
 				<Italian>zoom operatore</Italian>
+				<French>zoom opérateur</French>
+				<Spanish>zoom del operador</Spanish>
+				<Portuguese>zoom do operador</Portuguese>
+				<German>Bediener-Zoom</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_hud_compass">
 				<English>N,NE,E,SE,S,SW,W,NW</English>
 				<Italian>N,NE,E,SE,S,SW,W,NW</Italian>
+				<French>N,NE,E,SE,S,SW,W,NW</French>
+				<Spanish>N,NE,E,SE,S,SW,W,NW</Spanish>
+				<Portuguese>N,NE,E,SE,S,SW,W,NW</Portuguese>
+				<German>N,NE,E,SE,S,SW,W,NW</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_hud_freeZoom">
 				<English>free zoom</English>
 				<Italian>zoom libero</Italian>
+				<French>zoom libre</French>
+				<Spanish>zoom libre</Spanish>
+				<Portuguese>zoom livre</Portuguese>
+				<German>freier Zoom</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_hud_crop">
 				<English>crop</English>
 				<Italian>ritaglio</Italian>
+				<French>recadrage</French>
+				<Spanish>recorte</Spanish>
+				<Portuguese>recorte</Portuguese>
+				<German>Ausschnitt</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_hud_alt">
 				<English>alt</English>
 				<Italian>alt</Italian>
+				<French>alt</French>
+				<Spanish>alt</Spanish>
+				<Portuguese>alt</Portuguese>
+				<German>alt</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_modeNext">
 				<English>next filter</English>
 				<Italian>filtro successivo</Italian>
+				<French>filtre suivant</French>
+				<Spanish>filtro siguiente</Spanish>
+				<Portuguese>filtro seguinte</Portuguese>
+				<German>nächster Filter</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_modeNext_t">
 				<English>Cycles AUTO, NV, TH1, TH2 forward</English>
 				<Italian>Cicla AUTO, NV, TH1, TH2 in avanti</Italian>
+				<French>Fait défiler AUTO, NV, TH1, TH2 vers l'avant</French>
+				<Spanish>Recorre AUTO, NV, TH1, TH2 hacia delante</Spanish>
+				<Portuguese>Percorre AUTO, NV, TH1, TH2 para a frente</Portuguese>
+				<German>Wechselt AUTO, NV, TH1, TH2 vorwärts</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_modePrev">
 				<English>previous filter</English>
 				<Italian>filtro precedente</Italian>
+				<French>filtre précédent</French>
+				<Spanish>filtro anterior</Spanish>
+				<Portuguese>filtro anterior</Portuguese>
+				<German>vorheriger Filter</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_modePrev_t">
 				<English>Cycles AUTO, NV, TH1, TH2 backward</English>
 				<Italian>Cicla AUTO, NV, TH1, TH2 all&#x27;indietro</Italian>
+				<French>Fait défiler AUTO, NV, TH1, TH2 vers l'arrière</French>
+				<Spanish>Recorre AUTO, NV, TH1, TH2 hacia atrás</Spanish>
+				<Portuguese>Percorre AUTO, NV, TH1, TH2 para trás</Portuguese>
+				<German>Wechselt AUTO, NV, TH1, TH2 rückwärts</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_hide">
 				<English>hide or show</English>
 				<Italian>nascondi o rimostra</Italian>
+				<French>masquer ou afficher</French>
+				<Spanish>ocultar o mostrar</Spanish>
+				<Portuguese>ocultar ou mostrar</Portuguese>
+				<German>aus- oder einblenden</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_hide_t">
 				<English>Hides the video, leaving the map visible</English>
 				<Italian>Nasconde il video lasciando la mappa visibile</Italian>
+				<French>Masque la vidéo en laissant la carte visible</French>
+				<Spanish>Oculta el vídeo dejando el mapa visible</Spanish>
+				<Portuguese>Oculta o vídeo deixando o mapa visível</Portuguese>
+				<German>Blendet das Video aus und lässt die Karte sichtbar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_off">
 				<English>disconnect</English>
 				<Italian>scollega</Italian>
+				<French>déconnecter</French>
+				<Spanish>desconectar</Spanish>
+				<Portuguese>desligar</Portuguese>
+				<German>trennen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_off_t">
 				<English>Turns the feed off</English>
 				<Italian>Spegne il feed</Italian>
+				<French>Coupe le flux</French>
+				<Spanish>Apaga la señal</Spanish>
+				<Portuguese>Desliga o sinal</Portuguese>
+				<German>Schaltet den Feed ab</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_opNext">
 				<English>OpCam - next operator</English>
 				<Italian>OpCam - operatore successivo</Italian>
+				<French>OpCam - opérateur suivant</French>
+				<Spanish>OpCam - operador siguiente</Spanish>
+				<Portuguese>OpCam - operador seguinte</Portuguese>
+				<German>OpCam - nächster Bediener</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_opNext_t">
 				<English>Helmet cams only, and only with the phone open fullscreen. The usual command is Shift + mouse wheel; bind a key here if you prefer</English>
 				<Italian>Solo telecamere da casco, e solo col telefono aperto a tutto schermo. Il comando normale e Maiusc + rotella, qui puoi metterlo su un tasto se preferisci</Italian>
+				<French>Caméras de casque uniquement, et seulement avec le téléphone ouvert en plein écran. La commande habituelle est Maj + molette ; vous pouvez lui assigner une touche ici si vous préférez</French>
+				<Spanish>Solo cámaras de casco, y solo con el teléfono abierto a pantalla completa. El comando habitual es Mayús + rueda; puedes asignarle una tecla aquí si lo prefieres</Spanish>
+				<Portuguese>Apenas câmaras de capacete, e só com o telemóvel aberto em ecrã inteiro. O comando normal é Shift + roda; podes atribuir-lhe uma tecla aqui se preferires</Portuguese>
+				<German>Nur Helmkameras, und nur bei geöffnetem Telefon im Vollbild. Der übliche Befehl ist Umschalt + Mausrad; hier kann man ihn auf eine Taste legen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_opPrev">
 				<English>OpCam - previous operator</English>
 				<Italian>OpCam - operatore precedente</Italian>
+				<French>OpCam - opérateur précédent</French>
+				<Spanish>OpCam - operador anterior</Spanish>
+				<Portuguese>OpCam - operador anterior</Portuguese>
+				<German>OpCam - vorheriger Bediener</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_opPrev_t">
 				<English>Helmet cams only, and only with the phone open fullscreen. The usual command is Shift + mouse wheel; bind a key here if you prefer</English>
 				<Italian>Solo telecamere da casco, e solo col telefono aperto a tutto schermo. Il comando normale e Maiusc + rotella, qui puoi metterlo su un tasto se preferisci</Italian>
+				<French>Caméras de casque uniquement, et seulement avec le téléphone ouvert en plein écran. La commande habituelle est Maj + molette ; vous pouvez lui assigner une touche ici si vous préférez</French>
+				<Spanish>Solo cámaras de casco, y solo con el teléfono abierto a pantalla completa. El comando habitual es Mayús + rueda; puedes asignarle una tecla aquí si lo prefieres</Spanish>
+				<Portuguese>Apenas câmaras de capacete, e só com o telemóvel aberto em ecrã inteiro. O comando normal é Shift + roda; podes atribuir-lhe uma tecla aqui se preferires</Portuguese>
+				<German>Nur Helmkameras, und nur bei geöffnetem Telefon im Vollbild. Der übliche Befehl ist Umschalt + Mausrad; hier kann man ihn auf eine Taste legen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_drag">
 				<English>DroneCam - turret slew</English>
 				<Italian>DroneCam - brandeggio torretta</Italian>
+				<French>DroneCam - pointage tourelle</French>
+				<Spanish>DroneCam - rotación de torreta</Spanish>
+				<Portuguese>DroneCam - rotação da torre</Portuguese>
+				<German>DroneCam - Turmschwenk</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_key_drag_t">
 				<English>Hold and move the mouse to slew the turret of an unmanned drone</English>
 				<Italian>Tieni premuto e muovi il mouse per brandeggiare la torretta di un drone senza operatore</Italian>
+				<French>Maintenez et bougez la souris pour diriger la tourelle d'un drone sans opérateur</French>
+				<Spanish>Mantén pulsado y mueve el ratón para girar la torreta de un dron sin operador</Spanish>
+				<Portuguese>Mantém premido e move o rato para girar a torre de um drone sem operador</Portuguese>
+				<German>Gedrückt halten und die Maus bewegen, um den Turm einer unbemannten Drohne zu schwenken</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_pipOff">
 				<English>Enable PiP in the video settings</English>
 				<Italian>Attiva la PiP nelle impostazioni video</Italian>
+				<French>Activez le PiP dans les options vidéo</French>
+				<Spanish>Activa el PiP en las opciones de vídeo</Spanish>
+				<Portuguese>Ativa o PiP nas opções de vídeo</Portuguese>
+				<German>Aktiviere PiP in den Videooptionen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_gone">
 				<English>Source no longer available</English>
 				<Italian>Sorgente non piu disponibile</Italian>
+				<French>Source non disponible</French>
+				<Spanish>Fuente ya no disponible</Spanish>
+				<Portuguese>Fonte já não disponível</Portuguese>
+				<German>Quelle nicht mehr verfügbar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_needItem">
 				<English>You need the Galaxy in your inventory</English>
 				<Italian>Serve il Galaxy in inventario</Italian>
+				<French>Il vous faut le Galaxy dans l'inventaire</French>
+				<Spanish>Necesitas el Galaxy en el inventario</Spanish>
+				<Portuguese>Precisas do Galaxy no inventário</Portuguese>
+				<German>Du brauchst das Galaxy im Inventar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_hidden">
 				<English>Feed hidden, map visible again</English>
 				<Italian>Feed nascosto, mappa di nuovo visibile</Italian>
+				<French>Flux masqué, carte de nouveau visible</French>
+				<Spanish>Señal oculta, mapa visible de nuevo</Spanish>
+				<Portuguese>Sinal oculto, mapa visível de novo</Portuguese>
+				<German>Feed ausgeblendet, Karte wieder sichtbar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_shown">
 				<English>Feed back on screen</English>
 				<Italian>Feed di nuovo a schermo</Italian>
+				<French>Flux de nouveau à l'écran</French>
+				<Spanish>Señal de nuevo en pantalla</Spanish>
+				<Portuguese>Sinal de novo no ecrã</Portuguese>
+				<German>Feed wieder auf dem Bildschirm</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_cat_dr">
 				<English>cTab-Drones</English>
 				<Italian>cTab-Droni</Italian>
+				<French>cTab-Drones</French>
+				<Spanish>cTab-Drones</Spanish>
+				<Portuguese>cTab-Drones</Portuguese>
+				<German>cTab-Drohnen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drOn">
 				<English>Enable drones</English>
 				<Italian>Abilita i droni</Italian>
+				<French>Activer les drones</French>
+				<Spanish>Activar drones</Spanish>
+				<Portuguese>Ativar drones</Portuguese>
+				<German>Drohnen aktivieren</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drOn_t">
 				<English>Turning this off removes drones from every category</English>
 				<Italian>Spegnendola i droni spariscono da tutte le categorie</Italian>
+				<French>En désactivant, les drones disparaissent de toutes les catégories</French>
+				<Spanish>Al desactivarlo, los drones desaparecen de todas las categorías</Spanish>
+				<Portuguese>Ao desativar, os drones desaparecem de todas as categorias</Portuguese>
+				<German>Beim Ausschalten verschwinden Drohnen aus allen Kategorien</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drWho">
 				<English>Who controls the drone</English>
 				<Italian>Chi comanda il drone</Italian>
+				<French>Qui pilote le drone</French>
+				<Spanish>Quién controla el dron</Spanish>
+				<Portuguese>Quem controla o drone</Portuguese>
+				<German>Wer die Drohne steuert</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drWho_t">
 				<English>This looks at who is connected via the terminal, not the crew: a drone&#x27;s crew is always AI even while you are flying it</English>
 				<Italian>Si guarda chi e collegato col terminale, non l&#x27;equipaggio: quello di un drone e sempre IA anche mentre lo piloti tu</Italian>
+				<French>Cela regarde qui est connecté via le terminal, pas l'équipage : l'équipage d'un drone est toujours IA, même quand vous le pilotez</French>
+				<Spanish>Esto mira quién está conectado desde el terminal, no la tripulación: la tripulación de un dron siempre es IA, incluso mientras lo pilotas</Spanish>
+				<Portuguese>Isto olha para quem está ligado pelo terminal, não a tripulação: a tripulação de um drone é sempre IA, mesmo enquanto o pilotas</Portuguese>
+				<German>Es zählt, wer über das Terminal verbunden ist, nicht die Besatzung: die Besatzung einer Drohne ist immer KI, auch während man sie fliegt</German>
 			</Key>
 		</Container>
 	</Package>

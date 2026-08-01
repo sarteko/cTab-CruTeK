@@ -16,7 +16,7 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-07-30-h2";
+crutek_dcam_version = "2026-08-01-c1";
 diag_log format ["[crutek_dcam] versione %1", crutek_dcam_version];
 
 if (!isNil "crutek_dcam_ready") exitWith {};
@@ -48,7 +48,7 @@ crutek_dcam_hcamFov  = 0.7;
 
 /*
     Icone del menu ACE. Il percorso parte dal prefisso del PBO, quindi un
-    file messo in cTab\img\ si scrive \cTab\img\nome.paa
+    file messo in cTab\img\ si scrive \ctab_camera\img\nome.paa
 */
 /*
     Da qui in giu NON ci sono piu i filtri: fazioni, categorie, equipaggio,
@@ -62,23 +62,23 @@ crutek_dcam_hcamFov  = 0.7;
     camongalaxy, cosi rami e mezzi restano uniformi e si distingue a colpo
     d'occhio il livello a cui si sta navigando.
 */
-crutek_dcam_icon      = "\cTab\img\camongalaxy.paa";   // radice
-crutek_dcam_iconSub   = "\cTab\img\camongalaxy.paa";   // rami, mezzi e voci di servizio
-crutek_dcam_iconHcam  = "\cTab\img\ctab_helmetcam_ico.paa";  // OpCam
-crutek_dcam_iconAir   = "\cTab\img\iconair.paa";        // AirCam e aerei
-crutek_dcam_iconHeli  = "\cTab\img\iconheli.paa";       // elicotteri
-crutek_dcam_iconLand  = "\cTab\img\iconland.paa";       // LandCam e mezzi terrestri
-crutek_dcam_iconSea   = "\cTab\img\iconsea.paa";        // SeaCam e barche
+crutek_dcam_icon      = "\ctab_camera\img\camongalaxy.paa";   // radice
+crutek_dcam_iconSub   = "\ctab_camera\img\camongalaxy.paa";   // rami, mezzi e voci di servizio
+crutek_dcam_iconHcam  = "\ctab_camera\img\ctab_helmetcam_ico.paa";  // OpCam
+crutek_dcam_iconAir   = "\ctab_camera\img\iconair.paa";        // AirCam e aerei
+crutek_dcam_iconHeli  = "\ctab_camera\img\iconheli.paa";       // elicotteri
+crutek_dcam_iconLand  = "\ctab_camera\img\iconland.paa";       // LandCam e mezzi terrestri
+crutek_dcam_iconSea   = "\ctab_camera\img\iconsea.paa";        // SeaCam e barche
 
 /*
     Rami dei droni: stessa famiglia dell'ambiente ma icona propria, cosi si
     distinguono a colpo d'occhio dai mezzi con equipaggio.
 */
-crutek_dcam_iconAirDrone  = "\cTab\img\iconair_drone.paa";
-crutek_dcam_iconLandDrone = "\cTab\img\iconland_drone.paa";
-crutek_dcam_iconSeaDrone  = "\cTab\img\iconsea_drone.paa";
-crutek_dcam_iconHide  = "\cTab\img\camongalaxy.paa";
-crutek_dcam_iconOff   = "\cTab\img\camongalaxy.paa";
+crutek_dcam_iconAirDrone  = "\ctab_camera\img\iconair_drone.paa";
+crutek_dcam_iconLandDrone = "\ctab_camera\img\iconland_drone.paa";
+crutek_dcam_iconSeaDrone  = "\ctab_camera\img\iconsea_drone.paa";
+crutek_dcam_iconHide  = "\ctab_camera\img\camongalaxy.paa";
+crutek_dcam_iconOff   = "\ctab_camera\img\camongalaxy.paa";
 crutek_dcam_rt       = "rendertarget10";   // libero: cTab usa 8, 9, 12, 13
 
 /*
@@ -807,7 +807,7 @@ crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
 private _fnc_bind = {
     params ["_name", "_title", "_tip", "_code", "_key", "_mods"];
     [
-        "cTab CruTeK",
+        "cTab Camera",
         format ["%1_%2", CRUTEK_DCAM_KEYVER, _name],
         [format ["DroneCam - %1", _title], _tip],
         _code,
@@ -866,7 +866,7 @@ private _fnc_bind = {
     sul video funziona sempre, questo e per chi lo vuole altrove.
 */
 [
-    "cTab CruTeK",
+    "cTab Camera",
     CRUTEK_DCAM_KEYVER + "_drag",
     [localize "STR_crutek_dcam_key_drag", localize "STR_crutek_dcam_key_drag_t"],
     { if (!crutek_dcam_active) exitWith { false }; ["START"] call crutek_fnc_dcamDrag },
