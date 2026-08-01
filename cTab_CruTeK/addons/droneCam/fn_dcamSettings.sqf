@@ -112,6 +112,9 @@ private _fnc_num = {
 ["crutek_dcam_droneSideGuer", localize "STR_crutek_dcam_set_sideGuer", "", false, CAT_DR_FAZ] call _fnc_si;
 ["crutek_dcam_droneSideCiv",  localize "STR_crutek_dcam_set_sideCiv", "", true,  CAT_DR_FAZ] call _fnc_si;
 
+["crutek_dcam_itemMisc", localize "STR_crutek_dcam_set_itemMisc", localize "STR_crutek_dcam_set_itemMisc_t",
+    true, CAT_LIMITI] call _fnc_si;
+
 // ---- helmet cam --------------------------------------------------
 ["crutek_dcam_catOpCam", localize "STR_crutek_dcam_set_hcOn", localize "STR_crutek_dcam_set_hcOn_t",
     true, CAT_HC_LIM] call _fnc_si;

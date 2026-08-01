@@ -402,6 +402,22 @@
 				<Portuguese>Ver pelos olhos dos teus companheiros. Ao desativar, a entrada desaparece do menu</Portuguese>
 				<German>Durch die Augen der Kameraden sehen. Beim Ausschalten verschwindet der Eintrag aus dem Menü</German>
 			</Key>
+			<Key ID="STR_crutek_dcam_set_itemMisc">
+				<English>Also accept the device carried in a container</English>
+				<Italian>Vale anche col dispositivo in tasca</Italian>
+				<French>Accepter aussi l&#x27;appareil rang&#xe9; dans un contenant</French>
+				<Spanish>Aceptar tambi&#xe9;n el dispositivo guardado en un contenedor</Spanish>
+				<Portuguese>Aceitar tamb&#xe9;m o dispositivo guardado num contentor</Portuguese>
+				<German>Auch das in einem Beh&#xe4;lter verstaute Ger&#xe4;t akzeptieren</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_itemMisc_t">
+				<English>The device has two classes: the one in the terminal slot and the Misc one you put in uniform, vest or backpack. Off: it must be equipped in the slot</English>
+				<Italian>Il dispositivo ha due classi: quella dello slot terminali e quella Misc che si mette in uniforme, giubbetto o zaino. Spento: deve essere nello slot</Italian>
+				<French>L&#x27;appareil a deux classes : celle de l&#x27;emplacement terminal et la version Misc rang&#xe9;e dans l&#x27;uniforme, le gilet ou le sac. D&#xe9;sactiv&#xe9; : il doit &#xea;tre &#xe9;quip&#xe9;</French>
+				<Spanish>El dispositivo tiene dos clases: la del hueco de terminal y la Misc que se guarda en uniforme, chaleco o mochila. Apagado: debe estar equipado</Spanish>
+				<Portuguese>O dispositivo tem duas classes: a do slot de terminal e a Misc que se guarda no uniforme, colete ou mochila. Desligado: tem de estar equipado</Portuguese>
+				<German>Das Ger&#xe4;t hat zwei Klassen: die des Terminal-Slots und die Misc-Variante f&#xfc;r Uniform, Weste oder Rucksack. Aus: es muss ausger&#xfc;stet sein</German>
+			</Key>
 			<Key ID="STR_crutek_dcam_set_hcItem">
 				<English>Required inventory item</English>
 				<Italian>Oggetto richiesto in inventario</Italian>

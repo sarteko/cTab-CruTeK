@@ -11,6 +11,23 @@ params [["_unit", objNull], ["_wanted", []]];
 if (isNull _unit) exitWith { false };
 if (_wanted isEqualTo []) then { _wanted = [crutek_dcam_item] };
 
+/*
+    Ogni dispositivo di cTab ha due classi: quella dello slot terminali
+    (ItemAndroid, ItemcTab) e la gemella Misc che si mette in uniforme,
+    giubbetto o zaino (ItemAndroidMisc, ItemcTabMisc). Se l'opzione e'
+    accesa vale anche la seconda.
+*/
+if (missionNamespace getVariable ["crutek_dcam_itemMisc", true]) then {
+    private _piu = [];
+    {
+        _piu pushBackUnique _x;
+        if (count _x > 4 && {(_x select [(count _x) - 4]) != "Misc"}) then {
+            _piu pushBackUnique (_x + "Misc");
+        };
+    } forEach _wanted;
+    _wanted = _piu;
+};
+
 if (!isNil "cTab_fnc_checkGear") exitWith {
     [_unit, _wanted] call cTab_fnc_checkGear
 };

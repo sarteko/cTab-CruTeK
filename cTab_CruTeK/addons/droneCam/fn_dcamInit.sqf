@@ -16,7 +16,7 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-08-01-c1";
+crutek_dcam_version = "2026-08-01-c2";
 diag_log format ["[crutek_dcam] versione %1", crutek_dcam_version];
 
 if (!isNil "crutek_dcam_ready") exitWith {};
