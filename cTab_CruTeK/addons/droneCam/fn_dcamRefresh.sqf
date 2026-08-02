@@ -26,17 +26,47 @@ if (crutek_dcam_kind isEqualTo "HCAM") exitWith {
 private _sel = crutek_dcam_modes select crutek_dcam_mode;
 private _eff = _sel;
 
+/*
+    Scegliendo una termica a mano, AUTO se la ricorda.
+
+    ARMA espone solo tre visioni - normale, notturno, termico - e non dice se
+    la termica in corso e' bianco caldo o nero caldo. AUTO quindi non puo'
+    indovinarlo: con A3TI la variante arriva e viene seguita, senza A3TI ogni
+    termica finirebbe sempre su TH1. Ricordando l'ultima scelta a mano, chi
+    preferisce il nero caldo lo imposta una volta e AUTO glielo tiene.
+*/
+if (_sel in ["THERM1", "THERM2"]) then {
+    crutek_dcam_bhot = (_sel isEqualTo "THERM2");
+};
+
 if (_sel isEqualTo "AUTO") then {
     // senza operatore o senza dati si resta sulla vista a colori
     _eff = "DTV";
 
     if (crutek_dcam_hasOp) then {
-        (crutek_dcam_uav getVariable ["crutek_dcam_view", []]) params [["_vision", -1], ["_a3ti", ""]];
+        (crutek_dcam_uav getVariable ["crutek_dcam_view", []]) params [["_vision", -1], ["_a3ti", ""], "", ["_ti", -1]];
         if (_vision >= 0) then {
             _eff = switch (true) do {
                 case (_a3ti in ["WHOT", "WHOT/LLTV"]): { "THERM1" };
                 case (_a3ti in ["BHOT", "BHOT/LLTV"]): { "THERM2" };
-                case (_vision isEqualTo 2):            { "THERM1" };
+                /*
+                    ARMA non dice quale termica sia attiva, quindi si usa quella
+                    indicata nelle opzioni. Si legge DIRETTAMENTE l'opzione: la
+                    variabile di appoggio che c'era prima veniva riscritta
+                    dall'inizializzazione subito dopo, e la spunta non aveva
+                    alcun effetto. Con A3TI la variante vera arriva ed e' il ramo
+                    qui sopra a occuparsene.
+                */
+                // indice pubblicato da chi comanda: 1 e' nero caldo
+                case (_vision isEqualTo 2 && {_ti isEqualTo 1}): { "THERM2" };
+                case (_vision isEqualTo 2 && {_ti isEqualTo 0}): { "THERM1" };
+                case (_vision isEqualTo 2): {
+                    if (missionNamespace getVariable ["crutek_dcam_bhot", false]) then {
+                        "THERM2"
+                    } else {
+                        "THERM1"
+                    }
+                };
                 case (_vision isEqualTo 1):            { "NVG" };
                 default { "DTV" };
             };

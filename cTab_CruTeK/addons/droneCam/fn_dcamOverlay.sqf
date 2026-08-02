@@ -110,6 +110,18 @@ if (crutek_dcam_frameAspect > 0) then {
 
 private _ratio = (_pw * _resX) / ((_ph * _resY) max 1);
 
+/*
+    Forma con cui il motore disegna dentro il render target.
+
+    Va decisa PRIMA che la camera venga legata al render target con
+    cameraEffect, cioe' all'apertura del feed: cambiarla a feed acceso non
+    riconfigura niente, ed e' il motivo per cui ogni prova a caldo sembrava
+    non avere effetto. Per provare un valore diverso serve scollegare e
+    ricollegare la sorgente.
+*/
+private _rf = missionNamespace getVariable ["crutek_dcam_rtRatio", -1];
+if (_rf > 0) then { _ratio = _rf };
+
 // nessuna correzione: la forma del riquadro ora coincide con quella del FLIR
 crutek_dcam_fovAuto = 1;
 
@@ -118,7 +130,19 @@ crutek_dcam_fovAuto = 1;
     gruppo viene tagliato, ed e cosi che funziona lo zoom digitale oltre il
     limite di camSetFov. La posizione del quadro la decide dcamCrop.
 */
-private _grp = _d ctrlCreate ["cTab_RscControlsGroup", crutek_dcam_idcGrp];
+/*
+    Gruppo SENZA barre di scorrimento.
+
+    cTab_RscControlsGroup e' un gruppo scorrevole: appena il quadro dentro
+    diventa piu' grande del gruppo, ARMA ci disegna le barre a destra e in
+    basso. Sono quelle che sembravano bande vuote e che comparivano a ogni
+    allargamento. Con un gruppo non scorrevole il contenuto in eccesso viene
+    semplicemente tagliato dal bordo, che e' il comportamento voluto.
+*/
+private _grp = _d ctrlCreate ["RscControlsGroupNoScrollbars", crutek_dcam_idcGrp];
+if (isNull _grp) then {
+    _grp = _d ctrlCreate ["cTab_RscControlsGroup", crutek_dcam_idcGrp];
+};
 _grp ctrlSetPosition [_px, _py, _pw, _ph];
 _grp ctrlCommit 0;
 

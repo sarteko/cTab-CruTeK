@@ -126,8 +126,8 @@ if (_kind isEqualTo "HCAM") then {
         // un po' avanti e sotto il baricentro, per non inquadrare il proprio muso
         _cam attachTo [_subject, [0, 3, -0.5]];
     } else {
-    if (_aim isEqualTo "TURRET") then {
-        // sopra lo scafo, all'altezza da cui guarderebbe un cannoniere
+    if (_aim isEqualTo "TURRET" && {_posMem isEqualTo ""}) then {
+        // ripiego: sopra lo scafo, se la config non dichiara un punto ottica
         _cam attachTo [_subject, [0, 0, 1.5]];
     } else {
         _cam attachTo [_subject, [0, 0, 0], _posMem];

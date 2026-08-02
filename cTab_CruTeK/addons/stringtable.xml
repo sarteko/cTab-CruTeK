@@ -2,6 +2,78 @@
 <Project name="cTab">
 	<Package name="crutek_droneCam">
 		<Container name="DroneCam">
+			<Key ID="STR_crutek_dcam_sec_misc">
+				<English>Miscellaneous</English>
+				<Italian>Varie</Italian>
+				<French>Divers</French>
+				<Spanish>Varios</Spanish>
+				<Portuguese>Diversos</Portuguese>
+				<German>Verschiedenes</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_pos">
+				<English>Overlay position Samsung</English>
+				<Italian>Overlay position Samsung</Italian>
+				<French>Overlay position Samsung</French>
+				<Spanish>Overlay position Samsung</Spanish>
+				<Portuguese>Overlay position Samsung</Portuguese>
+				<German>Overlay position Samsung</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_pos_t">
+				<English>Overrides where cTab puts the small phone overlay. With this on you choose the corner yourself with the three cTab Samsung Position commands: left, centre or right, always resting on the bottom edge. Useful on ultrawide screens, where the default position ends up cut off. The full screen view is left alone and keeps cTab's own layout.</English>
+				<Italian>Scavalca la posizione che cTab da' al telefono piccolo a schermo. Con questa accesa l'angolo lo scegli tu, coi tre comandi cTab Samsung Position: sinistra, centro o destra, sempre appoggiato al bordo inferiore. Serve sugli schermi ultralarghi, dove la posizione di serie finisce tagliata. La vista a tutto schermo non viene toccata e resta come la mette cTab.</Italian>
+				<French>Remplace la position que cTab donne a l'overlay du telephone. Vous choisissez l'angle avec les trois commandes cTab Samsung Position : gauche, centre ou droite, toujours pose sur le bord inferieur. Utile sur les ecrans ultra-larges. La vue plein ecran n'est pas modifiee.</French>
+				<Spanish>Sustituye la posicion que cTab da al overlay del telefono. Eliges la esquina con los tres comandos cTab Samsung Position: izquierda, centro o derecha, siempre apoyado en el borde inferior. Util en pantallas ultrapanoramicas. La vista a pantalla completa no se toca.</Spanish>
+				<Portuguese>Substitui a posicao que o cTab da ao overlay do telemovel. Escolhe o canto com os tres comandos cTab Samsung Position: esquerda, centro ou direita, sempre encostado ao bordo inferior. Util em ecras ultralargos. A vista em ecra inteiro nao e alterada.</Portuguese>
+				<German>Ersetzt die Position, die cTab dem Telefon-Overlay gibt. Die Ecke waehlst du mit den drei cTab-Samsung-Position-Befehlen: links, Mitte oder rechts, immer am unteren Rand. Nuetzlich auf ultrabreiten Bildschirmen. Die Vollbildansicht bleibt unveraendert.</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_pos_0">
+				<English>As cTab puts it</English>
+				<Italian>Come lo mette cTab</Italian>
+				<French>Comme cTab le place</French>
+				<Spanish>Como lo pone cTab</Spanish>
+				<Portuguese>Como o cTab o coloca</Portuguese>
+				<German>Wie cTab es setzt</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_pos_1">
+				<English>Bottom left</English>
+				<Italian>In basso a sinistra</Italian>
+				<French>En bas a gauche</French>
+				<Spanish>Abajo a la izquierda</Spanish>
+				<Portuguese>Em baixo a esquerda</Portuguese>
+				<German>Unten links</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_pos_2">
+				<English>Bottom centre</English>
+				<Italian>In basso al centro</Italian>
+				<French>En bas au centre</French>
+				<Spanish>Abajo al centro</Spanish>
+				<Portuguese>Em baixo ao centro</Portuguese>
+				<German>Unten mittig</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_pos_3">
+				<English>Bottom right</English>
+				<Italian>In basso a destra</Italian>
+				<French>En bas a droite</French>
+				<Spanish>Abajo a la derecha</Spanish>
+				<Portuguese>Em baixo a direita</Portuguese>
+				<German>Unten rechts</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_role_pilot">
+				<English>Pilot</English>
+				<Italian>Pilota</Italian>
+				<French>Pilote</French>
+				<Spanish>Piloto</Spanish>
+				<Portuguese>Piloto</Portuguese>
+				<German>Pilot</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_role_driver">
+				<English>Driver</English>
+				<Italian>Guidatore</Italian>
+				<French>Pilote</French>
+				<Spanish>Conductor</Spanish>
+				<Portuguese>Condutor</Portuguese>
+				<German>Fahrer</German>
+			</Key>
 			<Key ID="STR_crutek_dcam_menu_root">
 				<English>Cam on Galaxy</English>
 				<Italian>Cam on Galaxy</Italian>
@@ -403,12 +475,12 @@
 				<German>Durch die Augen der Kameraden sehen. Beim Ausschalten verschwindet der Eintrag aus dem Menü</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_itemMisc">
-				<English>Also accept the device carried in a container</English>
-				<Italian>Vale anche col dispositivo in tasca</Italian>
-				<French>Accepter aussi l&#x27;appareil rang&#xe9; dans un contenant</French>
-				<Spanish>Aceptar tambi&#xe9;n el dispositivo guardado en un contenedor</Spanish>
-				<Portuguese>Aceitar tamb&#xe9;m o dispositivo guardado num contentor</Portuguese>
-				<German>Auch das in einem Beh&#xe4;lter verstaute Ger&#xe4;t akzeptieren</German>
+				<English>Device in a pocket</English>
+				<Italian>Dispositivo in tasca</Italian>
+				<French>Appareil dans une poche</French>
+				<Spanish>Dispositivo en el bolsillo</Spanish>
+				<Portuguese>Dispositivo no bolso</Portuguese>
+				<German>Ger&#xe4;t in einer Tasche</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_itemMisc_t">
 				<English>The device has two classes: the one in the terminal slot and the Misc one you put in uniform, vest or backpack. Off: it must be equipped in the slot</English>

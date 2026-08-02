@@ -112,6 +112,9 @@ class cfgFunctions
 			class dcamOverlay
 			{
 			};
+			class dcamPhonePos
+			{
+			};
 			class dcamPublish
 			{
 			};

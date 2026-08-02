@@ -37,7 +37,26 @@ _rt setPiPEffect [3, 0, 1, 1, 0, [0,0,0,0], [1,1,1,0], [0.299,0.587,0.114,0]];
 private _i    = crutek_dcam_baseFx find _mode;
 private _base = if (_i >= 0) then { crutek_dcam_baseFx select (_i + 1) } else { 0 };
 
-_rt setPiPEffect [_base];
+/*
+    Lista COMPLETA, non il solo numero.
+
+    Le termiche vogliono tutti i parametri: passando solo l'indice il motore
+    risponde "1 elemento fornito, 5 attesi", l'effetto non viene applicato e
+    resta quello di prima. E' il motivo per cui THERM1 e THERM2 sembravano non
+    fare niente anche dopo essere state messe in tabella.
+*/
+/*
+    Bianco caldo e nero caldo sono lo STESSO effetto: cambia solo l'ordine dei
+    due colori. Il primo e' il freddo, il secondo il caldo. Scambiandoli la
+    scala si ribalta, e si ottiene il nero caldo senza bisogno di un modo
+    diverso ne' di sovrapporre una inversione, che tanto non si potrebbe.
+*/
+/*
+    Bianco caldo e nero caldo sono due EFFETTI diversi, il 2 e il 7, non lo
+    stesso con i colori scambiati: su un effetto termico il motore usa la sua
+    palette e i due colori passati vengono ignorati. Provato a schermo.
+*/
+_rt setPiPEffect [_base, 0, 1, 1, 0, [0,0,0,0], [1,1,1,0], [0.299,0.587,0.114,0]];
 
 if (crutek_dcam_debug) then {
     diag_log format ["[crutek_dcam] vision %1 | base %2", _mode, _base];

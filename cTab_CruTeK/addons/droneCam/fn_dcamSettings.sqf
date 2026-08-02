@@ -29,6 +29,7 @@
 #define CAT_MEZZI     [localize "STR_crutek_dcam_cat_main", localize "STR_crutek_dcam_sec_mezzi"]
 #define CAT_BORDO     [localize "STR_crutek_dcam_cat_main", localize "STR_crutek_dcam_sec_bordo"]
 #define CAT_LIMITI    [localize "STR_crutek_dcam_cat_main", localize "STR_crutek_dcam_sec_limiti"]
+#define CAT_MISC      [localize "STR_crutek_dcam_cat_main", localize "STR_crutek_dcam_sec_misc"]
 
 /*
     Categoria a se per i droni. Non e pignoleria: su un drone chi lo comanda
@@ -112,8 +113,7 @@ private _fnc_num = {
 ["crutek_dcam_droneSideGuer", localize "STR_crutek_dcam_set_sideGuer", "", false, CAT_DR_FAZ] call _fnc_si;
 ["crutek_dcam_droneSideCiv",  localize "STR_crutek_dcam_set_sideCiv", "", true,  CAT_DR_FAZ] call _fnc_si;
 
-["crutek_dcam_itemMisc", localize "STR_crutek_dcam_set_itemMisc", localize "STR_crutek_dcam_set_itemMisc_t",
-    true, CAT_LIMITI] call _fnc_si;
+
 
 // ---- helmet cam --------------------------------------------------
 ["crutek_dcam_catOpCam", localize "STR_crutek_dcam_set_hcOn", localize "STR_crutek_dcam_set_hcOn_t",
@@ -208,5 +208,21 @@ private _fnc_num = {
 
 ["crutek_dcam_minAlt", localize "STR_crutek_dcam_set_minAlt", localize "STR_crutek_dcam_set_minAlt_t",
     -500, 5000, 0, 0, CAT_LIMITI] call _fnc_num;
+
+// ---- varie, in fondo -----------------------------------------------
+
+["crutek_dcam_itemMisc", localize "STR_crutek_dcam_set_itemMisc", localize "STR_crutek_dcam_set_itemMisc_t",
+    true, CAT_MISC] call _fnc_si;
+
+[
+    "crutek_dcam_pos",
+    "CHECKBOX",
+    [localize "STR_crutek_dcam_set_pos", localize "STR_crutek_dcam_set_pos_t"],
+    CAT_MISC,
+    false,
+    false,
+    {},
+    false
+] call CBA_fnc_addSetting;
 
 diag_log "[crutek_dcam] impostazioni registrate: cTab-Cam on Galaxy e cTab-HelmetCam";

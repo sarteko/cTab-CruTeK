@@ -67,12 +67,16 @@ if (crutek_dcam_hasA3TI) then {
 private _fov = ([] call CBA_fnc_getFov) select 1;
 if (_fov <= 0) then { _fov = -1 };
 
+// indice della termica, letto dall'evento: 0 bianco caldo, 1 nero caldo
+private _ti = missionNamespace getVariable ["crutek_dcam_tiIdx", 0];
+
 private _same = false;
 private _old  = _veh getVariable ["crutek_dcam_view", []];
-if (count _old isEqualTo 3) then {
-    _old params ["_ov", "_oa", "_of"];
-    _same = (_ov isEqualTo _vision) && {_oa isEqualTo _a3ti} && {abs (_of - _fov) < 0.0015};
+if (count _old isEqualTo 4) then {
+    _old params ["_ov", "_oa", "_of", "_ot"];
+    _same = (_ov isEqualTo _vision) && {_oa isEqualTo _a3ti}
+        && {abs (_of - _fov) < 0.0015} && {_ot isEqualTo _ti};
 };
 if (_same) exitWith {};
 
-_veh setVariable ["crutek_dcam_view", [_vision, _a3ti, _fov], true];
+_veh setVariable ["crutek_dcam_view", [_vision, _a3ti, _fov, _ti], true];

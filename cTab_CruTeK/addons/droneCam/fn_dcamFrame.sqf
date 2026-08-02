@@ -71,11 +71,18 @@ if (crutek_dcam_kind isEqualTo "HCAM") then {
     */
     private _tgtModel = switch (crutek_dcam_aim) do {
         case "PILOTCAM": {
-            if (crutek_dcam_aimVisual) then {
-                _uav vectorWorldToModelVisual (getPilotCameraDirection _uav)
-            } else {
-                _uav vectorWorldToModel (getPilotCameraDirection _uav)
+            /*
+                getPilotCameraDirection restituisce gia' coordinate MODELLO, come
+                getPilotCameraPosition che in dcamOpen si usa tal quale. Passarla
+                per vectorWorldToModel la ruotava della prua del mezzo: sull'A-10
+                si vedeva dietro, sull'F/A-181 di traverso, e cambiava a seconda
+                di come era parcheggiato.
+            */
+            private _pd = getPilotCameraDirection _uav;
+            if (!(_pd isEqualType []) || {(count _pd) != 3} || {(vectorMagnitude _pd) < 0.001}) then {
+                _pd = [0, 1, 0];
             };
+            _pd
         };
         // dove punta l'arma della torretta, in mondo, riportata in modello
         case "TURRET": {
