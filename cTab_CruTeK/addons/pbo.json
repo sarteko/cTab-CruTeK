@@ -1,0 +1,19 @@
+{
+    "compress": {
+        "exclude": [
+        ],
+        "include": [
+            "\\.xml$"
+        ]
+    },
+    "headers": [
+        {
+            "name": "prefix",
+            "value": "ctab_camera"
+        },
+        {
+            "name": "version",
+            "value": "1.0"
+        }
+    ]
+}
