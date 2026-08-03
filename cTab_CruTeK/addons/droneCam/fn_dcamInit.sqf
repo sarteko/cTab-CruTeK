@@ -16,7 +16,109 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-07-29-r17";
+crutek_dcam_version = "2026-08-03-n2";
+
+// di serie a sinistra, appoggiato in basso: valori misurati a schermo
+crutek_dcam_posLato = 0;
+crutek_dcam_posVert = 0;
+
+/*
+    Il riposizionamento non deve dipendere dal feed.
+
+    Prima girava dentro dcamOverlay, che si costruisce solo col feed acceso:
+    aprendo il telefono e basta restava dov'era. Qui lo si controlla da solo,
+    due volte al secondo, guardando se la schermata cTab e' aperta. Costa
+    niente perche' dcamPhonePos esce subito se lo scarto e' trascurabile, e
+    quindi sposta una volta sola e poi non fa piu' nulla.
+*/
+/*
+    Riposizionamento del telefono.
+
+    Gira a ogni fotogramma ma non fa quasi nulla: confronta un nome e basta.
+    Serve cosi' perche' con un controllo periodico il telefono restava per un
+    istante dove lo mette cTab e poi saltava al posto suo - un lampo brutto da
+    vedere. Appena la posizione e' assestata smette di ricalcolare, e riparte
+    solo se il telefono viene richiuso e riaperto.
+*/
+crutek_dcam_posOk = false;
+crutek_dcam_posVisto = "";
+
+[{
+    if !(missionNamespace getVariable ["crutek_dcam_pos", false]) exitWith {};
+    if (isNil "cTabIfOpen") exitWith {crutek_dcam_posVisto = ""};
+
+    private _n = cTabIfOpen select 1;
+    if (count _n < 12) exitWith {crutek_dcam_posVisto = ""};
+    if !((_n select [0, 12]) isEqualTo "cTab_Android") exitWith {crutek_dcam_posVisto = ""};
+
+    // solo la schermata piccola: a tutto schermo comanda cTab
+    if !((_n select [(count _n) - 3]) isEqualTo "dsp") exitWith {crutek_dcam_posVisto = ""};
+
+    private _d = uiNamespace getVariable [_n, displayNull];
+    if (isNull _d) exitWith {};
+
+    /*
+        Niente spegnimento dei controlli in attesa dello spostamento: provato,
+        e lasciava il telefono in caricamento perenne. Meglio il lampo di un
+        fotogramma nella posizione di cTab che una schermata che non si apre.
+    */
+    if !(_n isEqualTo crutek_dcam_posVisto) then {
+        crutek_dcam_posVisto = _n;
+        crutek_dcam_posOk = false;
+    };
+    if (crutek_dcam_posOk) exitWith {};
+
+    /*
+        UN SOLO tentativo per apertura, punto.
+
+        Lasciando che riprovasse finche' la posizione non si assestava, con
+        certi schermi non si assestava mai: spostava i controlli a ogni
+        fotogramma e cTab non finiva piu' di caricare la mappa. Meglio uno
+        spostamento imperfetto che un telefono che non si apre.
+    */
+    crutek_dcam_posOk = true;
+    [_d] call crutek_fnc_dcamPhonePos;
+}, 0, []] call CBA_fnc_addPerFrameHandler;
+
+/*
+    Sposta il telefono a sinistra, al centro o a destra, sempre appoggiato in
+    basso. Nessun tasto assegnato di serie: Ctrl+Alt+frecce e' gia' occupato
+    dal ricentramento della camera, quindi la scelta va lasciata a chi gioca.
+
+    Tre registrazioni separate e non un ciclo: CBA_fnc_addKeybind non accetta
+    argomenti da passare al codice, il lato va scritto dentro ciascuna.
+
+    Assegnati a Ctrl+Alt+freccia sinistra, giu' e destra. Attenzione: quelle
+    combinazioni servono anche a ricentrare la camera del feed, quindi col feed
+    acceso fanno due cose insieme. I nomi interni finiscono in 2 perche' CBA
+    scrive il tasto nel profilo alla prima registrazione: coi nomi vecchi
+    resterebbero liberi come prima.
+*/
+private _fnc_sposta = {
+    crutek_dcam_posOk = false;
+    if (isNil "cTabIfOpen") exitWith {};
+    private _n = cTabIfOpen select 1;
+    if (count _n < 12) exitWith {};
+    // solo la schermata piccola: a tutto schermo comanda cTab
+    if !((_n select [(count _n) - 3]) isEqualTo "dsp") exitWith {};
+
+    private _d = uiNamespace getVariable [_n, displayNull];
+    if (!isNull _d) then {[_d] call crutek_fnc_dcamPhonePos};
+};
+crutek_fnc_dcamSposta = _fnc_sposta;
+
+["cTab Samsung Position", "dcam_pos_sx2", ["Samsung a sinistra", "Serve l'opzione 'Dove sta il telefono' accesa nelle opzioni degli addon."],
+    { crutek_dcam_posLato = 0; call crutek_fnc_dcamSposta; true },
+    {false}, [203, [false, true, true]]] call CBA_fnc_addKeybind;
+
+["cTab Samsung Position", "dcam_pos_c2", ["Samsung al centro", "Serve l'opzione 'Dove sta il telefono' accesa nelle opzioni degli addon."],
+    { crutek_dcam_posLato = 1;
+crutek_dcam_posVert = 0; call crutek_fnc_dcamSposta; true },
+    {false}, [208, [false, true, true]]] call CBA_fnc_addKeybind;
+
+["cTab Samsung Position", "dcam_pos_dx2", ["Samsung a destra", "Serve l'opzione 'Dove sta il telefono' accesa nelle opzioni degli addon."],
+    { crutek_dcam_posLato = 2; call crutek_fnc_dcamSposta; true },
+    {false}, [205, [false, true, true]]] call CBA_fnc_addKeybind;
 diag_log format ["[crutek_dcam] versione %1", crutek_dcam_version];
 
 if (!isNil "crutek_dcam_ready") exitWith {};
@@ -48,7 +150,7 @@ crutek_dcam_hcamFov  = 0.7;
 
 /*
     Icone del menu ACE. Il percorso parte dal prefisso del PBO, quindi un
-    file messo in cTab\img\ si scrive \cTab\img\nome.paa
+    file messo in cTab\img\ si scrive \ctab_camera\img\nome.paa
 */
 /*
     Da qui in giu NON ci sono piu i filtri: fazioni, categorie, equipaggio,
@@ -62,24 +164,24 @@ crutek_dcam_hcamFov  = 0.7;
     camongalaxy, cosi rami e mezzi restano uniformi e si distingue a colpo
     d'occhio il livello a cui si sta navigando.
 */
-crutek_dcam_icon      = "\cTab\img\camongalaxy.paa";   // radice
-crutek_dcam_iconSub   = "\cTab\img\camongalaxy.paa";   // rami, mezzi e voci di servizio
-crutek_dcam_iconHcam  = "\cTab\img\ctab_helmetcam_ico.paa";  // OpCam
-crutek_dcam_iconAir   = "\cTab\img\iconair.paa";        // AirCam e aerei
-crutek_dcam_iconHeli  = "\cTab\img\iconheli.paa";       // elicotteri
-crutek_dcam_iconLand  = "\cTab\img\iconland.paa";       // LandCam e ruotati
-crutek_dcam_iconTank  = "\cTab\img\icontank.paa";       // cingolati
-crutek_dcam_iconSea   = "\cTab\img\iconsea.paa";        // SeaCam e barche
+crutek_dcam_icon      = "\ctab_camera\img\camongalaxy.paa";   // radice
+crutek_dcam_iconSub   = "\ctab_camera\img\camongalaxy.paa";   // rami, mezzi e voci di servizio
+crutek_dcam_iconHcam  = "\ctab_camera\img\ctab_helmetcam_ico.paa";  // OpCam
+crutek_dcam_iconAir   = "\ctab_camera\img\iconair.paa";        // AirCam e aerei
+crutek_dcam_iconHeli  = "\ctab_camera\img\iconheli.paa";       // elicotteri
+crutek_dcam_iconLand  = "\ctab_camera\img\iconland.paa";       // LandCam e mezzi terrestri
+crutek_dcam_iconTank  = "\ctab_camera\img\icontank.paa";       // solo il ramo Tank
+crutek_dcam_iconSea   = "\ctab_camera\img\iconsea.paa";        // SeaCam e barche
 
 /*
     Rami dei droni: stessa famiglia dell'ambiente ma icona propria, cosi si
     distinguono a colpo d'occhio dai mezzi con equipaggio.
 */
-crutek_dcam_iconAirDrone  = "\cTab\img\iconair_drone.paa";
-crutek_dcam_iconLandDrone = "\cTab\img\iconland_drone.paa";
-crutek_dcam_iconSeaDrone  = "\cTab\img\iconsea_drone.paa";
-crutek_dcam_iconHide  = "\cTab\img\camongalaxy.paa";
-crutek_dcam_iconOff   = "\cTab\img\camongalaxy.paa";
+crutek_dcam_iconAirDrone  = "\ctab_camera\img\iconair_drone.paa";
+crutek_dcam_iconLandDrone = "\ctab_camera\img\iconland_drone.paa";
+crutek_dcam_iconSeaDrone  = "\ctab_camera\img\iconsea_drone.paa";
+crutek_dcam_iconHide  = "\ctab_camera\img\camongalaxy.paa";
+crutek_dcam_iconOff   = "\ctab_camera\img\camongalaxy.paa";
 crutek_dcam_rt       = "rendertarget10";   // libero: cTab usa 8, 9, 12, 13
 
 /*
@@ -302,17 +404,124 @@ crutek_dcam_dlgKeys = [
 ];
 
 
-// modo base del render target per ogni voce: 0 normale, 1 notturno,
-// 2 termico, 7 termico invertito
 /*
-    Modo base del render target: 0 normale, 1 notturno, 2 termico.
+    Modo base del render target, uno per voce del selettore.
 
-    Il modo 7 ("termico invertito") NON esiste in Arma 3: passandolo il motore
-    lo ignora e restituisce la stessa immagine del 2, ed e per questo che le
-    due termiche uscivano identiche. Quindi entrambe usano il 2, e a
-    distinguerle ci pensa la gradazione.
+    0 normale, 1 notturno, 2 termico: fin qui e quello che documenta il gioco,
+    ed e il motivo per cui le due termiche uscivano identiche - passavo 2 a
+    tutte e due, dopo aver verificato che il 7 non dava nessuna differenza.
+
+    Sbagliavo, e la prova sta nel mod delle ottiche ReapIR, che gira sopra
+    A3TI. La sua voce "polarity" cicla setPiPEffect su questi valori:
+
+        [14, 14, 14, 7, 7, 7, 12]
+
+    Quindi di indici ne esistono ben oltre il 2, e sono quelli che danno le
+    polarita diverse. Se il mio vecchio controllo sul 7 non mostrava niente, o
+    era fatto male o mancava qualcosa a monte.
+
+    Qui THERM1 e THERM2 partono su 14 e 7. Quale dei due sia bianco caldo e
+    quale nero caldo si vede in dieci secondi passando da una voce all'altra:
+    se sono invertite basta scambiare i due numeri, e se una delle due non ti
+    piace c'e anche il 12 da provare.
+
+    Nota: la resa vera e propria - contrasto e luminosita del termico - la
+    decide A3TI, che imposta i parametri globali del motore. Il render target
+    li eredita da solo, senza che noi si debba fare niente.
 */
-crutek_dcam_baseFx = ["DTV", 0, "NVG", 1, "THERM1", 2, "THERM2", 2];
+/*
+    Indici di resa delle due termiche, FISSI nel codice.
+
+    Erano due voci delle opzioni degli addon per poterli provare in partita.
+    E stato un errore: i valori salvati in uno scenario vincono su quelli del
+    codice, e un 20 rimasto li dentro faceva passare al motore un indice che
+    non esiste - immagine diurna anche col selettore su TH1, senza nessun
+    errore da nessuna parte.
+
+    2 e 7 sono i valori documentati: termico e termico invertito, cioe bianco
+    caldo e nero caldo. Non c'e motivo di renderli configurabili.
+*/
+crutek_dcam_thermA = 2;    // THERM1: bianco caldo
+crutek_dcam_thermB = 7;    // THERM2: nero caldo
+
+/*
+    Luminosita e contrasto di riserva per la ricetta A3TI, usati solo se la
+    sua funzione pubblica non risponde. Normalmente i valori arrivano da lui,
+    cosi il feed segue le regolazioni del giocatore.
+*/
+// vero mentre A3TI tiene il mondo ridipinto: vedi dcamRefresh
+crutek_dcam_paintNow = false;
+
+/*
+    Pesi con cui la correzione colore trasforma l'immagine in scala di grigi:
+    [rosso, verde, blu, alfa].
+
+    Contano perche adesso sappiamo con che colori A3TI dipinge gli oggetti
+    caldi, e li ha dichiarati nei suoi materiali:
+
+        TIRed.rvmat   (mezzi)   diffuse = 1.5, 0, 0     rosso puro, sovraesposto
+        TIPink.rvmat  (teste)   ambient = 5, 0.56, 5    magenta, molto sovraesposto
+
+    In tutti e due il VERDE e praticamente assente, mentre il terreno e la
+    vegetazione ce l'hanno eccome. Da qui l'alternativa che vale la pena
+    provare:
+
+        [1, -1, 1, 0]
+
+    somma rosso e blu e SOTTRAE il verde: i mezzi dipinti restano bianchi, le
+    teste ancora di piu, il terreno scende a meta e la vegetazione va a nero.
+    Separazione molto piu netta di una scala di grigi neutra.
+
+    Di serie restano i pesi di A3TI, che sono quelli che usa lui a schermo:
+    se il risultato ti convince gia cosi, non c'e motivo di toccarli.
+*/
+crutek_dcam_a3tiWeights = [0.33, 0.33, 0.33, 0];
+
+crutek_dcam_a3tiBrt = 1;
+crutek_dcam_a3tiCnt = 1;
+
+/*
+    Tabella dei modi: nome del selettore -> effetto del render target.
+
+    THERM1 e THERM2 mancavano, quindi ricadevano su 0 e mostravano l'immagine
+    diurna: le due voci c'erano nel selettore ma non facevano niente. Ora sono
+    mappate sulle termiche del motore.
+
+    THERM1 e THERM2 usano lo STESSO effetto, il 2: la differenza fra bianco
+    caldo e nero caldo la fa lo scambio dei due colori dentro dcamVision, non
+    un indice diverso.
+*/
+crutek_dcam_baseFx = ["DTV", 0, "NVG", 1, "THERM1", 2, "THERM2", 7];
+
+/*
+    Quale termica e' attiva.
+
+    currentVisionMode dice solo normale, notturno o termico. L'evento
+    VisionModeChanged invece passa anche l'indice della termica: 0 bianco
+    caldo, 1 nero caldo. E' l'unico punto in cui il motore lo espone, e per
+    questo la spia sulle variabili non lo trovava.
+
+    Va rimesso a ogni cambio di corpo, se no dopo un respawn sparisce.
+*/
+crutek_dcam_tiIdx = 0;
+
+[{
+    private _u = player;
+    if (isNull _u) exitWith {};
+    if ((missionNamespace getVariable ["crutek_dcam_ehVis", objNull]) isEqualTo _u) exitWith {};
+    crutek_dcam_ehVis = _u;
+    _u addEventHandler ["VisionModeChanged", {
+        params ["", "", ["_ti", 0]];
+        crutek_dcam_tiIdx = _ti;
+    }];
+}, 2, []] call CBA_fnc_addPerFrameHandler;
+
+// quale termica usa AUTO: false bianco caldo, true nero caldo.
+// Si cambia da console con crutek_dcam_bhot = true; oppure scegliendo
+// TH1 o TH2 dal selettore, che la aggiorna da se'.
+crutek_dcam_bhot = false;
+
+
 
 /*
     GRADAZIONI NON UTILIZZABILI, lasciate vuote di proposito.
@@ -380,6 +589,9 @@ crutek_dcam_cam      = objNull;
 crutek_dcam_uav      = objNull;
 crutek_dcam_posMem   = "";
 crutek_dcam_aim      = "";
+crutek_dcam_turret   = [];
+crutek_dcam_animBody = "";
+crutek_dcam_animGun  = "";
 crutek_dcam_dirMem   = "";
 crutek_dcam_mode      = 0;
 crutek_dcam_effective = "";
@@ -443,7 +655,7 @@ crutek_dcam_applyVD = {
     if (crutek_dcam_prevVD <= 0) exitWith {};
 
     private _tetto = missionNamespace getVariable ["ace_viewdistance_limitViewDistance", 12000];
-    private _vuole = crutek_dcam_viewDist min _tetto;
+    private _vuole = (missionNamespace getVariable ["crutek_dcam_vdAttiva", 0]) min _tetto;
     if (viewDistance >= _vuole) exitWith {};
 
     setViewDistance _vuole;
@@ -475,20 +687,40 @@ crutek_dcam_idcGrp = 91000;
 crutek_dcam_idcPic = 91001;
 crutek_dcam_idcTop = 91002;
 crutek_dcam_idcBot = 91003;
-// targhetta scura dietro al nome, solo sulle telecamere da casco
-crutek_dcam_idcName = 91004;
-/*
-    Spazio che la targhetta si prende a destra del nome, in altezze di
-    carattere. A sinistra non sborda mai: parte dove parte il testo.
-    La larghezza vera la misura dcamHud sul nome.
-*/
-crutek_dcam_namePad = 0.35;
 
 /*
-    Colore del nome dell'operatore. Formato #RRGGBB come nel testo
-    strutturato, quindi si cambia qui senza toccare il codice.
+    Le due bande sono a tre scomparti: fondo piu tre testi allineati a
+    sinistra, al centro e a destra. Un testo strutturato ha un allineamento
+    solo, quindi servono tre controlli per riga.
 */
-crutek_dcam_nameColor = "#a6ff00";
+crutek_dcam_idcTopL = 91005;
+crutek_dcam_idcTopC = 91006;
+crutek_dcam_idcTopR = 91007;
+crutek_dcam_idcBotL = 91008;
+crutek_dcam_idcBotC = 91009;
+crutek_dcam_idcBotR = 91010;
+
+/*
+    Fondo delle bande: nero al 45 per cento, lo stesso della vecchia
+    targhetta del nome.
+*/
+crutek_dcam_bandColor = [0, 0, 0, 0.45];
+
+/*
+    Colore delle scritte. Bianche col contorno nero su tutte le viste - il
+    contorno e cio che le tiene leggibili sul cielo chiaro senza dover
+    scurire la banda - e verdi solo in notturno, dove il bianco spara e il
+    verde e la convenzione.
+*/
+crutek_dcam_hudColor = "#ffffff";
+crutek_dcam_hudColorNV = "#a6ff00";
+/*
+    Lettere della rosa dei venti, otto settori da 45 gradi. Uguali nelle due
+    lingue - N, NE, E, SE, S, SW, W, NW - perche sulla strumentazione la
+    dicitura inglese e quella che si legge ovunque. Restano nello stringtable
+    per poterle cambiare senza toccare il codice.
+*/
+crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
 
 // ------------------------------------------------------------------
 // VOCE MENU ACE
@@ -579,9 +811,48 @@ crutek_dcam_nameColor = "#a6ff00";
             private _figli = [];
             {
                 private _v   = _x;
+                /*
+                    Se ai comandi c'e' un giocatore si mostra il SUO nome e il
+                    ruolo: e' lui che stai per guardare. Col posto in mano
+                    all'IA resta il nome del mezzo, perche' non c'e' nessuno da
+                    nominare.
+                */
+                private _uP = objNull;
+                private _ruolo = "";
+/*
+    Solo pilota e artigliere.
+
+    Prima bastava sedersi da qualsiasi parte - copilota, cabina, un posto FFV -
+    per comparire come occupante. Qui si accettano solo le torrette con
+    primaryGunner, cioe' l'artigliere vero, e a parte quello il pilota.
+*/
+                {
+                    private _t = _v turretUnit _x;
+                    if (!isNull _t && {isPlayer _t}
+                        && {(getNumber (([_v, _x] call BIS_fnc_turretConfig) >> "primaryGunner")) isEqualTo 1}
+                    ) exitWith {
+                        _uP = _t;
+                        _ruolo = getText (([_v, _x] call BIS_fnc_turretConfig) >> "gunnerName");
+                    };
+                } forEach (allTurrets _v);
+                if (isNull _uP && {!isNull (driver _v)} && {isPlayer (driver _v)}) then {
+                    _uP = driver _v;
+                    _ruolo = if (_v isKindOf "Air") then {
+                        localize "STR_crutek_dcam_role_pilot"
+                    } else {
+                        localize "STR_crutek_dcam_role_driver"
+                    };
+                };
+
+                private _tit = if (!isNull _uP) then {
+                    format ["%1  -  %2  -  %3 m", name _uP, toUpper _ruolo, round (player distance _v)]
+                } else {
+                    format ["%1  -  %2 m", [_v] call crutek_fnc_dcamName, round (player distance _v)]
+                };
+
                 private _act = [
                     format ["crutek_cam_%1", netId _v],
-                    format ["%1  -  %2 m", [_v] call crutek_fnc_dcamName, round (player distance _v)],
+                    _tit,
                     _icona,
                     { [_this select 2, "VEH"] call crutek_fnc_dcamOpen },
                     { true },
@@ -722,7 +993,7 @@ crutek_dcam_nameColor = "#a6ff00";
 private _fnc_bind = {
     params ["_name", "_title", "_tip", "_code", "_key", "_mods"];
     [
-        "cTab CruTeK",
+        "cTab Camera",
         format ["%1_%2", CRUTEK_DCAM_KEYVER, _name],
         [format ["DroneCam - %1", _title], _tip],
         _code,
@@ -781,7 +1052,7 @@ private _fnc_bind = {
     sul video funziona sempre, questo e per chi lo vuole altrove.
 */
 [
-    "cTab CruTeK",
+    "cTab Camera",
     CRUTEK_DCAM_KEYVER + "_drag",
     [localize "STR_crutek_dcam_key_drag", localize "STR_crutek_dcam_key_drag_t"],
     { if (!crutek_dcam_active) exitWith { false }; ["START"] call crutek_fnc_dcamDrag },

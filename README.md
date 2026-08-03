@@ -21,6 +21,7 @@ This is not a separate mod: it **replaces cTab**. Do not load both.
   - [cTab-Cam on Galaxy](#ctab-cam-on-galaxy)
   - [cTab-Drones](#ctab-drones)
   - [cTab-HelmetCam](#ctab-helmetcam)
+  - [cTab Compatibility MOD](#ctab-compatibility-mod)
 - [Diagnostics](#diagnostics)
 - [Technical notes](#technical-notes)
 - [Credits](#credits)
@@ -36,6 +37,7 @@ On top of stock cTab:
 - **Turret slewing** on unmanned drones, straight from the video
 - **Stepped zoom** taken from real targeting pods
 - **Permissions by side, vehicle category and occupant type**, all in the addon options, so they are set per mission
+- **Per-mod compatibility profiles**, so vehicles from mods that do not follow the stock conventions are described rather than guessed at
 - The stock cTab picture windows (UAV and helmet cam) go from a 512 render target to **1024**
 
 Everything else in cTab — tablet, map, markers, MicroDAGR — works as you know it.
@@ -127,7 +129,7 @@ Always active, nothing to bind:
 | `Shift` + wheel | next / previous operator — OpCam only |
 | `Shift` + middle click | hides the video and returns to the map |
 
-Bound by default, rebindable from the **cTab CruTeK** section of the CBA keybinds:
+Bound by default, rebindable from the **cTab Camera** section of the CBA keybinds:
 
 | Key | Effect |
 |---|---|
@@ -135,15 +137,25 @@ Bound by default, rebindable from the **cTab CruTeK** section of the CBA keybind
 | `Shift` + `End` | hide the video |
 | `Shift` + `Delete` | disconnect |
 
-Registered but with **no default key**, bind them yourself if you want them: next operator, previous operator, turret slew.
+Registered in the same section but with **no default key**, bind them yourself if you want them: next operator, previous operator, turret slew.
 
-All of these only respond **while a feed is running**. With no feed the combination falls through and steals nothing from other mods.
+A second section, **cTab Samsung Position**, moves the small always-on-screen phone. It needs the *where the phone sits* option enabled in the addon options:
+
+| Key | Effect |
+|---|---|
+| `Ctrl` + `Alt` + left arrow | phone to the left |
+| `Ctrl` + `Alt` + down arrow | phone to the centre |
+| `Ctrl` + `Alt` + right arrow | phone to the right |
+
+> Those three combinations also recenter the feed camera, so with a feed running they do two things at once. Rebind them if that gets in your way.
+
+The feed controls only respond **while a feed is running**. With no feed the combination falls through and steals nothing from other mods.
 
 ---
 
 ## Settings
 
-Everything lives in the **addon options**, in three separate categories. They are mission settings, so you set them once per scenario from the editor.
+Everything lives in the **addon options**, in four separate categories. They are mission settings, so you set them once per scenario from the editor.
 
 ### cTab-Cam on Galaxy
 
@@ -166,6 +178,8 @@ Applies to crewed vehicles.
 
 **Gameplay limits** — maximum distance from the source (4000 m), minimum altitude, and a minimum view distance while a feed is running.
 
+> Minimum altitude is a **hard threshold**, and it defaults to `0`. An aircraft parked on the runway measures a few centimetres *below* zero, because the model origin sits under the landing gear, so at the default it never makes the list while it is on the ground. Set it to a negative value if you want grounded aircraft to show up: `-10` is plenty.
+
 > View distance is a **single global value** for all rendering: raising it for the feed also raises your own real view while the feed is open. It defaults to `0`, meaning the mod does not touch it. If you need it, the clean way is to raise the ACE value for whoever acts as drone operator.
 
 ### cTab-Drones
@@ -186,6 +200,25 @@ A category of its own, because on a drone the crew question is meaningless: **wh
 - **who carries the cam**: player or AI, players only, AI only
 - its own set of sides
 
+### cTab Compatibility MOD
+
+Some mods do not follow Bohemia's conventions, and the generic rules are not enough for their vehicles. This category holds **one profile per mod**, each switched on and off on its own, so widening the rules where they are needed does not change how stock vehicles behave.
+
+Section **Aircraft and vehicle mods**:
+
+| Setting | Default | Covers |
+|---|---|---|
+| **USAF Mod** | on | turret compatibility for USAF aircraft |
+
+What the USAF profile changes, and only on USAF vehicles:
+
+- **AC-130U** — only the **IR Operator**, **TV Operator** and **Electronic Warfare Officer** stations can be watched on the phone. The pilot pod is not offered as a source: on a gunship the useful view is the sensor, not the cockpit.
+- **Aiming on stations that slew by animation** instead of by swinging a gun barrel. On these aircraft the sensor ball rotates while the gun muzzles stay fixed to the fuselage, so reading the aim from the weapon left the picture frozen however much the sensor was moved.
+- **Operator detection on vehicles with more than one turret.** The stock check looks only at the primary gunner and at the driver, so a player sitting at any other station counts as nobody, and thermals and zoom are never mirrored.
+- **A-10, F-35, MQ-9 and RQ-4A** are declared explicitly and keep the sources they already used. Nothing changes for them.
+
+Turn it off if the USAF mod is not loaded, or if a future version of it stops needing the profile.
+
 ---
 
 ## Diagnostics
@@ -193,7 +226,7 @@ A category of its own, because on a drone the crew question is meaningless: **wh
 On startup, in the `.rpt`:
 
 ```
-[crutek_dcam] versione 2026-07-29-r16
+[crutek_dcam] versione 2026-08-03-n2
 [crutek_dcam] impostazioni registrate: cTab-Cam on Galaxy e cTab-HelmetCam
 ```
 
@@ -206,7 +239,9 @@ If the first line is missing, the module did not start. In game, the **Diagnosti
 | the Cam on Galaxy menu never appears | are you carrying the Galaxy (`ItemAndroid`)? is ACE loaded? |
 | black phone screen | is PiP enabled in the video options? |
 | a vehicle is missing from the list | is its side enabled? is the category on? is it within maximum distance? does it satisfy the who-must-be-aboard rule? |
+| an aircraft parked on the ground is missing | minimum altitude is a hard threshold and a grounded aircraft measures just below zero. Set it negative |
 | an operator is missing | does he carry `ItemcTabHCam`? is his side among the observable ones in cTab-HelmetCam? |
+| a modded vehicle shows the wrong camera, or none at all | is its profile on in cTab Compatibility MOD? a mod with no profile falls back to the generic rules |
 | right mouse does not slew | it only works on **unmanned** drones and with the phone open, and slewing must be enabled in cTab-Drones |
 | grainy image | that is the PiP video setting, and it is per player |
 
@@ -219,6 +254,8 @@ If the first line is missing, the module did not start. In game, the **Diagnosti
 **The operator's zoom is the limit.** When you connect you start where he is looking, and from there you can only zoom in — you cannot pull back past his field of view. The steps come from real targeting pods.
 
 **Vanilla thermals.** The mod does not depend on A3TI and does not reproduce its look: A3TI works with effects drawn on the player's screen, and a screen cannot enter a render target.
+
+**Compatibility profiles are declarations, not guesswork.** Every mod gets its own folder under `comp_mod`, and inside it a table saying which stations of which vehicle families may be watched, and where to look when none of them is available — the pilot pod, the vehicle camera memory points, or nowhere. A vehicle that is listed and has no usable source is **dropped from the menu** rather than falling back to something arbitrary, and a vehicle that no table mentions is left entirely alone.
 
 **Opening the arsenal disconnects the feed.** Both the ACE one and the vanilla one: opening the arsenal with a feed running drops it instead of leaving it hanging.
 

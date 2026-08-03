@@ -9,7 +9,11 @@
     "headers": [
         {
             "name": "prefix",
-            "value": "cTab"
+            "value": "ctab_camera"
+        },
+        {
+            "name": "version",
+            "value": "1.0"
         }
     ]
 }
