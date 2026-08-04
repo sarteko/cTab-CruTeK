@@ -187,6 +187,9 @@ private _fnc_num = {
     feed guarda dove capita: e il motivo per cui "anche vuoti" non e il
     default.
 */
+["crutek_dcam_gunnerOnly", localize "STR_crutek_dcam_set_gunnerOnly", localize "STR_crutek_dcam_set_gunnerOnly_t",
+    true, CAT_BORDO] call _fnc_si;
+
 [
     "crutek_dcam_crewMode",
     "LIST",

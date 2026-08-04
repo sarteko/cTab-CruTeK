@@ -20,12 +20,37 @@
         non vola: MEM -> TURRET   -> PILOTCAM
 
     0: OBJECT - mezzo
+    1: ARRAY  - percorso torretta scelto dal menu, [] per lasciar decidere
     Ritorna: ARRAY - [memoryPointPos, memoryPointDir, modo]
              modo vuoto se non c'e niente da leggere
 */
 
-params [["_veh", objNull]];
+params [["_veh", objNull], ["_scelta", []]];
 if (isNull _veh) exitWith { ["", "", "", []] };
+
+/*
+    Postazione scelta dal menu: comanda su tutto il resto. Se il punto ottica
+    non si risolve sul modello si lascia decidere alle regole di sempre invece
+    di piazzare la camera nel centro del mezzo.
+*/
+if !(_scelta isEqualTo []) then {
+    private _tcS = [_veh, _scelta] call BIS_fnc_turretConfig;
+    if (isClass _tcS) then {
+        private _mpS = "";
+        {
+            private _q = getText (_tcS >> _x);
+            if (_q != "" && {!((_veh selectionPosition _q) isEqualTo [0,0,0])}) exitWith { _mpS = _q };
+        } forEach ["memoryPointGunnerOptics", "memoryPointGunnerOutOptics"];
+        if !(_mpS isEqualTo "") then { _scelta = [_scelta, _mpS] } else { _scelta = [] };
+    } else {
+        _scelta = [];
+    };
+};
+
+if !(_scelta isEqualTo []) exitWith {
+    _scelta params ["_sPath", "_sMem"];
+    [_sMem, "", "TURRET", _sPath]
+};
 
 private _cfg  = configFile >> "CfgVehicles" >> typeOf _veh;
 private _aria = _veh isKindOf "Air";

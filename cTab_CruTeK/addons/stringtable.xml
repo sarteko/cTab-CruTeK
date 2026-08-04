@@ -986,6 +986,22 @@
 				<Portuguese>Compatibilidade de torres para as aeronaves USAF: o feed reproduz o posto que dispara de verdade.</Portuguese>
 				<German>Turm-Kompatibilitaet fuer USAF-Flugzeuge: der Feed zeigt die Station, die wirklich schiesst.</German>
 			</Key>
+			<Key ID="STR_crutek_dcam_set_gunnerOnly">
+				<English>Transmit only the Gunner or Commander seat, for land and amphibious vehicles</English>
+				<Italian>Trasmetti solo posto Artigliere o Comandante per veicoli anfibi o terrestri</Italian>
+				<French>Ne transmettre que le poste Tireur ou Chef de bord, vehicules terrestres et amphibies</French>
+				<Spanish>Transmitir solo el puesto de Artillero o Comandante, vehiculos terrestres y anfibios</Spanish>
+				<Portuguese>Transmitir so o posto de Artilheiro ou Comandante, veiculos terrestres e anfibios</Portuguese>
+				<German>Nur Richtschutzen- oder Kommandantenplatz senden, Land- und Amphibienfahrzeuge</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_gunnerOnly_t">
+				<English>If the box is not ticked, the ACE menu shows every seat available in the vehicle, following the Who must be aboard rule.</English>
+				<Italian>Se non spunti la casella, dal menu ACE verranno mostrati tutti i posti disponibili nel mezzo, rispettando la regola Chi deve essere a bordo.</Italian>
+				<French>Si la case n'est pas cochee, le menu ACE affiche tous les postes disponibles dans le vehicule, en respectant la regle Qui doit etre a bord.</French>
+				<Spanish>Si la casilla no esta marcada, el menu ACE muestra todos los puestos disponibles en el vehiculo, respetando la regla Quien debe estar a bordo.</Spanish>
+				<Portuguese>Se a caixa nao estiver marcada, o menu ACE mostra todos os postos disponiveis no veiculo, respeitando a regra Quem deve estar a bordo.</Portuguese>
+				<German>Ist das Kastchen nicht angehakt, zeigt das ACE-Menu alle im Fahrzeug verfugbaren Platze, gemass der Regel Wer an Bord sein muss.</German>
+			</Key>
 		</Container>
 	</Package>
 </Project>

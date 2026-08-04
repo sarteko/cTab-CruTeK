@@ -89,22 +89,41 @@ if (crutek_dcam_kind isEqualTo "HCAM") then {
             /*
                 PUNTAMENTO DELLA POSTAZIONE.
 
-                Prima le sorgenti di animazione, se la torretta le dichiara:
-                azimut dal body, elevazione dal gun, gia relativi al mezzo e
-                quindi gia in coordinate modello. Positivo sul body gira a
-                SINISTRA e positivo sul gun ALZA, che e la convenzione di
-                animateSource: da li i segni qui sotto.
+                Due sorgenti, e quale viene prima dipende dal mezzo.
 
-                Serve perche su parecchi mezzi di mod la palla sensore ruota
-                per animazione mentre le volate delle armi restano ferme alla
-                fusoliera. In quel caso weaponDirection da un'immagine
-                immobile per quanto si brandeggi.
+                L'ANIMAZIONE viene prima, ovunque la torretta la dichiari.
+                Azimut del corpo ed elevazione del pezzo SONO il puntamento
+                della postazione, cioe esattamente quello che l'ottica segue.
 
-                Le sorgenti vengono riempite solo con un profilo di
-                compatibilita acceso, quindi qui i mezzi di serie cadono
-                sempre nel ramo di sotto, come hanno sempre fatto.
+                L'arma era un surrogato, e reggeva solo dove volata e ottica
+                coincidono. Su tredici mezzi vanilla provati la divisione e
+                stata netta: tutto quello che passava dall'animazione seguiva,
+                tutto quello che passava dall'arma restava fermo. Fra i secondi
+                c'erano il TUSK con la mitragliera del comandante, i due Rhino,
+                lo Scorcher e il gommone armato.
+
+                L'ARMA resta il ripiego per le torrette che le sorgenti non le
+                dichiarano.
+
+                Azimut dal body ed elevazione dal gun sono gia relativi al
+                mezzo, quindi gia in coordinate modello. Positivo sul body gira
+                a SINISTRA e positivo sul gun ALZA, che e la convenzione di
+                animateSource: da li i segni.
             */
             private _ab = crutek_dcam_animBody;
+            private _tp = crutek_dcam_turret;
+
+            private _buone = crutek_dcam_armi;
+            private _w = "";
+
+            if !(_buone isEqualTo []) then {
+                private _cur = if (_tp isEqualTo []) then {
+                    currentWeapon _uav
+                } else {
+                    _uav currentWeaponTurret _tp
+                };
+                _w = if (_cur in _buone) then { _cur } else { _buone param [0, ""] };
+            };
 
             if !(_ab isEqualTo "") then {
                 private _az = deg (_uav animationSourcePhase _ab);
@@ -116,20 +135,6 @@ if (crutek_dcam_kind isEqualTo "HCAM") then {
                 private _cs = cos _el;
                 [-((sin _az) * _cs), (cos _az) * _cs, sin _el]
             } else {
-                /*
-                    L'arma va presa dalla torretta SCELTA. weapons del mezzo le
-                    impasta tutte insieme: su un cannoniere con tre bocche da
-                    fuoco si pescava la prima dell'elenco, che non e per forza
-                    quella della postazione che si sta guardando.
-                */
-                private _tp = crutek_dcam_turret;
-                private _w  = if (_tp isEqualTo []) then {
-                    (weapons _uav) param [0, ""]
-                } else {
-                    private _cur = _uav currentWeaponTurret _tp;
-                    if (_cur isEqualTo "") then { (_uav weaponsTurret _tp) param [0, ""] } else { _cur }
-                };
-
                 if (_w isEqualTo "") then {
                     [0, 1, 0]
                 } else {

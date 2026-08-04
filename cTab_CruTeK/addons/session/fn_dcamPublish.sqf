@@ -20,26 +20,41 @@ private _veh   = getConnectedUAV player;
 private _isUav = !isNull _veh;
 
 /*
-    ---- posto di comando di un aereo o elicottero -------------------
-    Vale sia il posto artigliere sia quello di pilotaggio: dove il pod e una
-    pilotCamera lo punta chi sta ai comandi, e su certi aerei un posto
+    ---- posto di comando di un mezzo su cui sono seduto ------------
+
+    CHI VOLA E CHI STA A TERRA VANNO GUARDATI DIVERSAMENTE.
+
+    Su un aereo o un elicottero conta anche chi pilota: dove la sorgente e
+    una pilotCamera la punta chi sta ai comandi, e su certi aerei un posto
     artigliere non esiste nemmeno.
+
+    Su un mezzo di terra o di mare no. Li chi guida non punta niente, e
+    rispecchiare la sua vista vorrebbe dire mostrare sul telefono lo zoom di
+    chi guarda la strada mentre la camera inquadra la torretta. Quindi conta
+    solo chi e seduto in una torretta.
+
+    Prima di questa distinzione i mezzi di terra erano esclusi in blocco e
+    non pubblicavano niente: sul Galaxy lo zoom dell'ottica del cannoniere non
+    arrivava mai, e nemmeno la sua termica.
 */
 if (!_isUav) then {
     private _v = vehicle player;
-    if (
-        !(_v isEqualTo player)
-        && {_v isKindOf "Air"}
-        && {
+
+    if !(_v isEqualTo player) then {
+        private _inTorretta = ((allTurrets _v) findIf {(_v turretUnit _x) isEqualTo player}) >= 0;
+
+        private _ok = if (_v isKindOf "Air") then {
             ((gunner _v) isEqualTo player)
             || {(driver _v) isEqualTo player}
             || {
                 !(([_v] call crutek_fnc_dcamCompMod) isEqualTo "")
-                && {((allTurrets _v) findIf {(_v turretUnit _x) isEqualTo player}) >= 0}
+                && {_inTorretta}
             }
-        }
-    ) then {
-        _veh = _v;
+        } else {
+            _inTorretta
+        };
+
+        if (_ok) then { _veh = _v };
     };
 };
 

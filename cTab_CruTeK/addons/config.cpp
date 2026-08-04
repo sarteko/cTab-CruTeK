@@ -108,6 +108,9 @@ class cfgFunctions
 			class dcamTurret
 			{
 			};
+			class dcamStations
+			{
+			};
 		};
 		class commands
 		{

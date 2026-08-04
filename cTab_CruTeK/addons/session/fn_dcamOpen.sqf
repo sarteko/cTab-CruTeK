@@ -4,10 +4,11 @@
 
     0: OBJECT - drone oppure unita con telecamera da casco
     1: STRING - "DRONE" (default) oppure "HCAM"
+    2: ARRAY  - percorso torretta scelto dal menu, [] per lasciar decidere
     Ritorna: BOOL
 */
 
-params [["_subject", objNull], ["_kind", "VEH"]];
+params [["_subject", objNull], ["_kind", "VEH"], ["_scelta", []]];
 
 if (crutek_dcam_active) then { call crutek_fnc_dcamClose };
 
@@ -43,10 +44,11 @@ private _posMem = "";
 private _dirMem = "";
 private _aim    = "";
 crutek_dcam_turret   = [];
-crutek_dcam_animBody = "";
-crutek_dcam_animGun  = "";
+crutek_dcam_animBody  = "";
+crutek_dcam_animGun   = "";
+crutek_dcam_armi      = [];
 if !(_kind isEqualTo "HCAM") then {
-    ([_subject] call crutek_fnc_dcamTurret) params ["_p", "_d", "_a", ["_t", []]];
+    ([_subject, _scelta] call crutek_fnc_dcamTurret) params ["_p", "_d", "_a", ["_t", []]];
     crutek_dcam_turret = _t;
 
     /*
@@ -57,13 +59,67 @@ if !(_kind isEqualTo "HCAM") then {
         un'immagine immobile. Si leggono solo con un profilo di compatibilita
         acceso, cosi i mezzi di serie non cambiano comportamento.
     */
-    if (!(_t isEqualTo []) && {!(([_subject] call crutek_fnc_dcamCompMod) isEqualTo "")}) then {
+    if !(_t isEqualTo []) then {
         private _tc = [_subject, _t] call BIS_fnc_turretConfig;
         if (isClass _tc) then {
             crutek_dcam_animBody = getText (_tc >> "animationSourceBody");
             crutek_dcam_animGun  = getText (_tc >> "animationSourceGun");
         };
+
     };
+
+    /*
+        ARMI CHE POSSONO FARE DA RIFERIMENTO DI PUNTAMENTO.
+
+        Non tutto quello che sta in weapons serve a capire dove guarda una
+        postazione. Il lanciafumogeni e imbullonato allo scafo e non si muove
+        di un grado: sul posto comandante di un mezzo antiaereo e l'unica arma
+        dichiarata, e la sua sola presenza bastava a far vincere il ramo
+        dell'arma, lasciando l'immagine inchiodata mentre il sensore girava.
+
+        NON basta chiedere se fa danno: lo SmokeShell di ARMA eredita i valori
+        della granata, quindi un lanciafumogeni supera un controllo sul danno
+        e si riprende il posto che non gli spetta. Il discriminante buono e il
+        TIPO di proiettile, la simulation del CfgAmmo, piu l'esclusione per
+        classe dei due casi noti. Fuori restano fumogeni, contromisure,
+        illuminanti, designatori e clacson.
+
+        Se dopo il filtro non resta niente si punta con le sorgenti di
+        animazione, che e esattamente quello che serve a una postazione di
+        sola osservazione.
+
+        Il filtro gira una volta all'accensione, non a ogni fotogramma.
+    */
+    private _cfgW = configFile >> "CfgWeapons";
+    private _cfgM = configFile >> "CfgMagazines";
+    private _cfgA = configFile >> "CfgAmmo";
+
+    private _scarti = ["shotsmoke", "shotilluminating", "shotcm", "shotlaser"];
+
+    private _grezze = if (_t isEqualTo []) then { weapons _subject } else { _subject weaponsTurret _t };
+    private _buone  = [];
+
+    {
+        private _arma = _x;
+        private _ok   = false;
+
+        if (
+            !(_arma isKindOf ["SmokeLauncher", _cfgW])
+            && {!(_arma isKindOf ["CMFlareLauncher", _cfgW])}
+        ) then {
+            {
+                private _ammo = getText (_cfgM >> _x >> "ammo");
+                if (_ammo != "") then {
+                    private _sim = toLower (getText (_cfgA >> _ammo >> "simulation"));
+                    if (!(_sim isEqualTo "") && {!(_sim in _scarti)}) exitWith { _ok = true };
+                };
+            } forEach (getArray (_cfgW >> _arma >> "magazines"));
+        };
+
+        if (_ok) then { _buone pushBack _arma };
+    } forEach _grezze;
+
+    crutek_dcam_armi = _buone;
     _posMem = _p;
     _dirMem = _d;
     _aim    = _a;

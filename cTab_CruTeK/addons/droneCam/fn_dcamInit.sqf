@@ -16,7 +16,7 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-08-03-n2";
+crutek_dcam_version = "2026-08-04-o9";
 
 // di serie a sinistra, appoggiato in basso: valori misurati a schermo
 crutek_dcam_posLato = 0;
@@ -590,8 +590,9 @@ crutek_dcam_uav      = objNull;
 crutek_dcam_posMem   = "";
 crutek_dcam_aim      = "";
 crutek_dcam_turret   = [];
-crutek_dcam_animBody = "";
-crutek_dcam_animGun  = "";
+crutek_dcam_animBody  = "";
+crutek_dcam_animGun   = "";
+crutek_dcam_armi      = [];
 crutek_dcam_dirMem   = "";
 crutek_dcam_mode      = 0;
 crutek_dcam_effective = "";
@@ -850,16 +851,77 @@ crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
                     format ["%1  -  %2 m", [_v] call crutek_fnc_dcamName, round (player distance _v)]
                 };
 
-                private _act = [
-                    format ["crutek_cam_%1", netId _v],
-                    _tit,
-                    _icona,
-                    { [_this select 2, "VEH"] call crutek_fnc_dcamOpen },
-                    { true },
-                    {},
-                    _v
-                ] call ace_interact_menu_fnc_createAction;
-                _figli pushBack [_act, [], _v];
+                /*
+                    POSTAZIONI ANNIDATE.
+
+                    Se il mezzo ha piu di una postazione guardabile, la voce
+                    del mezzo diventa un ramo e dentro ci va una riga per
+                    postazione: chi ci sta seduto e il ruolo letto dal config.
+                    Serve per il posto comandante, che prima non si poteva
+                    guardare per niente, e non pretende che sia armato.
+
+                    Si annida anche con UNA postazione sola, e non e uno spreco:
+                    e li dentro che passa il percorso torretta scelto. Senza
+                    quel passaggio la postazione non verrebbe usata affatto e la
+                    camera tornerebbe al ripiego di sempre, cioe primo punto
+                    ottica e prima arma del mezzo. E in piu, con un solo
+                    occupante a bordo, e l'unico modo di vedere chi e e che
+                    ruolo ha.
+
+                    Restano voce singola i droni e gli aerei, dove la sorgente
+                    e il pod o i memory point e di torrette da scegliere non ce
+                    ne sono, e i mezzi con un profilo di compatibilita, che le
+                    postazioni le hanno gia dichiarate a mano.
+                */
+                private _post = if (([_v] call crutek_fnc_dcamCompMod) isEqualTo "") then {
+                    [_v] call crutek_fnc_dcamStations
+                } else {
+                    []
+                };
+
+                if ((count _post) > 0) then {
+                    private _ramoV = [
+                        format ["crutek_cam_%1", netId _v],
+                        format ["%1  -  %2 m  (%3)",
+                            [_v] call crutek_fnc_dcamName,
+                            round (player distance _v),
+                            count _post],
+                        _icona,
+                        {},
+                        { true }
+                    ] call ace_interact_menu_fnc_createAction;
+
+                    private _nipoti = [];
+                    {
+                        _x params ["_pPath", "_pMem", "_pUnit", "_pRuolo"];
+                        private _actP = [
+                            format ["crutek_cam_%1_%2", netId _v, _forEachIndex],
+                            format ["%1  -  %2", name _pUnit, toUpper _pRuolo],
+                            _icona,
+                            {
+                                (_this select 2) params ["_pv", "_pt"];
+                                [_pv, "VEH", _pt] call crutek_fnc_dcamOpen
+                            },
+                            { true },
+                            {},
+                            [_v, _pPath]
+                        ] call ace_interact_menu_fnc_createAction;
+                        _nipoti pushBack [_actP, [], _v];
+                    } forEach _post;
+
+                    _figli pushBack [_ramoV, _nipoti, _v];
+                } else {
+                    private _act = [
+                        format ["crutek_cam_%1", netId _v],
+                        _tit,
+                        _icona,
+                        { [_this select 2, "VEH"] call crutek_fnc_dcamOpen },
+                        { true },
+                        {},
+                        _v
+                    ] call ace_interact_menu_fnc_createAction;
+                    _figli pushBack [_act, [], _v];
+                };
             } forEach _lista;
 
             private _ramo = [

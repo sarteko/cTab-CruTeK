@@ -29,24 +29,45 @@ if (isNull _veh) exitWith { objNull };
     Il gunner ha comunque la precedenza: dove esiste, e lui che punta.
 */
 if !(_veh in allUnitsUAV) exitWith {
-    private _op = gunner _veh;
-    if (isNull _op || {!isPlayer _op}) then { _op = driver _veh };
-
     /*
-        gunner restituisce solo la torretta PRIMARIA. Su un mezzo che ne ha
-        piu di una, e su cui nessuna e dichiarata primaria, un giocatore
-        seduto a una postazione qualsiasi non veniva trovato da nessuno dei
-        due controlli: il feed restava senza operatore e in AUTO ricadeva
-        sulla vista a colori. Con un profilo di compatibilita acceso si
-        scandiscono tutte le postazioni.
+        L'ORDINE CONTA.
+
+        1. Se il feed sta guardando una postazione precisa di QUESTO mezzo,
+           l'operatore e chi ci sta seduto: e la sua vista che si sta
+           riproducendo, e sono il suo zoom e la sua termica che vanno
+           rispecchiati.
+        2. Poi il cannoniere primario.
+        3. Poi un giocatore in una torretta qualunque. gunner restituisce solo
+           la primaria, quindi senza questo passaggio un comandante, o chi
+           siede su un mezzo dove nessuna torretta e dichiarata primaria, non
+           verrebbe trovato affatto e il feed resterebbe senza operatore.
+        4. In ultimo chi guida, che serve a chi vola: li il pod lo punta chi e
+           ai comandi, e un posto artigliere a volte non esiste nemmeno.
     */
-    if (isNull _op || {!isPlayer _op}) then {
-        if !(([_veh] call crutek_fnc_dcamCompMod) isEqualTo "") then {
-            {
-                private _u = _veh turretUnit _x;
-                if (!isNull _u && {alive _u} && {isPlayer _u}) exitWith { _op = _u };
-            } forEach (allTurrets _veh);
-        };
+    private _op   = objNull;
+    private _vist = missionNamespace getVariable ["crutek_dcam_turret", []];
+    private _sorg = missionNamespace getVariable ["crutek_dcam_uav", objNull];
+
+    if (!(_vist isEqualTo []) && {_veh isEqualTo _sorg}) then {
+        private _u = _veh turretUnit _vist;
+        if (!isNull _u && {alive _u} && {isPlayer _u}) then { _op = _u };
+    };
+
+    if (isNull _op) then {
+        private _g = gunner _veh;
+        if (!isNull _g && {alive _g} && {isPlayer _g}) then { _op = _g };
+    };
+
+    if (isNull _op) then {
+        {
+            private _u = _veh turretUnit _x;
+            if (!isNull _u && {alive _u} && {isPlayer _u}) exitWith { _op = _u };
+        } forEach (allTurrets _veh);
+    };
+
+    if (isNull _op) then {
+        private _d = driver _veh;
+        if (!isNull _d && {alive _d} && {isPlayer _d}) then { _op = _d };
     };
 
     if (!isNull _op && {isPlayer _op}) then { _op } else { objNull }
