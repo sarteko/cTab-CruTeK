@@ -66,6 +66,28 @@ private _fnc_equipaggio = {
         };
     };
 
+    /*
+        SOLO LE POSTAZIONI DI TIRO, SUI MEZZI DI TERRA E DI MARE.
+
+        Con l'interruttore acceso non basta che a bordo ci sia qualcuno: deve
+        esserci qualcuno seduto in una torretta. Un mezzo col solo autista
+        entrava in lista, ma la torretta resta dove l'hanno lasciata e ci si
+        collegava a un'immagine immobile.
+
+        allTurrets esclude gia autista e passeggeri, ed e per questo che si
+        scandisce quello invece di crew. I mezzi che volano non sono toccati:
+        li la sorgente e spesso il pod, che col cannoniere non c'entra.
+    */
+    private _lista = crew _veh;
+
+    if (crutek_dcam_gunnerOnly && {!(_veh isKindOf "Air")}) then {
+        _lista = [];
+        {
+            private _u = _veh turretUnit _x;
+            if (!isNull _u) then { _lista pushBackUnique _u };
+        } forEach (allTurrets _veh);
+    };
+
     private _ok = false;
     {
         if (alive _x && {(side group _x) in _sides}) then {
@@ -76,7 +98,7 @@ private _fnc_equipaggio = {
                 || {(crutek_dcam_crewMode isEqualTo 2) && !_isPlayer}
             ) exitWith { _ok = true };
         };
-    } forEach (crew _veh);
+    } forEach _lista;
 
     _ok
 };

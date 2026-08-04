@@ -86,15 +86,64 @@ if (crutek_dcam_kind isEqualTo "HCAM") then {
         };
         // dove punta l'arma della torretta, in mondo, riportata in modello
         case "TURRET": {
-            private _w = (weapons _uav) param [0, ""];
-            if (_w isEqualTo "") then {
-                [0, 1, 0]
-            } else {
-                if (crutek_dcam_aimVisual) then {
-                    _uav vectorWorldToModelVisual (_uav weaponDirection _w)
+            /*
+                PUNTAMENTO DELLA POSTAZIONE.
+
+                Due sorgenti, e quale viene prima dipende dal mezzo.
+
+                L'ANIMAZIONE viene prima, ovunque la torretta la dichiari.
+                Azimut del corpo ed elevazione del pezzo SONO il puntamento
+                della postazione, cioe esattamente quello che l'ottica segue.
+
+                L'arma era un surrogato, e reggeva solo dove volata e ottica
+                coincidono. Su tredici mezzi vanilla provati la divisione e
+                stata netta: tutto quello che passava dall'animazione seguiva,
+                tutto quello che passava dall'arma restava fermo. Fra i secondi
+                c'erano il TUSK con la mitragliera del comandante, i due Rhino,
+                lo Scorcher e il gommone armato.
+
+                L'ARMA resta il ripiego per le torrette che le sorgenti non le
+                dichiarano.
+
+                Azimut dal body ed elevazione dal gun sono gia relativi al
+                mezzo, quindi gia in coordinate modello. Positivo sul body gira
+                a SINISTRA e positivo sul gun ALZA, che e la convenzione di
+                animateSource: da li i segni.
+            */
+            private _ab = crutek_dcam_animBody;
+            private _tp = crutek_dcam_turret;
+
+            private _buone = crutek_dcam_armi;
+            private _w = "";
+
+            if !(_buone isEqualTo []) then {
+                private _cur = if (_tp isEqualTo []) then {
+                    currentWeapon _uav
                 } else {
-                    _uav vectorWorldToModel (_uav weaponDirection _w)
-                }
+                    _uav currentWeaponTurret _tp
+                };
+                _w = if (_cur in _buone) then { _cur } else { _buone param [0, ""] };
+            };
+
+            if !(_ab isEqualTo "") then {
+                private _az = deg (_uav animationSourcePhase _ab);
+                private _el = if (crutek_dcam_animGun isEqualTo "") then {
+                    0
+                } else {
+                    deg (_uav animationSourcePhase crutek_dcam_animGun)
+                };
+                private _cs = cos _el;
+                [-((sin _az) * _cs), (cos _az) * _cs, sin _el]
+            } else {
+                if (_w isEqualTo "") then {
+                    [0, 1, 0]
+                } else {
+                    if (crutek_dcam_aimVisual) then {
+                        _uav vectorWorldToModelVisual (_uav weaponDirection _w)
+                    } else {
+                        _uav vectorWorldToModel (_uav weaponDirection _w)
+                    };
+                };
             };
         };
         // in coordinate modello +Y e il davanti: camera fissa sul muso

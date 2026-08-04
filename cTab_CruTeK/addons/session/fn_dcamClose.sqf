@@ -59,6 +59,7 @@ crutek_dcam_ehKey   = -1;
 crutek_dcam_ehKeyUp = -1;
 crutek_dcam_ehClick = -1;
 crutek_dcam_ehUp    = -1;
+crutek_dcam_ehWheel = -1;
 
 player setVariable ["crutek_dcam_watching", objNull, true];
 crutek_dcam_uav   = objNull;

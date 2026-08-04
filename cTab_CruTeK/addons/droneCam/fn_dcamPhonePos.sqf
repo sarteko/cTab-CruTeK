@@ -11,9 +11,35 @@
     0: DISPLAY - il display del telefono
 */
 
+/*
+    Non si tocca MAI la visibilita' dei controlli di cTab.
+
+    cTab ha un cartello "Loading" che mostra durante i suoi aggiornamenti e
+    nasconde alla fine. Riaccendendo tutti i controlli dopo lo spostamento lo
+    riaccendevamo anche noi, dopo che loro l'avevano tolto: restava sopra la
+    mappa per sempre, e sembrava che la mappa non caricasse.
+
+    Qui si spostano e basta.
+*/
+
 params [["_d", displayNull]];
 if (isNull _d) exitWith {};
 
+/*
+    Riposizionamento del telefono.
+
+    Spostare i controlli della schermata cTab fa ricaricare la sua mappa, che
+    resta in "Loading..." e non finisce piu'. Provato a spostare a ogni
+    fotogramma, una volta sola, nascondendo e riaccendendo i controlli: in
+    tutti i casi la mappa non si apre.
+
+    Il controllo mappa di ARMA si ricarica quando viene riposizionato: e' il
+    gioco a farlo, e da fuori non si evita.
+
+    Percio' si sposta UNA VOLTA SOLA per apertura: la mappa si ricarica quel
+    tanto che serve e poi finisce. Ritentare a ogni fotogramma la faceva
+    ripartire da capo all'infinito, ed e' li' che restava in "Loading...".
+*/
 if !(missionNamespace getVariable ["crutek_dcam_pos", false]) exitWith {};
 private _dove = missionNamespace getVariable ["crutek_dcam_posLato", 1];
 
@@ -76,15 +102,24 @@ private _ny = if ((missionNamespace getVariable ["crutek_dcam_posVert", 0]) isEq
 
 private _dx = _nx - _x1;
 private _dy = _ny - _y1;
-if ((abs _dx) < 0.0005 && {(abs _dy) < 0.0005}) exitWith {};
 
-// spostare invece si sposta tutto, i nostri controlli compresi: devono
-// restare agganciati al telefono
+/*
+    Gia' al posto giusto: si riaccende comunque e si segnala, cosi' il
+    controllo smette di ricalcolare. Il riaccendere qui e' obbligatorio: chi
+    chiama ha spento tutto prima, e uscendo senza riaccendere il telefono
+    resterebbe invisibile.
+*/
+if ((abs _dx) < 0.0005 && {(abs _dy) < 0.0005}) exitWith {
+        crutek_dcam_posOk = true;
+};
+
 {
     (ctrlPosition _x) params ["_cx", "_cy", "_cw", "_ch"];
     _x ctrlSetPosition [_cx + _dx, _cy + _dy, _cw, _ch];
     _x ctrlCommit 0;
 } forEach _tutti;
+
+crutek_dcam_posOk = true;
 
 /*
     Il feed va ricostruito.

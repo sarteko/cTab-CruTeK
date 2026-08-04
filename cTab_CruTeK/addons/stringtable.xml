@@ -1,7 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Project name="cTab">
 	<Package name="crutek_droneCam">
 		<Container name="DroneCam">
+			<Key ID="STR_crutek_dcam_set_item1">
+				<English>Required item in inventory</English>
+				<Italian>Oggetto richiesto in inventario</Italian>
+				<French>Objet requis dans l'inventaire</French>
+				<Spanish>Objeto requerido en el inventario</Spanish>
+				<Portuguese>Objeto necessario no inventario</Portuguese>
+				<German>Benoetigter Gegenstand im Inventar</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_item1_t">
+				<English>Class name of the device that opens the feed. Leave the second one empty if a single device is enough.</English>
+				<Italian>Nome classe del dispositivo che apre il feed. Lascia vuoto il secondo se ne basta uno solo.</Italian>
+				<French>Nom de classe de l'appareil qui ouvre le flux.</French>
+				<Spanish>Nombre de clase del dispositivo que abre el feed.</Spanish>
+				<Portuguese>Nome de classe do dispositivo que abre o feed.</Portuguese>
+				<German>Klassenname des Geraets, das den Feed oeffnet.</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_item2">
+				<English>Second required item</English>
+				<Italian>Secondo oggetto richiesto</Italian>
+				<French>Deuxieme objet requis</French>
+				<Spanish>Segundo objeto requerido</Spanish>
+				<Portuguese>Segundo objeto necessario</Portuguese>
+				<German>Zweiter benoetigter Gegenstand</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_item2_t">
+				<English>A second device that also opens the feed, for example the tablet alongside the phone. Empty means only the first one counts.</English>
+				<Italian>Un secondo dispositivo che apre il feed allo stesso modo, per esempio il tablet accanto al telefono. Vuoto vuol dire che vale solo il primo.</Italian>
+				<French>Un deuxieme appareil qui ouvre aussi le flux.</French>
+				<Spanish>Un segundo dispositivo que tambien abre el feed.</Spanish>
+				<Portuguese>Um segundo dispositivo que tambem abre o feed.</Portuguese>
+				<German>Ein zweites Geraet, das den Feed ebenfalls oeffnet.</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_drone">
+				<English>PiP view distance limiter - Drones</English>
+				<Italian>Limitatore distanza visiva da PiP - Droni</Italian>
+				<French>Limiteur PiP - Drones</French>
+				<Spanish>Limitador PiP - Drones</Spanish>
+				<Portuguese>Limitador PiP - Drones</Portuguese>
+				<German>PiP-Begrenzer - Drohnen</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_drone_t">
+				<English>Only while a drone feed is open, and takes priority over the category value. A drone high up looks very far, so this is usually the highest of them all. 0 falls back to the drone's category value: air, land or sea. [This setting should use the same values as the ACE view distance limiter]</English>
+				<Italian>Vale solo mentre e' aperto un feed da drone, e ha la precedenza sul valore della categoria. Un drone in quota guarda molto lontano, quindi di solito e' il piu' alto di tutti. A 0 vale il valore della categoria del drone: aria, terra o mare. [Questa impostazione deve avere gli stessi valori di ACE Limitatore Distanza Visiva]</Italian>
+				<French>Only while a drone feed is open, and takes priority over the category value. A drone high up looks very far, so this is usually the highest of them all. 0 falls back to the drone's category value: air, land or sea. [Ce reglage doit utiliser les memes valeurs que le limiteur de distance de vue ACE]</French>
+				<Spanish>Only while a drone feed is open, and takes priority over the category value. A drone high up looks very far, so this is usually the highest of them all. 0 falls back to the drone's category value: air, land or sea. [Este ajuste debe usar los mismos valores que el limitador de distancia de vision de ACE]</Spanish>
+				<Portuguese>Only while a drone feed is open, and takes priority over the category value. A drone high up looks very far, so this is usually the highest of them all. 0 falls back to the drone's category value: air, land or sea. [Esta definicao deve usar os mesmos valores do limitador de distancia de visao do ACE]</Portuguese>
+				<German>Only while a drone feed is open, and takes priority over the category value. A drone high up looks very far, so this is usually the highest of them all. 0 falls back to the drone's category value: air, land or sea. [Diese Einstellung sollte dieselben Werte wie der ACE-Sichtweiten-Begrenzer verwenden]</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_air">
+				<English>PiP view distance limiter - AircraftCam</English>
+				<Italian>Limitatore distanza visiva da PiP - AircraftCam</Italian>
+				<French>Limiteur PiP - AircraftCam</French>
+				<Spanish>Limitador PiP - AircraftCam</Spanish>
+				<Portuguese>Limitador PiP - AircraftCam</Portuguese>
+				<German>PiP-Begrenzer - AircraftCam</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_air_t">
+				<English>Only while an aircraft feed is open. Aircraft look far, so this is usually the highest of the three. 0 uses the general value. [This setting should use the same values as the ACE view distance limiter]</English>
+				<Italian>Vale solo mentre e' aperto un feed da velivolo. Gli aerei guardano lontano, quindi di solito e' il piu' alto dei tre. A 0 usa il valore generale. [Questa impostazione deve avere gli stessi valori di ACE Limitatore Distanza Visiva]</Italian>
+				<French>Only while an aircraft feed is open. Aircraft look far, so this is usually the highest of the three. 0 uses the general value. [Ce reglage doit utiliser les memes valeurs que le limiteur de distance de vue ACE]</French>
+				<Spanish>Only while an aircraft feed is open. Aircraft look far, so this is usually the highest of the three. 0 uses the general value. [Este ajuste debe usar los mismos valores que el limitador de distancia de vision de ACE]</Spanish>
+				<Portuguese>Only while an aircraft feed is open. Aircraft look far, so this is usually the highest of the three. 0 uses the general value. [Esta definicao deve usar os mesmos valores do limitador de distancia de visao do ACE]</Portuguese>
+				<German>Only while an aircraft feed is open. Aircraft look far, so this is usually the highest of the three. 0 uses the general value. [Diese Einstellung sollte dieselben Werte wie der ACE-Sichtweiten-Begrenzer verwenden]</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_land">
+				<English>PiP view distance limiter - VehiclesCam</English>
+				<Italian>Limitatore distanza visiva da PiP - VehiclesCam</Italian>
+				<French>Limiteur PiP - VehiclesCam</French>
+				<Spanish>Limitador PiP - VehiclesCam</Spanish>
+				<Portuguese>Limitador PiP - VehiclesCam</Portuguese>
+				<German>PiP-Begrenzer - VehiclesCam</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_land_t">
+				<English>Only while a ground vehicle feed is open. A turret on the ground rarely needs kilometres. 0 uses the general value. [This setting should use the same values as the ACE view distance limiter]</English>
+				<Italian>Vale solo mentre e' aperto un feed da mezzo terrestre. Una torretta a terra raramente ha bisogno di chilometri. A 0 usa il valore generale. [Questa impostazione deve avere gli stessi valori di ACE Limitatore Distanza Visiva]</Italian>
+				<French>Only while a ground vehicle feed is open. A turret on the ground rarely needs kilometres. 0 uses the general value. [Ce reglage doit utiliser les memes valeurs que le limiteur de distance de vue ACE]</French>
+				<Spanish>Only while a ground vehicle feed is open. A turret on the ground rarely needs kilometres. 0 uses the general value. [Este ajuste debe usar los mismos valores que el limitador de distancia de vision de ACE]</Spanish>
+				<Portuguese>Only while a ground vehicle feed is open. A turret on the ground rarely needs kilometres. 0 uses the general value. [Esta definicao deve usar os mesmos valores do limitador de distancia de visao do ACE]</Portuguese>
+				<German>Only while a ground vehicle feed is open. A turret on the ground rarely needs kilometres. 0 uses the general value. [Diese Einstellung sollte dieselben Werte wie der ACE-Sichtweiten-Begrenzer verwenden]</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_sea">
+				<English>PiP view distance limiter - BoatsCam</English>
+				<Italian>Limitatore distanza visiva da PiP - BoatsCam</Italian>
+				<French>Limiteur PiP - BoatsCam</French>
+				<Spanish>Limitador PiP - BoatsCam</Spanish>
+				<Portuguese>Limitador PiP - BoatsCam</Portuguese>
+				<German>PiP-Begrenzer - BoatsCam</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_vd_sea_t">
+				<English>Only while a boat feed is open. 0 uses the general value. [This setting should use the same values as the ACE view distance limiter]</English>
+				<Italian>Vale solo mentre e' aperto un feed da imbarcazione. A 0 usa il valore generale. [Questa impostazione deve avere gli stessi valori di ACE Limitatore Distanza Visiva]</Italian>
+				<French>Only while a boat feed is open. 0 uses the general value. [Ce reglage doit utiliser les memes valeurs que le limiteur de distance de vue ACE]</French>
+				<Spanish>Only while a boat feed is open. 0 uses the general value. [Este ajuste debe usar los mismos valores que el limitador de distancia de vision de ACE]</Spanish>
+				<Portuguese>Only while a boat feed is open. 0 uses the general value. [Esta definicao deve usar os mesmos valores do limitador de distancia de visao do ACE]</Portuguese>
+				<German>Only while a boat feed is open. 0 uses the general value. [Diese Einstellung sollte dieselben Werte wie der ACE-Sichtweiten-Begrenzer verwenden]</German>
+			</Key>
 			<Key ID="STR_crutek_dcam_sec_misc">
 				<English>Miscellaneous</English>
 				<Italian>Varie</Italian>
@@ -260,7 +356,7 @@
 			</Key>
 			<Key ID="STR_crutek_dcam_set_sideOwn_t">
 				<English>Without this, a mission played from the other side would leave the observer blind to their own vehicles</English>
-				<Italian>Senza questa, una missione giocata dalla parte sbagliata lascerebbe l&#x27;osservatore cieco sui propri stessi mezzi</Italian>
+				<Italian>Senza questa, una missione giocata dalla parte sbagliata lascerebbe l'osservatore cieco sui propri stessi mezzi</Italian>
 				<French>Sans cette option, une mission jouée depuis l'autre camp laisserait l'observateur aveugle sur ses propres véhicules</French>
 				<Spanish>Sin esta opción, una misión jugada desde el otro bando dejaría al observador ciego ante sus propios vehículos</Spanish>
 				<Portuguese>Sem esta opção, uma missão jogada pela outra facção deixaria o observador cego aos próprios veículos</Portuguese>
@@ -410,13 +506,29 @@
 				<Portuguese>Além deste alcance o veículo não aparece na lista. 0 significa sem limite: qualquer um pode observar qualquer veículo do mapa</Portuguese>
 				<German>Jenseits dieser Reichweite erscheint das Fahrzeug nicht in der Liste. 0 bedeutet ohne Grenze: jeder kann jedes Fahrzeug auf der Karte beobachten</German>
 			</Key>
+			<Key ID="STR_crutek_dcam_set_hcViewDist">
+				<English>PiP view distance limiter</English>
+				<Italian>Limitatore distanza visiva da PiP</Italian>
+				<French>Limiteur de distance de vue PiP</French>
+				<Spanish>Limitador de distancia de vision PiP</Spanish>
+				<Portuguese>Limitador de distancia de visao PiP</Portuguese>
+				<German>PiP-Sichtweiten-Begrenzer</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_hcViewDist_t">
+				<English>0 = leave it alone. With a value, the view distance is raised to at least that while a feed is open and restored when it closes. It never lowers it. Careful: the view distance is one single value for the whole render, so your own view is raised too, and the ACE view distance limiter reapplies its own on state changes [This setting should use the same values as the ACE view distance limiter]</English>
+				<Italian>0 = non tocca niente. Con un valore la distanza visiva viene portata almeno a quel numero mentre un feed e aperto e rimessa com'era alla chiusura. Non la abbassa mai. Attenzione: la distanza visiva e una sola per tutto il rendering, quindi si alza anche la tua vista reale, e il limitatore ACE rimette il suo valore a ogni cambio di stato [Questa impostazione deve avere gli stessi valori di ACE Limitatore Distanza Visiva]</Italian>
+				<French>0 = ne touche à rien. Avec une valeur, la distance de vue est portée au moins à ce niveau pendant qu'un flux est ouvert, puis remise comme avant à la fermeture. Elle ne la baisse jamais. Attention : la distance de vue est une seule valeur pour tout le rendu, donc la vôtre monte aussi, et le limiteur de distance de vue d'ACE réapplique la sienne à chaque changement d'état [Ce reglage doit utiliser les memes valeurs que le limiteur de distance de vue ACE]</French>
+				<Spanish>0 = no toca nada. Con un valor, la distancia de visión sube al menos hasta ese número mientras la señal está abierta y se restaura al cerrarla. Nunca la baja. Atención: la distancia de visión es un único valor para todo el render, así que también sube la tuya, y el limitador de distancia de visión de ACE vuelve a aplicar la suya en cada cambio de estado [Este ajuste debe usar los mismos valores que el limitador de distancia de vision de ACE]</Spanish>
+				<Portuguese>0 = não toca em nada. Com um valor, a distância de visão sobe pelo menos até esse número enquanto o sinal está aberto e volta ao que era ao fechar. Nunca a baixa. Atenção: a distância de visão é um único valor para todo o render, portanto a tua também sobe, e o limitador de distância de visão do ACE reaplica o dele a cada mudança de estado [Esta definicao deve usar os mesmos valores do limitador de distancia de visao do ACE]</Portuguese>
+				<German>0 = ändert nichts. Mit einem Wert wird die Sichtweite bei offenem Feed mindestens auf diesen Wert angehoben und beim Schließen wiederhergestellt. Sie wird nie gesenkt. Achtung: die Sichtweite ist ein einziger Wert für das gesamte Rendering, also steigt auch die eigene, und der ACE-Sichtweitenbegrenzer setzt bei jedem Zustandswechsel seinen eigenen Wert erneut [Diese Einstellung sollte dieselben Werte wie der ACE-Sichtweiten-Begrenzer verwenden]</German>
+			</Key>
 			<Key ID="STR_crutek_dcam_set_viewDist">
-				<English>Minimum view distance while a feed is on</English>
-				<Italian>Distanza visiva minima col feed acceso</Italian>
-				<French>Distance de vue minimale pendant un flux</French>
-				<Spanish>Distancia de visión mínima con la señal activa</Spanish>
-				<Portuguese>Distância de visão mínima com o sinal ligado</Portuguese>
-				<German>Mindestsichtweite bei aktivem Feed</German>
+				<English>PiP view distance limiter</English>
+				<Italian>Limitatore distanza visiva da PiP</Italian>
+				<French>Limiteur de distance de vue PiP</French>
+				<Spanish>Limitador de distancia de vision PiP</Spanish>
+				<Portuguese>Limitador de distancia de visao PiP</Portuguese>
+				<German>PiP-Sichtweiten-Begrenzer</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_viewDist_t">
 				<English>0 = leave it alone. With a value, the view distance is raised to at least that while a feed is open and restored when it closes. It never lowers it. Careful: the view distance is one single value for the whole render, so your own view is raised too, and the ACE view distance limiter reapplies its own on state changes</English>
@@ -436,7 +548,7 @@
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drag_t">
 				<English>Lets the phone viewer slew the turret of an unmanned drone. It is the only thing that acts rather than watches</English>
-				<Italian>Permette a chi guarda dal telefono di muovere la torretta di un drone senza operatore. E&#x27; l&#x27;unica cosa che fa agire invece che guardare</Italian>
+				<Italian>Permette a chi guarda dal telefono di muovere la torretta di un drone senza operatore. E' l'unica cosa che fa agire invece che guardare</Italian>
 				<French>Permet à celui qui regarde le téléphone de diriger la tourelle d'un drone sans opérateur. C'est la seule fonction qui agit au lieu de regarder</French>
 				<Spanish>Permite a quien mira el teléfono girar la torreta de un dron sin operador. Es lo único que actúa en lugar de observar</Spanish>
 				<Portuguese>Permite a quem olha o telemóvel girar a torre de um drone sem operador. É a única função que age em vez de observar</Portuguese>
@@ -459,20 +571,20 @@
 				<German>Unterhalb dieser Höhe erscheint ein Luftfahrzeug nicht in der Liste. Ein negativer Wert schließt auch die am Boden stehenden ein</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcOn">
-				<English>Enable OpCam</English>
-				<Italian>Abilita OpCam</Italian>
-				<French>Activer OpCam</French>
-				<Spanish>Activar OpCam</Spanish>
-				<Portuguese>Ativar OpCam</Portuguese>
-				<German>OpCam aktivieren</German>
+				<English>Enable cTab-HelmetCam</English>
+				<Italian>Abilita cTab-HelmetCam</Italian>
+				<French>Activer cTab-HelmetCam</French>
+				<Spanish>Activar cTab-HelmetCam</Spanish>
+				<Portuguese>Ativar cTab-HelmetCam</Portuguese>
+				<German>cTab-HelmetCam aktivieren</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcOn_t">
-				<English>See through your teammates&#x27; eyes. Turning it off removes the entry from the menu</English>
-				<Italian>Vedere dagli occhi dei compagni. Spegnendola la voce sparisce dal menu</Italian>
-				<French>Voir par les yeux de ses coéquipiers. En la désactivant, l'entrée disparaît du menu</French>
-				<Spanish>Ver a través de los ojos de tus compañeros. Al desactivarlo, la entrada desaparece del menú</Spanish>
-				<Portuguese>Ver pelos olhos dos teus companheiros. Ao desativar, a entrada desaparece do menu</Portuguese>
-				<German>Durch die Augen der Kameraden sehen. Beim Ausschalten verschwindet der Eintrag aus dem Menü</German>
+				<English>Turns the whole helmet camera feature off. With this off the OpCam branch does not appear in the ACE menu at all. Global: set per scenario from the editor, identical for everyone in the session.</English>
+				<Italian>Spegne l'intera funzione delle camere da casco. Con questa spenta il ramo OpCam non compare nemmeno nel menu ACE. Globale: si imposta per scenario dall'editor e vale uguale per tutti in sessione.</Italian>
+				<French>Desactive entierement la fonction camera de casque. Global: se regle par scenario depuis l'editeur.</French>
+				<Spanish>Desactiva por completo la funcion de camara de casco. Global: se ajusta por escenario desde el editor.</Spanish>
+				<Portuguese>Desliga por completo a funcao de camara de capacete. Global: define-se por cenario a partir do editor.</Portuguese>
+				<German>Schaltet die Helmkamera-Funktion komplett ab. Global: pro Szenario im Editor eingestellt.</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_itemMisc">
 				<English>Device in a pocket</English>
@@ -480,15 +592,15 @@
 				<French>Appareil dans une poche</French>
 				<Spanish>Dispositivo en el bolsillo</Spanish>
 				<Portuguese>Dispositivo no bolso</Portuguese>
-				<German>Ger&#xe4;t in einer Tasche</German>
+				<German>Gerät in einer Tasche</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_itemMisc_t">
 				<English>The device has two classes: the one in the terminal slot and the Misc one you put in uniform, vest or backpack. Off: it must be equipped in the slot</English>
 				<Italian>Il dispositivo ha due classi: quella dello slot terminali e quella Misc che si mette in uniforme, giubbetto o zaino. Spento: deve essere nello slot</Italian>
-				<French>L&#x27;appareil a deux classes : celle de l&#x27;emplacement terminal et la version Misc rang&#xe9;e dans l&#x27;uniforme, le gilet ou le sac. D&#xe9;sactiv&#xe9; : il doit &#xea;tre &#xe9;quip&#xe9;</French>
+				<French>L'appareil a deux classes : celle de l'emplacement terminal et la version Misc rangée dans l'uniforme, le gilet ou le sac. Désactivé : il doit être équipé</French>
 				<Spanish>El dispositivo tiene dos clases: la del hueco de terminal y la Misc que se guarda en uniforme, chaleco o mochila. Apagado: debe estar equipado</Spanish>
 				<Portuguese>O dispositivo tem duas classes: a do slot de terminal e a Misc que se guarda no uniforme, colete ou mochila. Desligado: tem de estar equipado</Portuguese>
-				<German>Das Ger&#xe4;t hat zwei Klassen: die des Terminal-Slots und die Misc-Variante f&#xfc;r Uniform, Weste oder Rucksack. Aus: es muss ausger&#xfc;stet sein</German>
+				<German>Das Gerät hat zwei Klassen: die des Terminal-Slots und die Misc-Variante für Uniform, Weste oder Rucksack. Aus: es muss ausgerüstet sein</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcItem">
 				<English>Required inventory item</English>
@@ -499,7 +611,7 @@
 				<German>Benötigter Gegenstand im Inventar</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_hcItem_t">
-				<English>Whoever carries it can be observed. Leave empty to rely on cTab&#x27;s cam-equipped helmet list instead</English>
+				<English>Whoever carries it can be observed. Leave empty to rely on cTab's cam-equipped helmet list instead</English>
 				<Italian>Chi lo porta puo essere osservato. Vuoto: basta un elmetto fra quelli che cTab considera dotati di cam</Italian>
 				<French>Celui qui le porte peut être observé. Laisser vide pour s'appuyer sur la liste des casques équipés de cTab</French>
 				<Spanish>Quien lo lleve puede ser observado. Déjalo vacío para usar la lista de cascos con cámara de cTab</Spanish>
@@ -587,8 +699,8 @@
 				<German>Öffne das Telefon, um den Feed zu sehen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_not_zoomFloor">
-				<English>You are at the operator&#x27;s framing, it does not widen further</English>
-				<Italian>Sei all&#x27;inquadratura dell&#x27;operatore, non si allarga oltre</Italian>
+				<English>You are at the operator's framing, it does not widen further</English>
+				<Italian>Sei all'inquadratura dell'operatore, non si allarga oltre</Italian>
 				<French>Vous êtes au cadrage de l'opérateur, cela ne s'élargit pas davantage</French>
 				<Spanish>Estás en el encuadre del operador, no se abre más</Spanish>
 				<Portuguese>Estás no enquadramento do operador, não abre mais</Portuguese>
@@ -676,7 +788,7 @@
 			</Key>
 			<Key ID="STR_crutek_dcam_key_modePrev_t">
 				<English>Cycles AUTO, NV, TH1, TH2 backward</English>
-				<Italian>Cicla AUTO, NV, TH1, TH2 all&#x27;indietro</Italian>
+				<Italian>Cicla AUTO, NV, TH1, TH2 all'indietro</Italian>
 				<French>Fait défiler AUTO, NV, TH1, TH2 vers l'arrière</French>
 				<Spanish>Recorre AUTO, NV, TH1, TH2 hacia atrás</Spanish>
 				<Portuguese>Percorre AUTO, NV, TH1, TH2 para trás</Portuguese>
@@ -811,20 +923,20 @@
 				<German>cTab-Drohnen</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drOn">
-				<English>Enable drones</English>
-				<Italian>Abilita i droni</Italian>
-				<French>Activer les drones</French>
-				<Spanish>Activar drones</Spanish>
-				<Portuguese>Ativar drones</Portuguese>
-				<German>Drohnen aktivieren</German>
+				<English>Enable cTab-Drones</English>
+				<Italian>Abilita cTab-Droni</Italian>
+				<French>Activer cTab-Drones</French>
+				<Spanish>Activar cTab-Drones</Spanish>
+				<Portuguese>Ativar cTab-Drones</Portuguese>
+				<German>cTab-Drohnen aktivieren</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drOn_t">
-				<English>Turning this off removes drones from every category</English>
-				<Italian>Spegnendola i droni spariscono da tutte le categorie</Italian>
-				<French>En désactivant, les drones disparaissent de toutes les catégories</French>
-				<Spanish>Al desactivarlo, los drones desaparecen de todas las categorías</Spanish>
-				<Portuguese>Ao desativar, os drones desaparecem de todas as categorias</Portuguese>
-				<German>Beim Ausschalten verschwinden Drohnen aus allen Kategorien</German>
+				<English>Turns the whole drone feature off. With this off drones disappear from all three categories, air, land and sea. Global: set per scenario from the editor, identical for everyone in the session.</English>
+				<Italian>Spegne l'intera funzione dei droni. Con questa spenta i droni spariscono da tutte e tre le categorie, aria terra e mare. Globale: si imposta per scenario dall'editor e vale uguale per tutti in sessione.</Italian>
+				<French>Desactive entierement la fonction drones. Global: se regle par scenario depuis l'editeur.</French>
+				<Spanish>Desactiva por completo la funcion de drones. Global: se ajusta por escenario desde el editor.</Spanish>
+				<Portuguese>Desliga por completo a funcao de drones. Global: define-se por cenario a partir do editor.</Portuguese>
+				<German>Schaltet die Drohnen-Funktion komplett ab. Global: pro Szenario im Editor eingestellt.</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drWho">
 				<English>Who controls the drone</English>
@@ -835,12 +947,100 @@
 				<German>Wer die Drohne steuert</German>
 			</Key>
 			<Key ID="STR_crutek_dcam_set_drWho_t">
-				<English>This looks at who is connected via the terminal, not the crew: a drone&#x27;s crew is always AI even while you are flying it</English>
-				<Italian>Si guarda chi e collegato col terminale, non l&#x27;equipaggio: quello di un drone e sempre IA anche mentre lo piloti tu</Italian>
+				<English>This looks at who is connected via the terminal, not the crew: a drone's crew is always AI even while you are flying it</English>
+				<Italian>Si guarda chi e collegato col terminale, non l'equipaggio: quello di un drone e sempre IA anche mentre lo piloti tu</Italian>
 				<French>Cela regarde qui est connecté via le terminal, pas l'équipage : l'équipage d'un drone est toujours IA, même quand vous le pilotez</French>
 				<Spanish>Esto mira quién está conectado desde el terminal, no la tripulación: la tripulación de un dron siempre es IA, incluso mientras lo pilotas</Spanish>
 				<Portuguese>Isto olha para quem está ligado pelo terminal, não a tripulação: a tripulação de um drone é sempre IA, mesmo enquanto o pilotas</Portuguese>
 				<German>Es zählt, wer über das Terminal verbunden ist, nicht die Besatzung: die Besatzung einer Drohne ist immer KI, auch während man sie fliegt</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_cat_comp">
+				<English>cTab Compatibility MOD</English>
+				<Italian>cTab Compatibility MOD</Italian>
+				<French>cTab Compatibility MOD</French>
+				<Spanish>cTab Compatibility MOD</Spanish>
+				<Portuguese>cTab Compatibility MOD</Portuguese>
+				<German>cTab Compatibility MOD</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_sec_comp">
+				<English>Aircraft and vehicle mods</English>
+				<Italian>Mod di aerei e mezzi</Italian>
+				<French>Mods d'aeronefs et de vehicules</French>
+				<Spanish>Mods de aeronaves y vehiculos</Spanish>
+				<Portuguese>Mods de aeronaves e veiculos</Portuguese>
+				<German>Flugzeug- und Fahrzeug-Mods</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_compUSAF">
+				<English>USAF Mod</English>
+				<Italian>USAF Mod</Italian>
+				<French>USAF Mod</French>
+				<Spanish>USAF Mod</Spanish>
+				<Portuguese>USAF Mod</Portuguese>
+				<German>USAF Mod</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_compUSAF_t">
+				<English>Turret compatibility for USAF aircraft. Their gunships declare no primary gunner and the pilot pod is not the aiming sensor: with this on, the feed reproduces the station that actually fires. Turn it off if the mod is not loaded.</English>
+				<Italian>Compatibilita torrette per gli aerei USAF. I loro cannonieri non dichiarano nessuna torretta primaria e il pod del pilota non e il sensore di puntamento: con questa accesa il feed riproduce la postazione che spara davvero. Spegnila se il mod non e caricato.</Italian>
+				<French>Compatibilite des tourelles pour les aeronefs USAF: le flux reproduit le poste qui tire vraiment.</French>
+				<Spanish>Compatibilidad de torretas para las aeronaves USAF: el feed reproduce el puesto que dispara de verdad.</Spanish>
+				<Portuguese>Compatibilidade de torres para as aeronaves USAF: o feed reproduz o posto que dispara de verdade.</Portuguese>
+				<German>Turm-Kompatibilitaet fuer USAF-Flugzeuge: der Feed zeigt die Station, die wirklich schiesst.</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_gunnerOnly">
+				<English>Transmit only the Gunner or Commander seat, for land and amphibious vehicles</English>
+				<Italian>Trasmetti solo posto Artigliere o Comandante per veicoli anfibi o terrestri</Italian>
+				<French>Ne transmettre que le poste Tireur ou Chef de bord, vehicules terrestres et amphibies</French>
+				<Spanish>Transmitir solo el puesto de Artillero o Comandante, vehiculos terrestres y anfibios</Spanish>
+				<Portuguese>Transmitir so o posto de Artilheiro ou Comandante, veiculos terrestres e anfibios</Portuguese>
+				<German>Nur Richtschutzen- oder Kommandantenplatz senden, Land- und Amphibienfahrzeuge</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_gunnerOnly_t">
+				<English>If the box is not ticked, the ACE menu shows every seat available in the vehicle, following the Who must be aboard rule.</English>
+				<Italian>Se non spunti la casella, dal menu ACE verranno mostrati tutti i posti disponibili nel mezzo, rispettando la regola Chi deve essere a bordo.</Italian>
+				<French>Si la case n'est pas cochee, le menu ACE affiche tous les postes disponibles dans le vehicule, en respectant la regle Qui doit etre a bord.</French>
+				<Spanish>Si la casilla no esta marcada, el menu ACE muestra todos los puestos disponibles en el vehiculo, respetando la regla Quien debe estar a bordo.</Spanish>
+				<Portuguese>Se a caixa nao estiver marcada, o menu ACE mostra todos os postos disponiveis no veiculo, respeitando a regra Quem deve estar a bordo.</Portuguese>
+				<German>Ist das Kastchen nicht angehakt, zeigt das ACE-Menu alle im Fahrzeug verfugbaren Platze, gemass der Regel Wer an Bord sein muss.</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_menuMode">
+				<English>ACE menu</English>
+				<Italian>Menu ACE</Italian>
+				<French>Menu ACE</French>
+				<Spanish>Menu ACE</Spanish>
+				<Portuguese>Menu ACE</Portuguese>
+				<German>ACE-Menu</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_menuMode_t">
+				<English>Shape of the Cam on Galaxy branch. The ACE self-interaction menu opens as a wheel, and the deeper the tree the further the branches sit from the cursor: leave it by a little and it closes before you get there. Short lifts the stations one level up, so they are reached in a single move.</English>
+				<Italian>Forma del ramo Cam on Galaxy. Il menu di autointerazione ACE si apre a raggiera, e piu l'albero e profondo piu i rami finiscono lontani dal cursore: basta uscire di poco e si richiude prima di arrivarci. Breve alza le postazioni di un livello, cosi si raggiungono con un movimento solo.</Italian>
+				<French>Forme de la branche Cam on Galaxy. Court remonte les postes d'un niveau, plus faciles a atteindre a la souris.</French>
+				<Spanish>Forma de la rama Cam on Galaxy. Corto sube los puestos un nivel, mas faciles de alcanzar con el raton.</Spanish>
+				<Portuguese>Forma do ramo Cam on Galaxy. Curto sobe os postos um nivel, mais faceis de alcancar com o rato.</Portuguese>
+				<German>Form des Cam-on-Galaxy-Zweigs. Kurz hebt die Platze eine Ebene hoher und macht sie leichter erreichbar.</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_menuMode_0">
+				<English>Normal</English>
+				<Italian>Normale</Italian>
+				<French>Normal</French>
+				<Spanish>Normal</Spanish>
+				<Portuguese>Normal</Portuguese>
+				<German>Normal</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_set_menuMode_1">
+				<English>Short</English>
+				<Italian>Breve</Italian>
+				<French>Court</French>
+				<Spanish>Corto</Spanish>
+				<Portuguese>Curto</Portuguese>
+				<German>Kurz</German>
+			</Key>
+			<Key ID="STR_crutek_dcam_menu_avail">
+				<English>Available</English>
+				<Italian>Disponibili</Italian>
+				<French>Disponibles</French>
+				<Spanish>Disponibles</Spanish>
+				<Portuguese>Disponiveis</Portuguese>
+				<German>Verfugbar</German>
 			</Key>
 		</Container>
 	</Package>

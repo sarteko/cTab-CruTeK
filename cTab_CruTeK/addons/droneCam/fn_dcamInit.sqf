@@ -16,7 +16,7 @@ if (!hasInterface) exitWith {};
     girando davvero. Se un errore continua a citare righe o nomi che nel
     file non esistono piu, e il PBO a contenere ancora la versione vecchia.
 */
-crutek_dcam_version = "2026-08-01-h3";
+crutek_dcam_version = "2026-08-04-p3";
 
 // di serie a sinistra, appoggiato in basso: valori misurati a schermo
 crutek_dcam_posLato = 0;
@@ -31,26 +31,54 @@ crutek_dcam_posVert = 0;
     niente perche' dcamPhonePos esce subito se lo scarto e' trascurabile, e
     quindi sposta una volta sola e poi non fa piu' nulla.
 */
+/*
+    Riposizionamento del telefono.
+
+    Gira a ogni fotogramma ma non fa quasi nulla: confronta un nome e basta.
+    Serve cosi' perche' con un controllo periodico il telefono restava per un
+    istante dove lo mette cTab e poi saltava al posto suo - un lampo brutto da
+    vedere. Appena la posizione e' assestata smette di ricalcolare, e riparte
+    solo se il telefono viene richiuso e riaperto.
+*/
+crutek_dcam_posOk = false;
+crutek_dcam_posVisto = "";
+
 [{
     if !(missionNamespace getVariable ["crutek_dcam_pos", false]) exitWith {};
-    if (isNil "cTabIfOpen") exitWith {};
+    if (isNil "cTabIfOpen") exitWith {crutek_dcam_posVisto = ""};
 
     private _n = cTabIfOpen select 1;
-    if (count _n < 12) exitWith {};
-    if !((_n select [0, 12]) isEqualTo "cTab_Android") exitWith {};
+    if (count _n < 12) exitWith {crutek_dcam_posVisto = ""};
+    if !((_n select [0, 12]) isEqualTo "cTab_Android") exitWith {crutek_dcam_posVisto = ""};
 
-    /*
-        Solo la schermata piccola, quella agganciata al bordo.
-        A tutto schermo cTab usa un altro display, e li' la sua disposizione
-        e' gia' giusta: spostarla sarebbe un danno, non un aiuto.
-    */
-    if !((_n select [(count _n) - 3]) isEqualTo "dsp") exitWith {};
+    // solo la schermata piccola: a tutto schermo comanda cTab
+    if !((_n select [(count _n) - 3]) isEqualTo "dsp") exitWith {crutek_dcam_posVisto = ""};
 
     private _d = uiNamespace getVariable [_n, displayNull];
     if (isNull _d) exitWith {};
 
+    /*
+        Niente spegnimento dei controlli in attesa dello spostamento: provato,
+        e lasciava il telefono in caricamento perenne. Meglio il lampo di un
+        fotogramma nella posizione di cTab che una schermata che non si apre.
+    */
+    if !(_n isEqualTo crutek_dcam_posVisto) then {
+        crutek_dcam_posVisto = _n;
+        crutek_dcam_posOk = false;
+    };
+    if (crutek_dcam_posOk) exitWith {};
+
+    /*
+        UN SOLO tentativo per apertura, punto.
+
+        Lasciando che riprovasse finche' la posizione non si assestava, con
+        certi schermi non si assestava mai: spostava i controlli a ogni
+        fotogramma e cTab non finiva piu' di caricare la mappa. Meglio uno
+        spostamento imperfetto che un telefono che non si apre.
+    */
+    crutek_dcam_posOk = true;
     [_d] call crutek_fnc_dcamPhonePos;
-}, 0.5, []] call CBA_fnc_addPerFrameHandler;
+}, 0, []] call CBA_fnc_addPerFrameHandler;
 
 /*
     Sposta il telefono a sinistra, al centro o a destra, sempre appoggiato in
@@ -67,6 +95,7 @@ crutek_dcam_posVert = 0;
     resterebbero liberi come prima.
 */
 private _fnc_sposta = {
+    crutek_dcam_posOk = false;
     if (isNil "cTabIfOpen") exitWith {};
     private _n = cTabIfOpen select 1;
     if (count _n < 12) exitWith {};
@@ -560,6 +589,10 @@ crutek_dcam_cam      = objNull;
 crutek_dcam_uav      = objNull;
 crutek_dcam_posMem   = "";
 crutek_dcam_aim      = "";
+crutek_dcam_turret   = [];
+crutek_dcam_animBody  = "";
+crutek_dcam_animGun   = "";
+crutek_dcam_armi      = [];
 crutek_dcam_dirMem   = "";
 crutek_dcam_mode      = 0;
 crutek_dcam_effective = "";
@@ -623,7 +656,7 @@ crutek_dcam_applyVD = {
     if (crutek_dcam_prevVD <= 0) exitWith {};
 
     private _tetto = missionNamespace getVariable ["ace_viewdistance_limitViewDistance", 12000];
-    private _vuole = crutek_dcam_viewDist min _tetto;
+    private _vuole = (missionNamespace getVariable ["crutek_dcam_vdAttiva", 0]) min _tetto;
     if (viewDistance >= _vuole) exitWith {};
 
     setViewDistance _vuole;
@@ -717,6 +750,13 @@ crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
 
     private _fnc_children = {
         private _actions = [];
+
+        /*
+            In forma breve le sorgenti non vanno sparse alla radice, dove
+            starebbero in mezzo a Nascondi feed, Scollega e Diagnostica.
+            Si raccolgono qui e finiscono tutte sotto una voce sola.
+        */
+        private _breve = [];
 
         // ---- OpCam: telecamere da casco --------------------------
         private _opFigli = [];
@@ -818,21 +858,122 @@ crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
                     format ["%1  -  %2 m", [_v] call crutek_fnc_dcamName, round (player distance _v)]
                 };
 
-                private _act = [
-                    format ["crutek_cam_%1", netId _v],
-                    _tit,
-                    _icona,
-                    { [_this select 2, "VEH"] call crutek_fnc_dcamOpen },
-                    { true },
-                    {},
-                    _v
-                ] call ace_interact_menu_fnc_createAction;
-                _figli pushBack [_act, [], _v];
+                /*
+                    POSTAZIONI ANNIDATE.
+
+                    Se il mezzo ha piu di una postazione guardabile, la voce
+                    del mezzo diventa un ramo e dentro ci va una riga per
+                    postazione: chi ci sta seduto e il ruolo letto dal config.
+                    Serve per il posto comandante, che prima non si poteva
+                    guardare per niente, e non pretende che sia armato.
+
+                    Si annida anche con UNA postazione sola, e non e uno spreco:
+                    e li dentro che passa il percorso torretta scelto. Senza
+                    quel passaggio la postazione non verrebbe usata affatto e la
+                    camera tornerebbe al ripiego di sempre, cioe primo punto
+                    ottica e prima arma del mezzo. E in piu, con un solo
+                    occupante a bordo, e l'unico modo di vedere chi e e che
+                    ruolo ha.
+
+                    Restano voce singola i droni e gli aerei, dove la sorgente
+                    e il pod o i memory point e di torrette da scegliere non ce
+                    ne sono, e i mezzi con un profilo di compatibilita, che le
+                    postazioni le hanno gia dichiarate a mano.
+                */
+                private _post = if (([_v] call crutek_fnc_dcamCompMod) isEqualTo "") then {
+                    [_v] call crutek_fnc_dcamStations
+                } else {
+                    []
+                };
+
+                if ((count _post) > 0 && {crutek_dcam_menuMode isEqualTo 1}) then {
+                    /*
+                        FORMA BREVE. Le postazioni salgono di un livello e
+                        stanno direttamente sotto la categoria, col nome del
+                        mezzo spostato dentro la riga. Un anello in meno
+                        nell'albero, che sul menu a raggiera di ACE vuol dire
+                        un ramo in meno da inseguire col mouse prima che si
+                        richiuda.
+                    */
+                    {
+                        _x params ["_pPath", "_pMem", "_pUnit", "_pRuolo"];
+                        private _actB = [
+                            format ["crutek_cam_%1_%2", netId _v, _forEachIndex],
+                            format ["%1  -  %2  -  %3  -  %4 m",
+                                name _pUnit,
+                                toUpper _pRuolo,
+                                [_v] call crutek_fnc_dcamName,
+                                round (player distance _v)],
+                            _icona,
+                            {
+                                (_this select 2) params ["_pv", "_pt"];
+                                [_pv, "VEH", _pt] call crutek_fnc_dcamOpen
+                            },
+                            { true },
+                            {},
+                            [_v, _pPath]
+                        ] call ace_interact_menu_fnc_createAction;
+                        _figli pushBack [_actB, [], _v];
+                    } forEach _post;
+                } else {
+                if ((count _post) > 0) then {
+                    private _ramoV = [
+                        format ["crutek_cam_%1", netId _v],
+                        format ["%1  -  %2 m  (%3)",
+                            [_v] call crutek_fnc_dcamName,
+                            round (player distance _v),
+                            count _post],
+                        _icona,
+                        {},
+                        { true }
+                    ] call ace_interact_menu_fnc_createAction;
+
+                    private _nipoti = [];
+                    {
+                        _x params ["_pPath", "_pMem", "_pUnit", "_pRuolo"];
+                        private _actP = [
+                            format ["crutek_cam_%1_%2", netId _v, _forEachIndex],
+                            format ["%1  -  %2", name _pUnit, toUpper _pRuolo],
+                            _icona,
+                            {
+                                (_this select 2) params ["_pv", "_pt"];
+                                [_pv, "VEH", _pt] call crutek_fnc_dcamOpen
+                            },
+                            { true },
+                            {},
+                            [_v, _pPath]
+                        ] call ace_interact_menu_fnc_createAction;
+                        _nipoti pushBack [_actP, [], _v];
+                    } forEach _post;
+
+                    _figli pushBack [_ramoV, _nipoti, _v];
+                } else {
+                    private _act = [
+                        format ["crutek_cam_%1", netId _v],
+                        _tit,
+                        _icona,
+                        { [_this select 2, "VEH"] call crutek_fnc_dcamOpen },
+                        { true },
+                        {},
+                        _v
+                    ] call ace_interact_menu_fnc_createAction;
+                    _figli pushBack [_act, [], _v];
+                };
+                };
             } forEach _lista;
+
+            /*
+                In forma BREVE il ramo non si crea affatto: le voci se ne vanno
+                su a livello della voce principale, e chi le raccoglie e
+                _fnc_categoria. Cosi da "Cam on Galaxy" si arriva a una
+                sorgente con un clic, invece di inseguire categoria, tipo di
+                mezzo e mezzo prima di trovarla.
+            */
+            if (crutek_dcam_menuMode isEqualTo 1) exitWith { _figli };
 
             private _ramo = [
                 _id,
-                format ["%1  (%2)", _titolo, count _lista],
+                format ["%1  (%2)", _titolo, count _figli],
                 _icona,
                 {},
                 { true }
@@ -847,6 +988,12 @@ crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
 
             private _figli = [];
             { _figli append _x } forEach _rami;
+
+            // forma BREVE: niente categoria, le voci si accumulano per la
+            // voce unica montata piu sotto
+            if (crutek_dcam_menuMode isEqualTo 1) exitWith {
+                { _breve pushBack _x } forEach _figli;
+            };
 
             private _cat = [
                 _id,
@@ -906,6 +1053,18 @@ crutek_dcam_compass = (localize "STR_crutek_dcam_hud_compass") splitString ",";
             ],
             crutek_dcam_iconSea
         ] call _fnc_categoria;
+
+        // ---- forma breve: la voce unica con tutte le sorgenti -----
+        if (crutek_dcam_menuMode isEqualTo 1 && {!(_breve isEqualTo [])}) then {
+            private _disp = [
+                "crutek_dcam_disponibili",
+                format ["%1  (%2)", localize "STR_crutek_dcam_menu_avail", count _breve],
+                crutek_dcam_icon,
+                {},
+                { true }
+            ] call ace_interact_menu_fnc_createAction;
+            _actions pushBack [_disp, _breve, objNull];
+        };
 
         // ---- nascondi e rimostra, solo a feed acceso --------------
         if (crutek_dcam_active) then {

@@ -61,7 +61,17 @@ if (!isNull _uav) then {
         quelli del pod. Le ottiche delle torrette si guardano dopo, e solo se
         il pod non ha detto niente.
     */
-    if (crutek_dcam_aim isEqualTo "PILOTCAM") then {
+    /*
+        Se una torretta e stata scelta, gli scatti buoni sono i suoi. Senza
+        questo si impastavano le ottiche di tutte le postazioni del mezzo: su
+        un cannoniere con quattro stazioni usciva una scaletta di sei valori
+        presi da ottiche diverse, nessuna delle quali era quella inquadrata.
+    */
+    if !(crutek_dcam_turret isEqualTo []) then {
+        _passi = [([_uav, crutek_dcam_turret] call BIS_fnc_turretConfig) >> "OpticsIn"] call _fnc_discreti;
+    };
+
+    if (_passi isEqualTo [] && {crutek_dcam_aim isEqualTo "PILOTCAM"}) then {
         _passi = [_root >> "pilotCamera" >> "OpticsIn"] call _fnc_discreti;
     };
 

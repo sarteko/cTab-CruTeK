@@ -9,7 +9,18 @@
 
 params [["_unit", objNull], ["_wanted", []]];
 if (isNull _unit) exitWith { false };
-if (_wanted isEqualTo []) then { _wanted = [crutek_dcam_item] };
+/*
+    I dispositivi arrivano dalle due caselle nelle opzioni. La seconda puo'
+    restare vuota, e in quel caso conta solo la prima.
+*/
+if (_wanted isEqualTo []) then {
+    _wanted = [];
+    {
+        private _c = missionNamespace getVariable [_x, ""];
+        if (_c isEqualType "" && {!(_c isEqualTo "")}) then { _wanted pushBackUnique _c };
+    } forEach ["crutek_dcam_item1", "crutek_dcam_item2"];
+    if (_wanted isEqualTo []) then { _wanted = [crutek_dcam_item] };
+};
 
 /*
     Ogni dispositivo di cTab ha due classi: quella dello slot terminali

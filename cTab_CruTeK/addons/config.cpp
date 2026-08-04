@@ -48,25 +48,27 @@ class cfgFunctions
 		class droneCam
 		{
 			file="ctab_camera\droneCam";
-			class dcamApplyFov
-			{
-			};
-			class dcamClick
-			{
-			};
-			class dcamClose
-			{
-			};
-			class dcamCrop
-			{
-			};
-			class dcamCycle
-			{
-			};
 			class dcamDiag
 			{
 			};
-			class dcamDrag
+			class dcamInit
+			{
+				postInit=1;
+			};
+			class dcamNotify
+			{
+			};
+			class dcamPhonePos
+			{
+			};
+		};
+		class video_set
+		{
+			file="ctab_camera\video_set";
+			class dcamApplyFov
+			{
+			};
+			class dcamCrop
 			{
 			};
 			class dcamFov
@@ -75,20 +77,20 @@ class cfgFunctions
 			class dcamFrame
 			{
 			};
-			class dcamHasItem
-			{
-			};
-			class dcamHcams
-			{
-			};
 			class dcamHud
 			{
 			};
-			class dcamInit
+			class dcamOverlay
 			{
-				postInit=1;
 			};
-			class dcamInput
+			class dcamVision
+			{
+			};
+		};
+		class sources
+		{
+			file="ctab_camera\sources";
+			class dcamHasItem
 			{
 			};
 			class dcamList
@@ -97,22 +99,51 @@ class cfgFunctions
 			class dcamName
 			{
 			};
-			class dcamNext
-			{
-			};
-			class dcamNotify
-			{
-			};
-			class dcamOpen
-			{
-			};
 			class dcamOperator
 			{
 			};
-			class dcamOverlay
+			class dcamSide
 			{
 			};
-			class dcamPhonePos
+			class dcamTurret
+			{
+			};
+			class dcamStations
+			{
+			};
+		};
+		class commands
+		{
+			file="ctab_camera\commands";
+			class dcamClick
+			{
+			};
+			class dcamCycle
+			{
+			};
+			class dcamDrag
+			{
+			};
+			class dcamInput
+			{
+			};
+			class dcamToggle
+			{
+			};
+			class dcamWheel
+			{
+			};
+			class dcamWorld
+			{
+			};
+		};
+		class session
+		{
+			file="ctab_camera\session";
+			class dcamClose
+			{
+			};
+			class dcamOpen
 			{
 			};
 			class dcamPublish
@@ -121,25 +152,37 @@ class cfgFunctions
 			class dcamRefresh
 			{
 			};
+		};
+		class op_camera
+		{
+			file="ctab_camera\op_camera";
+			class dcamHcams
+			{
+			};
+			class dcamNext
+			{
+			};
+		};
+		class set_addons
+		{
+			file="ctab_camera\set_addons";
 			class dcamSettings
 			{
 			};
-			class dcamSide
+		};
+		/*
+			Compatibilita con i mod di aerei e mezzi. Ogni mod ha il suo
+			profilo e il suo interruttore nelle opzioni degli addon: le
+			regole allargate valgono solo dove servono, e i mezzi di serie
+			non cambiano comportamento.
+		*/
+		class comp_mod_USAF
+		{
+			file="ctab_camera\comp_mod\USAF";
+			class dcamCompMod
 			{
 			};
-			class dcamToggle
-			{
-			};
-			class dcamTurret
-			{
-			};
-			class dcamVision
-			{
-			};
-			class dcamWheel
-			{
-			};
-			class dcamWorld
+			class dcamCompTurret
 			{
 			};
 		};
@@ -153,7 +196,7 @@ class Extended_PreInit_EventHandlers
 			Le impostazioni si registrano in preInit, prima che CBA legga i
 			valori salvati nello scenario.
 		*/
-		init="call compile preprocessFileLineNumbers '\ctab_camera\droneCam\fn_dcamSettings.sqf'";
+		init="call compile preprocessFileLineNumbers '\ctab_camera\set_addons\fn_dcamSettings.sqf'";
 	};
 };
 class Extended_DisplayLoad_EventHandlers

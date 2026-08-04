@@ -20,15 +20,77 @@
         non vola: MEM -> TURRET   -> PILOTCAM
 
     0: OBJECT - mezzo
+    1: ARRAY  - percorso torretta scelto dal menu, [] per lasciar decidere
     Ritorna: ARRAY - [memoryPointPos, memoryPointDir, modo]
              modo vuoto se non c'e niente da leggere
 */
 
-params [["_veh", objNull]];
-if (isNull _veh) exitWith { ["", "", ""] };
+params [["_veh", objNull], ["_scelta", []]];
+if (isNull _veh) exitWith { ["", "", "", []] };
+
+/*
+    Postazione scelta dal menu: comanda su tutto il resto. Se il punto ottica
+    non si risolve sul modello si lascia decidere alle regole di sempre invece
+    di piazzare la camera nel centro del mezzo.
+*/
+if !(_scelta isEqualTo []) then {
+    private _tcS = [_veh, _scelta] call BIS_fnc_turretConfig;
+    if (isClass _tcS) then {
+        private _mpS = "";
+        {
+            private _q = getText (_tcS >> _x);
+            if (_q != "" && {!((_veh selectionPosition _q) isEqualTo [0,0,0])}) exitWith { _mpS = _q };
+        } forEach ["memoryPointGunnerOptics", "memoryPointGunnerOutOptics"];
+        if !(_mpS isEqualTo "") then { _scelta = [_scelta, _mpS] } else { _scelta = [] };
+    } else {
+        _scelta = [];
+    };
+};
+
+if !(_scelta isEqualTo []) exitWith {
+    _scelta params ["_sPath", "_sMem"];
+    [_sMem, "", "TURRET", _sPath]
+};
 
 private _cfg  = configFile >> "CfgVehicles" >> typeOf _veh;
 private _aria = _veh isKindOf "Air";
+
+/*
+    ---- profilo di compatibilita -----------------------------------
+    Sui mezzi di un mod coperto da un profilo acceso, la postazione che spara
+    vince su tutto il resto, pod del pilota compreso. Su un cannoniere la
+    vista buona e quella del cannone, non quella di chi guida.
+*/
+private _comp = if (([_veh] call crutek_fnc_dcamCompMod) isEqualTo "") then {
+    ["NONE", "", ""]
+} else {
+    [_veh] call crutek_fnc_dcamCompTurret
+};
+_comp params ["_esito", "_cPath", "_cMem"];
+
+// mezzo con un elenco di postazioni ammesse, ma nessuna utilizzabile: fuori
+// dalla lista. Senza questo si tornerebbe a offrire il pod del pilota.
+if (_esito isEqualTo "BLOCK") exitWith { ["", "", "", []] };
+
+if (_esito isEqualTo "OK") exitWith { [_cMem, "", "TURRET", _cPath] };
+
+// sorgente dichiarata come pod: se il mezzo il pod non ce l'ha davvero,
+// meglio fuori dalla lista che una camera piazzata a caso
+if (_esito isEqualTo "POD") exitWith {
+    if (isClass (_cfg >> "pilotCamera")) then { ["", "", "PILOTCAM", []] } else { ["", "", "", []] }
+};
+
+// sorgente dichiarata come coppia di memory point camera del mezzo
+if (_esito isEqualTo "MEM") exitWith {
+    private _mp = "";
+    private _md = "";
+    {
+        private _a = getText (_cfg >> ("uavCamera" + _x + "Pos"));
+        private _b = getText (_cfg >> ("uavCamera" + _x + "Dir"));
+        if (_a != "" && {_b != ""}) exitWith { _mp = _a; _md = _b };
+    } forEach ["Gunner", "Driver"];
+    if (_mp isEqualTo "") then { ["", "", "", []] } else { [_mp, _md, "MEM", []] }
+};
 
 // ---- candidato: memory point dei droni ---------------------------
 private _pos = "";
@@ -150,4 +212,4 @@ if (_modo isEqualTo "TURRET" && {_pos isEqualTo ""}) then {
     };
 };
 
-[_pos, _dir, _modo]
+[_pos, _dir, _modo, []]

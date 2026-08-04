@@ -41,6 +41,14 @@
 #define CAT_DR_FAZ    [localize "STR_crutek_dcam_cat_dr", localize "STR_crutek_dcam_sec_fazioni"]
 #define CAT_DR_LIM    [localize "STR_crutek_dcam_cat_dr", localize "STR_crutek_dcam_sec_hc_lim"]
 
+/*
+    Categoria a se per la compatibilita con i mod di terze parti. Sta fuori
+    dalle altre di proposito: non e una regola di missione ma una dichiarazione
+    su COME e fatto un mod, e va spenta se quel mod non e caricato o se il suo
+    profilo dovesse dare fastidio.
+*/
+#define CAT_COMP      [localize "STR_crutek_dcam_cat_comp", localize "STR_crutek_dcam_sec_comp"]
+
 // categoria a se: la helmet cam e una capacita diversa, con i suoi limiti
 #define CAT_HC_FAZ    [localize "STR_crutek_dcam_cat_hc", localize "STR_crutek_dcam_sec_fazioni"]
 #define CAT_HC_LIM    [localize "STR_crutek_dcam_cat_hc", localize "STR_crutek_dcam_sec_hc_lim"]
@@ -86,6 +94,14 @@ private _fnc_num = {
     true, CAT_DR_LIM] call _fnc_si;
 
 /*
+    Distanza di visuale col feed di un drone aperto. Ha la precedenza su
+    quella della categoria: un drone in quota guarda molto piu' lontano di un
+    mezzo con equipaggio della stessa famiglia. A 0 vale quella di categoria.
+*/
+["crutek_dcam_vdDrone", localize "STR_crutek_dcam_set_vd_drone", localize "STR_crutek_dcam_set_vd_drone_t",
+    0, 12000, 0, 0, CAT_DR_LIM] call _fnc_num;
+
+/*
     Chi comanda il drone: 0 player o IA, 1 solo player, 2 solo IA.
     Si guarda chi e COLLEGATO col terminale, non l'equipaggio: quello di un
     drone e sempre IA, anche mentre lo piloti tu.
@@ -118,6 +134,14 @@ private _fnc_num = {
 // ---- helmet cam --------------------------------------------------
 ["crutek_dcam_catOpCam", localize "STR_crutek_dcam_set_hcOn", localize "STR_crutek_dcam_set_hcOn_t",
     true, CAT_HC_LIM] call _fnc_si;
+
+/*
+    Distanza di visuale minima col feed acceso, per la helmet cam.
+    Stessa logica di quella dei mezzi ma valore suo: una camera da casco sta a
+    terra e non ha bisogno degli stessi chilometri di un drone in quota.
+*/
+["crutek_dcam_hcViewDist", localize "STR_crutek_dcam_set_hcViewDist", localize "STR_crutek_dcam_set_hcViewDist_t",
+    0, 12000, 0, 0, CAT_HC_LIM] call _fnc_num;
 
 [
     "crutek_dcam_hcamItem",
@@ -163,6 +187,9 @@ private _fnc_num = {
     feed guarda dove capita: e il motivo per cui "anche vuoti" non e il
     default.
 */
+["crutek_dcam_gunnerOnly", localize "STR_crutek_dcam_set_gunnerOnly", localize "STR_crutek_dcam_set_gunnerOnly_t",
+    true, CAT_BORDO] call _fnc_si;
+
 [
     "crutek_dcam_crewMode",
     "LIST",
@@ -201,13 +228,60 @@ private _fnc_num = {
 
     Non abbassa mai: se la tua visiva e gia piu alta, resta la tua.
 */
-["crutek_dcam_viewDist", localize "STR_crutek_dcam_set_viewDist", localize "STR_crutek_dcam_set_viewDist_t",
+/*
+    Un valore per categoria, senza un limitatore generale sopra di loro: un
+    aereo in quota e una torretta a terra non hanno bisogno della stessa
+    distanza, e un valore unico farebbe pagare a tutti quanto serve al piu'
+    esigente. A 0 la categoria non tocca niente.
+*/
+/*
+    I dispositivi che aprono il feed. Due caselle perche' i mezzi ne accettano
+    due: il telefono e il tablet. Lasciando vuota la seconda vale solo la prima.
+*/
+[
+    "crutek_dcam_item1", "EDITBOX",
+    [localize "STR_crutek_dcam_set_item1", localize "STR_crutek_dcam_set_item1_t"],
+    CAT_LIMITI, "ItemAndroid", true, {}, false
+] call CBA_fnc_addSetting;
+
+[
+    "crutek_dcam_item2", "EDITBOX",
+    [localize "STR_crutek_dcam_set_item2", localize "STR_crutek_dcam_set_item2_t"],
+    CAT_LIMITI, "ItemcTab", true, {}, false
+] call CBA_fnc_addSetting;
+
+["crutek_dcam_vdAir", localize "STR_crutek_dcam_set_vd_air", localize "STR_crutek_dcam_set_vd_air_t",
+    0, 12000, 0, 0, CAT_LIMITI] call _fnc_num;
+["crutek_dcam_vdLand", localize "STR_crutek_dcam_set_vd_land", localize "STR_crutek_dcam_set_vd_land_t",
+    0, 12000, 0, 0, CAT_LIMITI] call _fnc_num;
+["crutek_dcam_vdSea", localize "STR_crutek_dcam_set_vd_sea", localize "STR_crutek_dcam_set_vd_sea_t",
     0, 12000, 0, 0, CAT_LIMITI] call _fnc_num;
 
 
 
 ["crutek_dcam_minAlt", localize "STR_crutek_dcam_set_minAlt", localize "STR_crutek_dcam_set_minAlt_t",
     -500, 5000, 0, 0, CAT_LIMITI] call _fnc_num;
+
+// ---- compatibilita con i mod ---------------------------------------
+["crutek_dcam_compUSAF", localize "STR_crutek_dcam_set_compUSAF", localize "STR_crutek_dcam_set_compUSAF_t",
+    true, CAT_COMP] call _fnc_si;
+
+/*
+    Forma del menu ACE. Il menu di autointerazione si apre a raggiera, e piu
+    e profondo l'albero piu i rami finiscono lontano dal cursore: basta uscire
+    di poco e si richiude prima di arrivarci. Con "Breve" le postazioni salgono
+    di un livello e si raggiungono con un movimento solo.
+*/
+[
+    "crutek_dcam_menuMode",
+    "LIST",
+    [localize "STR_crutek_dcam_set_menuMode", localize "STR_crutek_dcam_set_menuMode_t"],
+    CAT_MISC,
+    [[0, 1], [localize "STR_crutek_dcam_set_menuMode_0", localize "STR_crutek_dcam_set_menuMode_1"], 0],
+    true,
+    {},
+    false
+] call CBA_fnc_addSetting;
 
 // ---- varie, in fondo -----------------------------------------------
 
