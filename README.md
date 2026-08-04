@@ -34,6 +34,7 @@ On top of stock cTab:
 
 - **Cam on Galaxy** — an ACE menu tree to connect the Galaxy to a video source and watch it on the phone screen
 - **Sources**: operator helmet cams, and turrets on planes, helicopters, drones, tanks, cars and boats
+- **One entry per manned station**: on a vehicle with more than one crewed turret you pick the seat, gunner or commander, and the commander does not have to be armed
 - **Turret slewing** on unmanned drones, straight from the video
 - **Stepped zoom** taken from real targeting pods
 - **Permissions by side, vehicle category and occupant type**, all in the addon options, so they are set per mission
@@ -111,6 +112,18 @@ Cam on Galaxy
 └── Diagnostics and version
 ```
 
+On ground and naval vehicles each entry opens one level further, into the manned stations:
+
+```
+VehiclesCam
+└── Tank
+    └── Slammer TUSK  -  120 m  (2)
+        ├── ROSSI  -  COMMANDER
+        └── BIANCHI  -  GUNNER
+```
+
+Each line carries whoever is sitting there and the role, read from the vehicle's own config so the wording is the game's and comes translated. A station shows up if it is manned and declares a gunner optics memory point; it does **not** need to be armed, which is what makes commander seats watchable. Drones and aircraft stay one level up: their source is the pod or the camera memory points, so there is no seat to choose.
+
 Empty branches and categories are not drawn: if there are no helicopters around, the Heli branch does not appear. Only vehicles allowed by the settings make the list.
 
 Drones get their own entry inside every environment, and that is not cosmetic: they are the only ones whose turret you can slew.
@@ -164,6 +177,8 @@ Applies to crewed vehicles.
 **Observable sides** — own, BLUFOR, OPFOR, Independent, Civilian. Default: own, BLUFOR and Civilian.
 
 **Vehicle categories** — air, land, sea. All on.
+
+**Transmit only the Gunner or Commander seat, for land and amphibious vehicles** — on by default. Only somebody sitting in a turret counts: driver and passengers do not. A vehicle with only a driver has its turret wherever it was left, and the feed points nowhere useful. Untick it and the menu lists every seat available in the vehicle, following the rule below. Aircraft are never affected.
 
 **Who must be aboard** — four values, first one is the default:
 
@@ -226,7 +241,7 @@ Turn it off if the USAF mod is not loaded, or if a future version of it stops ne
 On startup, in the `.rpt`:
 
 ```
-[crutek_dcam] versione 2026-08-03-n2
+[crutek_dcam] versione 2026-08-04-o9
 [crutek_dcam] impostazioni registrate: cTab-Cam on Galaxy e cTab-HelmetCam
 ```
 
@@ -242,6 +257,7 @@ If the first line is missing, the module did not start. In game, the **Diagnosti
 | an aircraft parked on the ground is missing | minimum altitude is a hard threshold and a grounded aircraft measures just below zero. Set it negative |
 | an operator is missing | does he carry `ItemcTabHCam`? is his side among the observable ones in cTab-HelmetCam? |
 | a modded vehicle shows the wrong camera, or none at all | is its profile on in cTab Compatibility MOD? a mod with no profile falls back to the generic rules |
+| a seat is missing from the vehicle's station list | is somebody sitting in it? does that turret declare a gunner optics memory point? without one there is nowhere to put the camera |
 | right mouse does not slew | it only works on **unmanned** drones and with the phone open, and slewing must be enabled in cTab-Drones |
 | grainy image | that is the PiP video setting, and it is per player |
 
@@ -251,7 +267,11 @@ If the first line is missing, the module did not start. In game, the **Diagnosti
 
 **The feed fills the whole phone screen.** No side bars, even at the cost of framing wider than the real optic would.
 
-**The operator's zoom is the limit.** When you connect you start where he is looking, and from there you can only zoom in — you cannot pull back past his field of view. The steps come from real targeting pods.
+**The operator's zoom is the limit.** When you connect you start where he is looking, and from there you can only zoom in — you cannot pull back past his field of view. The steps come from real targeting pods. This holds on ground and naval vehicles too: whoever sits in a turret publishes what he is looking at, so his zoom and his thermal mode reach the phone.
+
+**Aiming comes from the turret, not from the barrel.** A station is pointed using its animation sources, the body azimuth and the gun elevation, because those *are* where the sight is looking. Reading the direction from the weapon only works where barrel and optics coincide, which on a tank they do and on plenty of other vehicles they do not: there the picture sat frozen while the gunner slewed. The weapon is kept as a fallback for turrets that declare no animation sources.
+
+**Not every weapon can aim.** Smoke launchers, countermeasures, illumination rounds, laser designators and horns are filtered out before anything is used as an aiming reference. One smoke launcher bolted to the hull was enough to freeze a commander's view, since its presence alone won over the animation sources.
 
 **Vanilla thermals.** The mod does not depend on A3TI and does not reproduce its look: A3TI works with effects drawn on the player's screen, and a screen cannot enter a render target.
 

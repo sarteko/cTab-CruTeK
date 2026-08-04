@@ -34,6 +34,7 @@ Sopra al cTab di serie:
 
 - **Cam on Galaxy** — un ramo del menu ACE per collegare il Galaxy a una sorgente video e guardarla sullo schermo del telefono
 - **Sorgenti**: telecamere da casco degli operatori, e torrette di aerei, elicotteri, droni, cingolati, ruotati e mezzi navali
+- **Una voce per postazione occupata**: su un mezzo con più di una torretta presidiata scegli il posto, artigliere o comandante, e il comandante non deve per forza essere armato
 - **Brandeggio della torretta** sui droni senza operatore, direttamente dal video
 - **Zoom a scatti** ripresi dai pod di puntamento veri
 - **Permessi per fazione, categoria di mezzo e tipo di occupante**, tutti nelle opzioni degli addon, quindi impostabili per missione
@@ -111,6 +112,18 @@ Cam on Galaxy
 └── Diagnostica e versione
 ```
 
+Sui mezzi terrestri e navali ogni voce si apre di un livello ancora, sulle postazioni occupate:
+
+```
+VehiclesCam
+└── Tank
+    └── Slammer TUSK  -  120 m  (2)
+        ├── ROSSI  -  COMANDANTE
+        └── BIANCHI  -  ARTIGLIERE
+```
+
+Ogni riga porta chi ci sta seduto e il ruolo, letto dal config del mezzo: è la dicitura del gioco e arriva già tradotta. Una postazione compare se è occupata e dichiara un punto ottica del cannoniere; **non** serve che sia armata, ed è questo che rende guardabile il posto comandante. Droni e aerei restano un livello sopra: la loro sorgente è il pod o i memory point camera, quindi non c'è nessun posto da scegliere.
+
 I rami e le categorie vuote non vengono disegnati: se in giro non ci sono elicotteri, il ramo Heli non compare. In lista entrano solo i mezzi ammessi dalle impostazioni.
 
 I droni hanno una voce loro dentro ogni ambiente, e non è un vezzo: sono gli unici di cui puoi brandeggiare la torretta.
@@ -164,6 +177,8 @@ Vale per i mezzi con equipaggio.
 **Fazioni osservabili** — propria, BLUFOR, OPFOR, Indipendenti, Civili. Di serie: propria, BLUFOR e Civili.
 
 **Categorie di mezzi** — aria, terra, mare. Tutte accese.
+
+**Trasmetti solo posto Artigliere o Comandante per veicoli anfibi o terrestri** — accesa di serie. Conta solo chi è seduto in una torretta: autista e passeggeri no. Un mezzo col solo autista ha la torretta dove l'hanno lasciata, e il feed inquadra il nulla. Togliendo la spunta il menu elenca tutti i posti disponibili nel mezzo, rispettando la regola qui sotto. I mezzi che volano non sono mai toccati.
 
 **Chi deve essere a bordo** — quattro valori, il primo è quello di serie:
 
@@ -226,7 +241,7 @@ Spegnila se il mod USAF non è caricato, o se una sua versione futura smette di 
 All'avvio, nel `.rpt`:
 
 ```
-[crutek_dcam] versione 2026-08-03-n2
+[crutek_dcam] versione 2026-08-04-o9
 [crutek_dcam] impostazioni registrate: cTab-Cam on Galaxy e cTab-HelmetCam
 ```
 
@@ -242,6 +257,7 @@ Se la prima riga manca, il modulo non è partito. In gioco, la voce **Diagnostic
 | un aereo fermo a terra non compare | la quota minima è una soglia secca e un aereo a terra misura appena sotto zero. Mettila negativa |
 | manca un operatore | porta l'`ItemcTabHCam`? la sua fazione è fra quelle osservabili in cTab-HelmetCam? |
 | un mezzo di un mod mostra la camera sbagliata, o nessuna | il suo profilo è acceso in cTab Compatibility MOD? un mod senza profilo ricade sulle regole generiche |
+| manca un posto dall'elenco delle postazioni | c'è qualcuno seduto? quella torretta dichiara un punto ottica del cannoniere? senza, la camera non saprebbe dove stare |
 | il tasto destro non brandeggia | funziona solo sui droni **senza operatore** e a telefono aperto, e il brandeggio va acceso in cTab-Droni |
 | immagine sgranata | è l'impostazione video del PiP, ed è per giocatore |
 
@@ -251,7 +267,11 @@ Se la prima riga manca, il modulo non è partito. In gioco, la voce **Diagnostic
 
 **Il feed riempie tutto lo schermo del telefono.** Niente bande laterali, anche al costo di inquadrare più largo di quanto farebbe l'ottica vera.
 
-**Lo zoom dell'operatore è il limite.** Quando ti colleghi parti da dove sta guardando lui, e da lì puoi solo stringere: allargare oltre il suo campo visivo non si può. Gli scatti vengono dai pod di puntamento veri.
+**Lo zoom dell'operatore è il limite.** Quando ti colleghi parti da dove sta guardando lui, e da lì puoi solo stringere: allargare oltre il suo campo visivo non si può. Gli scatti vengono dai pod di puntamento veri. Vale anche sui mezzi terrestri e navali: chi siede in una torretta pubblica cosa sta guardando, quindi il suo zoom e la sua termica arrivano al telefono.
+
+**Il puntamento viene dalla torretta, non dalla canna.** Una postazione si punta con le sue sorgenti di animazione, azimut del corpo ed elevazione del pezzo, perché quelle *sono* dove guarda l'ottica. Leggere la direzione dall'arma funziona solo dove volata e ottica coincidono: su un carro succede, su parecchi altri mezzi no, e lì l'immagine restava ferma mentre l'artigliere brandeggiava. L'arma resta il ripiego per le torrette che le sorgenti non le dichiarano.
+
+**Non tutte le armi sanno puntare.** Lanciafumogeni, contromisure, illuminanti, designatori laser e clacson vengono scartati prima di usare qualcosa come riferimento di puntamento. Un lanciafumogeni imbullonato allo scafo bastava a inchiodare la vista di un comandante, perché la sua sola presenza vinceva sulle sorgenti di animazione.
 
 **Termiche vanilla.** Il mod non dipende da A3TI e non ne riproduce la resa: A3TI lavora con effetti disegnati sullo schermo del giocatore, e uno schermo dentro un render target non ci entra.
 
