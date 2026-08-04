@@ -35,6 +35,7 @@ Sopra al cTab di serie:
 - **Cam on Galaxy** — un ramo del menu ACE per collegare il Galaxy a una sorgente video e guardarla sullo schermo del telefono
 - **Sorgenti**: telecamere da casco degli operatori, e torrette di aerei, elicotteri, droni, cingolati, ruotati e mezzi navali
 - **Una voce per postazione occupata**: su un mezzo con più di una torretta presidiata scegli il posto, artigliere o comandante, e il comandante non deve per forza essere armato
+- **Due forme di menu**: l'albero completo, oppure una forma breve che mette ogni sorgente disponibile a un clic solo
 - **Brandeggio della torretta** sui droni senza operatore, direttamente dal video
 - **Zoom a scatti** ripresi dai pod di puntamento veri
 - **Permessi per fazione, categoria di mezzo e tipo di occupante**, tutti nelle opzioni degli addon, quindi impostabili per missione
@@ -124,6 +125,23 @@ VehiclesCam
 
 Ogni riga porta chi ci sta seduto e il ruolo, letto dal config del mezzo: è la dicitura del gioco e arriva già tradotta. Una postazione compare se è occupata e dichiara un punto ottica del cannoniere; **non** serve che sia armata, ed è questo che rende guardabile il posto comandante. Droni e aerei restano un livello sopra: la loro sorgente è il pod o i memory point camera, quindi non c'è nessun posto da scegliere.
 
+Se seguire quell'albero col mouse diventa scomodo, l'impostazione **Menu ACE** ha una forma **Breve** che lo richiude tutto in un elenco solo:
+
+```
+Cam on Galaxy
+├── OpCam  (2)
+├── Disponibili  (4)
+│   ├── ANDERSON  -  OPERATORE MK41 VLS  -  Mk41 VLS  -  671 m
+│   ├── BIANCHI  -  ARTIGLIERE  -  Slammer TUSK  -  120 m
+│   ├── UGV Stomper  -  143 m
+│   └── Drone  -  Sentinel  -  890 m
+├── Nascondi feed
+├── Scollega
+└── Diagnostica e versione
+```
+
+Saltate sia le categorie sia i rami per tipo di mezzo, il nome del mezzo si sposta dentro la riga, e ogni sorgente sta a un clic da Cam on Galaxy. Le telecamere da casco tengono il loro ramo OpCam in tutte e due le forme.
+
 I rami e le categorie vuote non vengono disegnati: se in giro non ci sono elicotteri, il ramo Heli non compare. In lista entrano solo i mezzi ammessi dalle impostazioni.
 
 I droni hanno una voce loro dentro ogni ambiente, e non è un vezzo: sono gli unici di cui puoi brandeggiare la torretta.
@@ -197,6 +215,8 @@ Vale per i mezzi con equipaggio.
 
 > La distanza di visuale è un **unico valore globale** per tutto il disegno: alzarla per il feed alza anche la tua visuale vera mentre il feed è aperto. Di serie è `0`, cioè il mod non la tocca. Se ti serve, la strada pulita è alzare il valore ACE a chi fa da operatore drone.
 
+**Menu ACE** — **Normale**, quella di serie, oppure **Breve**. Normale è l'albero mostrato sopra. Breve mette tutte le sorgenti sotto un'unica voce *Disponibili*, a un clic da Cam on Galaxy. Esiste perché il menu di autointerazione ACE si apre a raggiera: più l'albero è profondo, più i rami finiscono lontani dal cursore, e in una missione affollata l'ultimo livello si richiudeva prima che il mouse ci arrivasse.
+
 ### cTab-Droni
 
 Categoria a sé, perché su un drone la questione dell'equipaggio non vuol dire niente: **chi comanda un drone sta al terminale, non a bordo**. L'equipaggio di un drone è sempre IA, anche mentre lo stai pilotando tu.
@@ -241,7 +261,7 @@ Spegnila se il mod USAF non è caricato, o se una sua versione futura smette di 
 All'avvio, nel `.rpt`:
 
 ```
-[crutek_dcam] versione 2026-08-04-o9
+[crutek_dcam] versione 2026-08-04-p3
 [crutek_dcam] impostazioni registrate: cTab-Cam on Galaxy e cTab-HelmetCam
 ```
 
